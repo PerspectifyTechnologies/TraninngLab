@@ -1,1 +1,1 @@
-# TraninngLab
+# Training Lab
