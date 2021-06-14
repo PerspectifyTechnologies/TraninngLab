@@ -4474,11 +4474,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Abhin\\Perspectify\\Repos\\WebApi\\WebApi\\WebApi.csproj",
+      "projectUniqueName": "C:\\Users\\Abhin\\Perspectify\\Repos\\TraninngLab\\Backend\\WebApi\\WebApi\\WebApi.csproj",
       "projectName": "WebApi",
-      "projectPath": "C:\\Users\\Abhin\\Perspectify\\Repos\\WebApi\\WebApi\\WebApi.csproj",
+      "projectPath": "C:\\Users\\Abhin\\Perspectify\\Repos\\TraninngLab\\Backend\\WebApi\\WebApi\\WebApi.csproj",
       "packagesPath": "C:\\Users\\Abhin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Abhin\\Perspectify\\Repos\\WebApi\\WebApi\\obj\\",
+      "outputPath": "C:\\Users\\Abhin\\Perspectify\\Repos\\TraninngLab\\Backend\\WebApi\\WebApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Abhin\\AppData\\Roaming\\NuGet\\NuGet.Config",

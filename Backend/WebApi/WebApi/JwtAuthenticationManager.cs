@@ -10,6 +10,7 @@ namespace WebApi
 {
     public class JwtAuthenticationManager : IJwtAuthenticationManager
     {
+        //comment
         private readonly string key;
         public JwtAuthenticationManager(string key)
         {
