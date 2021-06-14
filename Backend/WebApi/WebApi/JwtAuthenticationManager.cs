@@ -10,7 +10,7 @@ namespace WebApi
 {
     public class JwtAuthenticationManager : IJwtAuthenticationManager
     {
-        //comment testing git
+        //changing comment across systems
         private readonly string key;
         public JwtAuthenticationManager(string key)
         {
