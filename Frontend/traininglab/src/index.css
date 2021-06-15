@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+  @import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
+
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  .mainDiv {
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)),
+      url(./assets/background.jpg);
+    background-size: cover;
+    height: 110vh;
+  }
+
+  .mainDiv h1 {
+    font-family: "Permanent Marker", cursive;
+  }
+
+  .starterBg {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6)),
+      url(./assets/bg2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .net-starterBg {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6)),
+      url(./assets/cSharpBg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .react-starterBg {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6)),
+      url(./assets/reactBG.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .visual-starterBg {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.6)),
+      url(./assets/unrealBG.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}
