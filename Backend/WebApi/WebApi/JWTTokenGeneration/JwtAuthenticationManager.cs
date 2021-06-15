@@ -16,22 +16,17 @@ namespace WebApi
         {
             this.key = key;
         }
-        
-        
-        public string Login(string username, string password)
+
+        public string GenerateJWTToken(string username, string password)
         {
-            DatabaseLoginServices databaseLoginService = new DatabaseLoginServices();
-            if(!databaseLoginService.LoginMatchCreds(username,password))
-            {
-                return null;
-            }
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenKey = Encoding.ASCII.GetBytes(key);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, username)
+                    new Claim(ClaimTypes.Name,username),
+                    new Claim("USERSECRET", password)
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(30),
                 SigningCredentials =
@@ -42,6 +37,17 @@ namespace WebApi
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+
+        public string Login(string username, string password)
+        {
+            DatabaseLoginServices databaseLoginService = new DatabaseLoginServices();
+            if(!databaseLoginService.LoginMatchCreds(username,password))
+            {
+                return null;
+            }
+            return GenerateJWTToken(username,password);
+        }
+
 
     }
 }

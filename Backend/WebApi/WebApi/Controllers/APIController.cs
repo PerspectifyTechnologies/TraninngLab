@@ -1,8 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using MySql.Data.MySqlClient;
 using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
+using System.Web.Helpers;
 using WebApi.DatabaseModel;
 
 namespace WebApi.Controllers
@@ -17,18 +24,21 @@ namespace WebApi.Controllers
         {
             this.jwtAuthenticationManager = jwtAuthenticationManager;
         }
+
         [AllowAnonymous]
         [HttpGet]
         public string Get()
         {
             return "value";
         }
+
         [HttpGet]
         [Route("Home")]
         public string GetAuth()
         {
             return "Authorized";
         }
+
         [AllowAnonymous]
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginModel userCred)
@@ -39,6 +49,7 @@ namespace WebApi.Controllers
             new GenerateRefreshToken(userCred.Username);
             return Ok(new {Status = "Success", JwtToken = token});
         }
+
         [AllowAnonymous]
         [HttpPost("register")]
         public IActionResult Register([FromBody] RegisterModel registerModel)
@@ -48,32 +59,13 @@ namespace WebApi.Controllers
                 return StatusCode(StatusCodes.Status200OK, new  { Status = "Success", Message = "User created successfully!" });
             return StatusCode(StatusCodes.Status400BadRequest, new  { Status = "Error", Message = "User creation failed! User already exists." });
         }
-        //[AllowAnonymous]
-        //[HttpPost]
-        //[Route("refresh")]
-        //public async Task<ActionResult<LoginResponse>> Refresh([FromBody] RefreshRequest request)
-        //{
-        //    var loginResponse = AuthorizationService.Refresh(request.accessToken, refreshToken);
 
-        //    LoginResponse response = new LoginResponse();
-        //    response.AccessToken = loginResponse.AccessToken;
-        //    response.AccessTokenExpiration = loginResponse.AccessTokenExpiration;
-        //    response.RefreshToken = loginResponse.RefreshToken;
-
-        //    return response;
-        //}
-
-        //public class RefreshRequest
-        //{
-        //    public string AccessToken { get; set; }
-        //    public string RefreshToken { get; set; }
-        //}
-
-        //public class LoginResponse
-        //{
-        //    public string AccessToken { get; set; }
-        //    public DateTimeOffset AccessTokenExpiration { get; set; }
-        //    public string RefreshToken { get; set; }
-        //}
+        [AllowAnonymous]
+        [HttpPost("refresh")]
+        public IActionResult Refresh([FromBody] TokenValidationBody refreshToken)
+        {
+            Refresh refresh = new Refresh(jwtAuthenticationManager);
+            return refresh.RefreshTokenIfValid( refreshToken);
+        }
     }
 }

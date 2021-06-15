@@ -7,13 +7,13 @@ namespace WebApi
 {
     public class GenerateRefreshToken
     {
-        public GenerateRefreshToken(string username)
+        internal GenerateRefreshToken(string username)
         {
             RefreshTokenModel refreshTokenEntry = new RefreshTokenModel()
             {
                 Username = username,
                 RefreshToken = GetRandomRefreshToken(),
-                ExpirationTime = DateTime.UtcNow.AddHours(6) // Make this configurable
+                ExpirationTime = DateTime.UtcNow.AddHours(6) // Make this configurable(its in hours)
             };
             StoreRefreshToken(refreshTokenEntry);
         }
