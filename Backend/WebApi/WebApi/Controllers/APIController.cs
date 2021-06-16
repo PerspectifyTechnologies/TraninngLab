@@ -3,18 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using System;
-<<<<<<< Updated upstream
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Helpers;
-using WebApi.DatabaseModel;
-using WebApi.RefreshTokenGeneration;
-=======
 using WebApi.DatabaseServices;
->>>>>>> Stashed changes
 
 namespace WebApi.Controllers
 {
@@ -92,17 +81,12 @@ namespace WebApi.Controllers
         [HttpPost("refresh")]
         public IActionResult Refresh([FromBody] TokenValidationBody refreshToken)
         {
-<<<<<<< Updated upstream
-            Refresh refresh = new Refresh(jwtAuthenticationManager);
-            return refresh.RefreshTokenIfValid(refreshToken);
-=======
             CheckBlacklist checkBlacklist = new CheckBlacklist();
             if (checkBlacklist.IfPresent(HttpContext.Request.Headers["Authorization"])) 
                 return StatusCode(StatusCodes.Status400BadRequest,
                  new { Status = "Error", Message = "Session Expired. Login Again" });
             RefreshJWTTokenIfValid refresh = new RefreshJWTTokenIfValid(jwtAuthenticationManager);
             return refresh.RefreshTokenIfValid( refreshToken);
->>>>>>> Stashed changes
         }
     }
 }
