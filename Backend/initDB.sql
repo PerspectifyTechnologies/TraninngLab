@@ -111,13 +111,16 @@ CREATE TABLE `TestingLab`.`InviteList` (
   `email` VARCHAR(32) NOT NULL,
   PRIMARY KEY (`email`));
 
-alter table userauthentication
-  ADD firstname varchar(20)
-    AFTER username,
-  ADD lastname varchar(20)
-    AFTER firstname
-;
+CREATE TABLE `TestingLab`.`blacklisttokens` (
+  `token` VARCHAR(258) NOT NULL,
+  `entrytime` datetime not null);
 
+CREATE TABLE `TestingLab`.`refreshtokens` (
+  `username` VARCHAR(258) NOT NULL,
+  `refreshtoken` datetime not null,
+  `expirationdate` datetime not null);
+  
+  
 INSERT INTO UserAuthentication (`userName`,`Admin`,`password`,`email`) VALUES ('abh1abii',0,'ff53ac5fa36921dfea21f422b056461e59be6ce1214acb1fa63c9ace84bf1e98','abh1abii101@gmail.com');
 INSERT INTO UserAuthentication (`userName`,`Admin`,`password`,`email`) VALUES ('admin',1,'8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918','admin@abiistudio.com');
 
@@ -168,7 +171,7 @@ Select * from UserProgress;
 
 delete from invitelist where email = "abhi@gmail.com";
 
-desc useractivitylog;
+desc blacklisttokens;
  
 
 update useractivitylog set logouttime= now() where logid = 8;
