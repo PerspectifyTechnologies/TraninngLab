@@ -9,7 +9,15 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.16" />
     <PackageReference Include="MySql.Data" Version="8.0.25" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
   </ItemGroup>
 
 
+  <ItemGroup>
+    <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
+    <None Remove="CourseModel\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CourseServices\" />
+  </ItemGroup>
 </Project>

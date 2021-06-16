@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Helpers;
 using WebApi.DatabaseModel;
+using WebApi.RefreshTokenGeneration;
 
 namespace WebApi.Controllers
 {
@@ -65,7 +66,7 @@ namespace WebApi.Controllers
         public IActionResult Refresh([FromBody] TokenValidationBody refreshToken)
         {
             Refresh refresh = new Refresh(jwtAuthenticationManager);
-            return refresh.RefreshTokenIfValid( refreshToken);
+            return refresh.RefreshTokenIfValid(refreshToken);
         }
     }
 }
