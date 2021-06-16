@@ -1,7 +1,8 @@
-﻿namespace WebApi.DatabaseModel
+﻿namespace WebApi.DatabaseServices
 {
     interface IDatabaseLoginServices
     {
-        public bool LoginMatchCreds(string username,string password);
+        public bool MatchLoginCreds(string username,string password);
+        public int GetLogIdOfUSer(string username);
     }
 }

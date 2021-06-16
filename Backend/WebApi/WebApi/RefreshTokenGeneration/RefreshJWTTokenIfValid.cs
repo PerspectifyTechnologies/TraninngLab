@@ -1,16 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using System;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Helpers;
-using WebApi.DatabaseModel;
 using WebApi.RefreshTokenGeneration;
 
 namespace WebApi.Controllers
@@ -28,7 +19,8 @@ namespace WebApi.Controllers
             try
             {
                 FromJWTToken fromJWTToken = new FromJWTToken();
-                var Principle = fromJWTToken.ValidateAndGetClaims(refreshToken.Token);
+                var Principle = fromJWTToken.ValidateAndGetClaims(refreshToken.Token);//check validity of the JWT token and retrieve claims
+
                 if (Principle != null)
                 {
                     var username = Principle.Identity.Name;
@@ -37,33 +29,48 @@ namespace WebApi.Controllers
                     RefreshTokenInDB refreshTokenInDB = new RefreshTokenInDB();
                     DateFormat dateFormat= new DateFormat();
 
-                    Tuple<string, string> Refreshtoken = refreshTokenInDB.Check(username);
-                    DateTime expiryDate = dateFormat.ConvertToSTDDateTime(Refreshtoken.Item2);
-
-                    string token = "";
-
+                    Tuple<string, string> Refreshtoken = refreshTokenInDB.Check(username);//Check DB if Refresh Token entry is populated
                     if (Refreshtoken is null)
                     {
                         throw new Exception(message: "No Refresh Token for The User");
                     }
+                    DateTime expiryDate = dateFormat.ConvertToSTDDateTime(Refreshtoken.Item2);//diff time format in DB and BackEnd
+                    string token = "";
 
                     TimeSpan ts = DateTime.UtcNow - expiryDate;
-                    if (ts.TotalHours <= 6)
+                    if (ts.TotalHours <= 6)//Refresh Token Validity is 6 hours NEED TO CONFIGURE
                     {
-                        token = jwtAuthenticationManager.Login(username, password);
-                        new GenerateRefreshToken(username);
+                        token = jwtAuthenticationManager.GenerateTokenIfValid(username, password);//Generate new Jwt Token
+                        new GenerateRefreshToken(username);//Store new Refresh Token With New Validity
+                        BlackListToken(refreshToken.Token);
                     }
                     return Ok(new { Status = "Success", passwordsa = password, adasdasd = token });
 
                 }
                 else
                 {
-                    return Unauthorized();
+                    return Unauthorized(new { Status = "Error", Message = "JWT token expired" });
                 }
             }
             catch (Exception e)
             {
                 return Unauthorized(new { Status = "Error", Message = e.Message });
+            }
+        }
+        private void BlackListToken( string token)
+        {
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            {
+                try
+                {
+                    string query = "insert into BlackListTokens(token,entrytime) values('" + token + "',now());";
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    reader.Close();
+                }
+                catch (Exception)
+                {
+                }
             }
         }
     }

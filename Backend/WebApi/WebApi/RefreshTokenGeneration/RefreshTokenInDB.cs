@@ -7,22 +7,16 @@ namespace WebApi.RefreshTokenGeneration
     {
         internal Tuple<string, string> Check(string username)
         {
-            using (MySqlConnection conn = new MySqlConnection("server = localhost; " +
-                                                                 "userid = root; " +
-                                                                 "password = Abhi@1214; " +
-                                                                 "database = training_lab"))
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
             {
                 try
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("select * from user_refresh_token;", conn);
+                    MySqlCommand cmd = new MySqlCommand("select * from RefreshTokens;", conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        ////
-                        //need to change from (EMAIL TO USERNAME)
-                        ////
-                        if (reader["email"].ToString() == "daddawada@da.cm")
+                        if (reader["username"].ToString() == username)
                             return new Tuple<string, string>(reader["refreshtoken"].ToString(), reader["expirationdate"].ToString());
                     }
                     return null;

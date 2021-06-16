@@ -33,16 +33,16 @@ CREATE TABLE `TestingLab`.`EventActiveUser` (
   PRIMARY KEY (`userName`, `EventID`),
   CONSTRAINT `userName2`
     FOREIGN KEY (`userName`)
-    REFERENCES `test`.`UserAuthentication` (`userName`)
+    REFERENCES `UserAuthentication` (`userName`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE,
   CONSTRAINT `EventID`
     FOREIGN KEY (`EventID`)
-    REFERENCES `test`.`EventList` (`EventID`)
+    REFERENCES `EventList` (`EventID`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE);
 
-CREATE TABLE `CourseDetails` (
+CREATE TABLE `TestingLab`.`CourseDetails` (
   `CourseID` int NOT NULL AUTO_INCREMENT,
   `Name` varchar(45) NOT NULL,
   PRIMARY KEY (`CourseID`)
@@ -57,7 +57,7 @@ CREATE TABLE `TestingLab`.`TestDetails` (
   INDEX `CourseID_idx` (`CourseID` ASC) VISIBLE,
   CONSTRAINT `CourseID`
     FOREIGN KEY (`CourseID`)
-    REFERENCES `test`.`CourseDetails` (`CourseID`)
+    REFERENCES `CourseDetails` (`CourseID`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE);
 
@@ -70,7 +70,7 @@ CREATE TABLE `TestingLab`.`SubCourseDetails` (
   INDEX `CourseID2_idx` (`CourseID` ASC) VISIBLE,
   CONSTRAINT `CourseID2`
     FOREIGN KEY (`CourseID`)
-    REFERENCES `test`.`CourseDetails` (`CourseID`)
+    REFERENCES `CourseDetails` (`CourseID`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE);
 
@@ -82,12 +82,12 @@ CREATE TABLE `TestingLab`.`UserProgress` (
   INDEX `userName3_idx` (`userName` ASC) VISIBLE,
   CONSTRAINT `userName3`
     FOREIGN KEY (`userName`)
-    REFERENCES `test`.`UserAuthentication` (`userName`)
+    REFERENCES `UserAuthentication` (`userName`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE,
   CONSTRAINT `TestID`
     FOREIGN KEY (`TestID`)
-    REFERENCES `test`.`TestDetails` (`TestID`)
+    REFERENCES `TestDetails` (`TestID`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE);
 
@@ -97,7 +97,7 @@ CREATE TABLE `TestingLab`.`UserLevel` (
   PRIMARY KEY (`userName`),
   CONSTRAINT `userName4`
     FOREIGN KEY (`userName`)
-    REFERENCES `test`.`UserAuthentication` (`userName`)
+    REFERENCES `UserAuthentication` (`userName`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE);
 
@@ -111,7 +111,12 @@ CREATE TABLE `TestingLab`.`InviteList` (
   `email` VARCHAR(32) NOT NULL,
   PRIMARY KEY (`email`));
 
-
+alter table userauthentication
+  ADD firstname varchar(20)
+    AFTER username,
+  ADD lastname varchar(20)
+    AFTER firstname
+;
 
 INSERT INTO UserAuthentication (`userName`,`Admin`,`password`,`email`) VALUES ('abh1abii',0,'ff53ac5fa36921dfea21f422b056461e59be6ce1214acb1fa63c9ace84bf1e98','abh1abii101@gmail.com');
 INSERT INTO UserAuthentication (`userName`,`Admin`,`password`,`email`) VALUES ('admin',1,'8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918','admin@abiistudio.com');
@@ -133,6 +138,7 @@ insert into UserLevel (userName) Values("abh1abii");
 
 insert into InviteList Values ("abh1abii101@gmail.com");
 insert into InviteList Values ("admin@abiistudio.com");
+insert into InviteList Values ("abhi@gmail.com");
 
 insert into LevelSlab Values(1,"Amateur",0);
 insert into LevelSlab Values(2,"Novice",30);
@@ -156,8 +162,13 @@ Select * from LevelSlab;
 Select * from SubCourseDetails;
 Select * from TestDetails;
 Select * from UserActivityLog;
-Select * from UserAuthentication;
+Select * from UserAuthentication where username = "admin";
 Select * from UserLevel;
 Select * from UserProgress;
 
+delete from invitelist where email = "abhi@gmail.com";
 
+desc useractivitylog;
+ 
+
+update useractivitylog set logouttime= now() where logid = 8;

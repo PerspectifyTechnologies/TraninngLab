@@ -1,7 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Security.Cryptography;
-using System.Threading.Tasks;
 
 namespace WebApi
 {
@@ -13,23 +12,21 @@ namespace WebApi
             {
                 Username = username,
                 RefreshToken = GetRandomRefreshToken(),
-                ExpirationTime = DateTime.UtcNow.AddHours(6) // Make this configurable(its in hours)
+                ExpirationTime = DateTime.Now.AddHours(6) // Make this configurable(its in hours)
             };
             StoreRefreshToken(refreshTokenEntry);
         }
 
         private void StoreRefreshToken(RefreshTokenModel refreshTokenEntry)
         {
-            using (MySqlConnection conn = new MySqlConnection("server = localhost; " +
-                                                              "userid = root; " +
-                                                              "password = Abhi@1214; " +
-                                                              "database = training_lab"))
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
             {
                 try
                 {
                     conn.Open();
-                    string query = "INSERT INTO user_refresh_token(email,refreshtoken,expirationdate) VALUES((SELECT email FROM users_info WHERE username = '" + 
-                        refreshTokenEntry.Username + "'),'" +
+                    DeleteOldRefreshToken(conn,refreshTokenEntry.Username);
+                    string query = "INSERT INTO RefreshTokens(username,refreshtoken,expirationdate) VALUES('" + 
+                        refreshTokenEntry.Username + "','" +
                         refreshTokenEntry.RefreshToken + "','"+
                         refreshTokenEntry.ExpirationTime.ToString("yyyy-MM-dd H:mm:ss") + "');";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
@@ -39,6 +36,20 @@ namespace WebApi
                 catch (Exception)
                 {
                 }
+            }
+        }
+
+        private void DeleteOldRefreshToken(MySqlConnection conn,string username)
+        {
+            try
+            {
+                string query = "delete from testinglab.refreshtokens where username ='" + username + "';";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                reader.Close();
+            }
+            catch (Exception)
+            {
             }
         }
 

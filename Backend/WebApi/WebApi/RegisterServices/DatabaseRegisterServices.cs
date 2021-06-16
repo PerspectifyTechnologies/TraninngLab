@@ -1,63 +1,85 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Threading.Tasks;
 using System.Web.Helpers;
 
-namespace WebApi.DatabaseModel
+namespace WebApi.DatabaseServices
 {
     public class DatabaseRegisterServices : IDatabaseRegisterServices
     {
-
-
-        public void RecordEntries(RegisterModel registerModel)
+        public bool RegisterRecordsIfValid(RegisterModel registerModel)
         {
-            using (MySqlConnection conn = new MySqlConnection("server = localhost; userid = root; password = Abhi@1214; database = training_lab"))
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
             {
                 try
                 {
                     conn.Open();
-                    string query = "insert into users_info(username,email,hashpassword,firstname,lastname) values('" +
-                    registerModel.UserName + "','" +
-                    registerModel.Email + "','" +
-                    Crypto.SHA256(registerModel.Password) + "','" +
-                    registerModel.FirstName + "','" +
-                    registerModel.LastName + "');";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    MySqlDataReader reader = cmd.ExecuteReader();
-                    reader.Close();
-                }
-                catch (Exception)
-                {
-                }
-            }
-        }
-
-
-        public bool RecordExists(RegisterModel registerModel)
-        {
-            using (MySqlConnection conn = new MySqlConnection("server = localhost; " +
-                                                              "userid = root; " +
-                                                              "password = Abhi@1214; " +
-                                                              "database = training_lab"))
-            {
-                try
-                {
-                    conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("select * from users_info;",conn);
+                    MySqlCommand cmd = new MySqlCommand("select * from InviteList;", conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        if (reader["username"].ToString() == registerModel.UserName || reader["email"].ToString() == registerModel.Email)
-                            return true;
+                        if (reader["email"].ToString() == registerModel.Email)
+                        {
+                            reader.Close();
+                            DeleteInvitation(conn, registerModel.Email);
+                            StoreUserEntries(conn, registerModel);
+                            InitializeUserLevel(conn, registerModel.UserName);
+                            return false;
+                        }
                     }
                 }
                 catch (Exception)
                 {
                 }
             }
-            RecordEntries(registerModel);
-            return false;
+            return true ;
         }
 
+        private void InitializeUserLevel(MySqlConnection conn, string userName)
+        {
+            try
+            {
+                string query = "insert into UserLevel(username) values('" +
+                userName + "');";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                reader.Close();
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        private void DeleteInvitation(MySqlConnection conn,string email)
+        {
+            try
+            {
+                string query = "delete from testinglab.invitelist where email ='" + email + "';";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                reader.Close();
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        private void StoreUserEntries(MySqlConnection conn,RegisterModel registerModel)
+        {
+            try
+            {
+                string query = "insert into UserAuthentication(username,firstname,lastname,password,email) values('" +
+                registerModel.UserName + "','" +
+                registerModel.FirstName + "','" +
+                registerModel.LastName + "','" +
+                Crypto.SHA256(registerModel.Password) + "','" +
+                registerModel.Email + "');";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                reader.Close();
+            }
+            catch (Exception)
+            {
+            }
+        }
     }
 }

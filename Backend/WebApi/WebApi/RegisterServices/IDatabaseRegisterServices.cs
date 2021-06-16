@@ -1,8 +1,7 @@
-﻿namespace WebApi.DatabaseModel
+﻿namespace WebApi.DatabaseServices
 {
     interface IDatabaseRegisterServices 
     {
-        public bool RecordExists(RegisterModel registerModel);
-        public void RecordEntries(RegisterModel registerModel);
+        public bool RegisterRecordsIfValid(RegisterModel registerModel);
     }
 }
