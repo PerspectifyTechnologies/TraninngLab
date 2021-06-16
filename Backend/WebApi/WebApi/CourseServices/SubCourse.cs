@@ -27,8 +27,20 @@ namespace WebApi.CourseServices
             get { return subCourseID; }
             set { subCourseID = value; }
         }
-
-
+        String title;
+        public string Title
+        {
+            get
+            { return title; }
+            set
+            { title = value; }
+        }
+        String desc;
+        public String Desc
+        {
+            get { return desc; }
+            set { desc = value; }
+        }
 
     }
 }

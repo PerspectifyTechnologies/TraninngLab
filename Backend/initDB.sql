@@ -140,6 +140,14 @@ insert into LevelSlab Values(3,"Intermediate",60);
 insert into LevelSlab Values(4,"Expert",120);
 insert into LevelSlab Values(5,"AntiSocial",260);
 
+ALTER TABLE `TrainingLab`.`UserAuthentication` 
+ADD COLUMN `FirstName` VARCHAR(45) NULL AFTER `email`,
+ADD COLUMN `LastName` VARCHAR(45) NULL AFTER `FirstName`;
+
+ALTER TABLE `TrainingLab`.`SubCourseDetails`
+ADD COLUMN `Title` VARCHAR(45) Default "Title" AFTER `CourseID`,
+ADD COLUMN `Desc` VARCHAR(120) DEFAULT "DESC" AFTER `Title`;
+
 Select * from CourseDetails;
 Select * from EventActiveUser;
 Select * from EventList;

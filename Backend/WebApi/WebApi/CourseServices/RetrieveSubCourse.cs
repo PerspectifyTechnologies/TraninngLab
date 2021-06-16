@@ -124,6 +124,8 @@ namespace WebApi.CourseServices
                                 currentSubCourse.SubCourseID = rdr.GetInt32(0);
                                 currentSubCourse.Url = rdr.GetString(2);
                                 currentSubCourse.CourseID = rdr.GetInt32(3);
+                                currentSubCourse.Title = rdr.GetString(4);
+                                currentSubCourse.Desc = rdr.GetString(5);
                                 SubCourseList.Add(currentSubCourse);
                             }
                         }
