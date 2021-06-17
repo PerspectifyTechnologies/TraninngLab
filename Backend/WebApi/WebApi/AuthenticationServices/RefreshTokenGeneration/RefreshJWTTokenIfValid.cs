@@ -37,13 +37,17 @@ namespace WebApi.Controllers
                     DateTime expiryDate = dateFormat.ConvertToSTDDateTime(Refreshtoken.Item2);//diff time format in DB and BackEnd
                     string token = "";
 
-                    TimeSpan ts = DateTime.UtcNow - expiryDate;
-                    if (ts.TotalHours <= 6)//Refresh Token Validity is 6 hours NEED TO CONFIGURE
+                    TimeSpan ts = DateTime.Now - expiryDate;
+                    if (ts.TotalSeconds <= 30)//Refresh Token Validity is 6 hours NEED TO CONFIGURE(for testing 30 secs)
                     {
                         token = jwtAuthenticationManager.GenerateTokenIfValid(username, password);//Generate new Jwt Token
                         new GenerateRefreshToken(username);//Store new Refresh Token With New Validity
-                        BlackListToken(refreshToken.Token);
                     }
+                    else
+                    {
+                        return Unauthorized(new { Status = "error", message = "Refresh Token Expired" });
+                    }
+                    BlackListToken(refreshToken.Token);
                     return Ok(new { Status = "Success", passwordsa = password, adasdasd = token });
 
                 }
@@ -63,6 +67,7 @@ namespace WebApi.Controllers
             {
                 try
                 {
+                    conn.Open();
                     string query = "insert into BlackListTokens(token,entrytime) values('" + token + "',now());";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     MySqlDataReader reader = cmd.ExecuteReader();

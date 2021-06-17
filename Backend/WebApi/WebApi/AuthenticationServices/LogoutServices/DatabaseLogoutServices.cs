@@ -48,7 +48,7 @@ namespace WebApi.DatabaseServices
         {
             try
             {
-                string query = "insert into BlackListTokens(token,entrytime) values('"+token+"',now());";
+                string query = "insert into BlackListTokens(token,entrytime) values('"+ token.Substring(7) +"',now());";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 reader.Close();

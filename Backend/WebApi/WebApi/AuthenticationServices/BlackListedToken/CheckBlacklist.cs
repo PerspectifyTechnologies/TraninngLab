@@ -19,7 +19,8 @@ namespace WebApi.DatabaseServices
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        if (reader["token"].ToString() == token)
+                        string thistoken = reader["token"].ToString(); 
+                        if (thistoken == token)
                         {
                             reader.Close();
                             return true;

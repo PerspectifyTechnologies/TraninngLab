@@ -12,7 +12,7 @@ namespace WebApi
             {
                 Username = username,
                 RefreshToken = GetRandomRefreshToken(),
-                ExpirationTime = DateTime.Now.AddHours(6) // Make this configurable(its in hours)
+                ExpirationTime = DateTime.Now // creation time of the token
             };
             StoreRefreshToken(refreshTokenEntry);
         }

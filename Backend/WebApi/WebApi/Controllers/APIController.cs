@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using System;
+using WebApi.AuthenticationServices.CheckSession;
 using WebApi.DatabaseServices;
 
 namespace WebApi.Controllers
@@ -27,20 +28,30 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Route("Home")]
-        public IActionResult GetAuth()
+        public IActionResult GetAuth([FromBody]CurrentSession currentSession)//All not Done
         {
+            //////these are the basic mandotary checks before accessing any authorised content
+            //CheckIfSessionActive checkIfSessionActive = new CheckIfSessionActive();
+            //if (checkIfSessionActive.IfInvalid(currentSession.Username))//check if the refresh token is expired, if false then continue, else land user in login page
+            //    return StatusCode(StatusCodes.Status400BadRequest,
+            //     new { Status = "Error", Message = "Session Expired. Login Again" });
             CheckBlacklist checkBlacklist = new CheckBlacklist();
-            if (checkBlacklist.IfPresent(HttpContext.Request.Headers["Authorization"]))
+            if (checkBlacklist.IfPresent(HttpContext.Request.Headers["Authorization"].ToString().Substring(7)))
                 return StatusCode(StatusCodes.Status400BadRequest,
-                 new { Status = "Error", Message = "Session Expired. Login Again" });
+                 new { Status = "Error", Message = "Token Invalid. Login Again or use another token" });
             return Ok(new { Status = "Success", OnlyAuthorizedMembers = "will see this message" });
         }
 
 
         [AllowAnonymous]
-        [HttpPost("login")]//All Done
+        [HttpPost("login")]//All not Done
         public IActionResult Login([FromBody] LoginModel userCred)
         {
+            //check if the refresh token is expired, then continue, else land user in login page
+            //CheckIfSessionActive checkIfSessionActive = new CheckIfSessionActive();
+            //if (checkIfSessionActive.IfInvalid(userCred.Username))
+            //    return StatusCode(StatusCodes.Status400BadRequest,
+            //     new { Status = "Error", Message = "Session Expired. Login Again" });
             DatabaseLoginServices databaseLoginServices = new DatabaseLoginServices();
             int i = databaseLoginServices.GetLogIdOfUSer(userCred.Username);//to check if the user is already logged in
             if (i == 0)
@@ -48,10 +59,10 @@ namespace WebApi.Controllers
                 var token = jwtAuthenticationManager.GenerateTokenIfValid(userCred.Username, userCred.Password);//Generate JWT token only when Login Creds Match
                 if (token == null)
                     return Unauthorized(new { Status = "Error", Message = "Wrong credentials" });
-                new GenerateRefreshToken(userCred.Username);
+                new GenerateRefreshToken(userCred.Username);//Generate Refresh Token
                 return Ok(new { Status = "Success", JwtToken = token });
             }
-            return Unauthorized(new { Status = "Error", Message = "Already Logged In" });
+            return Unauthorized(new { Status = "Error", Message = "Already Logged In...!!   Land User In Home Page" });
         }
 
 
@@ -78,13 +89,13 @@ namespace WebApi.Controllers
 
 
         [AllowAnonymous]
-        [HttpPost("refresh")]
+        [HttpPost("refresh")]//All Done
         public IActionResult Refresh([FromBody] TokenValidationBody refreshToken)
         {
             CheckBlacklist checkBlacklist = new CheckBlacklist();
-            if (checkBlacklist.IfPresent(HttpContext.Request.Headers["Authorization"])) 
+            if (checkBlacklist.IfPresent(refreshToken.Token)) 
                 return StatusCode(StatusCodes.Status400BadRequest,
-                 new { Status = "Error", Message = "Session Expired. Login Again" });
+                 new { Status = "Error", Message = "Token Invalidated, request with new token" });
             RefreshJWTTokenIfValid refresh = new RefreshJWTTokenIfValid(jwtAuthenticationManager);
             return refresh.RefreshTokenIfValid( refreshToken);
         }

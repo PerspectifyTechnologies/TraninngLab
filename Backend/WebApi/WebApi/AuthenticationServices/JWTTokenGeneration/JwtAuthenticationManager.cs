@@ -36,7 +36,7 @@ namespace WebApi
                     new Claim(ClaimTypes.Name,username),
                     new Claim("USERSECRET", password)
                 }),
-                Expires = DateTime.UtcNow.AddSeconds(60),//In seconds CONFIGURE TO MINUTES OR HOURS
+                Expires = DateTime.Now.AddSeconds(15),//In seconds CONFIGURE TO MINUTES OR HOURS
                 SigningCredentials =
                 new SigningCredentials(
                     new SymmetricSecurityKey(tokenKey),
