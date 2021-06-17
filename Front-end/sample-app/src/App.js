@@ -1,10 +1,13 @@
 import React from 'react'
 import './App.css'
-import FrontPage from './components/front page/frontPage'
+// import FrontPage from './components/front page/frontPage'
+import TestPage from './components/test page/testPage'
 function App() {
+
   return (
     <div>
-      <FrontPage />
+      {/* <FrontPage /> */}
+      <TestPage />
     </div>
   )
 }
