@@ -97,30 +97,34 @@ function signUp() {
     return (
         <>
             <Navbar />
-            <form action="" className="shadow-2xl w-5/12 h-auto mx-auto mt-12 mb-10 pb-5 rounded-2xl border-4 flex justify-center flex-col items-center">
-                <div className="text-2xl my-5">Sign Up</div>
+            <div className="flex justify-center">
 
-                <input type="text" name="" id="" className="my-4 w-3/4 outline-none border-b-2" placeholder="Your Name" id="name" />
-                <div className="text-red-500" id="name-warn"></div>
+                <form action="" className="shadow-2xl w-11/12 md:w-5/12 h-auto mt-12 mb-10 pb-5 rounded-2xl border-4 flex justify-center flex-col items-center">
+                    <div className="text-2xl my-5">Sign Up</div>
 
-                <input type="email" name="" id="" className="my-4 w-3/4 outline-none border-b-2" placeholder="Your e-mail ex: name@example.com" id="e-mail" />
-                <div className="text-red-500" id="e-mail-warn"></div>
+                    <input type="text" name="" id="" className="my-4 w-3/4 outline-none border-b-2" placeholder="Your Name" id="name" />
+                    <div className="text-red-500" id="name-warn"></div>
 
-                <input type="password" name="" id="" className="my-4 w-3/4 outline-none border-b-2" placeholder="Password" id="password" />
-                <div className="text-red-500" id="password-warn"></div>
+                    <input type="email" name="" id="" className="my-4 w-3/4 outline-none border-b-2" placeholder="Your e-mail ex: name@example.com" id="e-mail" />
+                    <div className="text-red-500" id="e-mail-warn"></div>
 
-                <input type="password" name="" id="" className="my-4 w-3/4 outline-none border-b-2" placeholder="Confirm Password" id="confirmPassword" />
-                <div className="text-red-500" id="confirm-warn"></div>
+                    <input type="password" name="" id="" className="my-4 w-3/4 outline-none border-b-2" placeholder="Password" id="password" />
+                    <div className="text-red-500" id="password-warn"></div>
 
-                <div className="flex justify-between w-full px-28 pt-8 pb-4">
-                    <button type="button" className="border-2 border-black outline-none px-2 py-1 rounded-lg"
-                        onClick={Clear}>Clear All</button>
-                    <button type="button" className="border-2 border-black outline-none px-2 py-1 rounded-lg"
-                        onClick={Validation}
-                    >Submit</button>
-                </div>
-                <div className="text-red-500" id="proceed-warn"></div>
-            </form>
+                    <input type="password" name="" id="" className="my-4 w-3/4 outline-none border-b-2" placeholder="Confirm Password" id="confirmPassword" />
+                    <div className="text-red-500" id="confirm-warn"></div>
+
+                    <div className="flex justify-between w-full px-16 pt-8 pb-4">
+                        <button type="button" className="border-2 border-black outline-none px-2 py-1 rounded-lg"
+                            onClick={Clear}>Clear All</button>
+                        <button type="button" className="border-2 border-black outline-none px-2 py-1 rounded-lg"
+                            onClick={Validation}
+                        >Submit</button>
+                    </div>
+                    <div className="text-red-500" id="proceed-warn"></div>
+                </form>
+            </div>
+
         </>
     )
 }

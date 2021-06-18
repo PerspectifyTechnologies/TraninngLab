@@ -9,7 +9,7 @@ function testPage() {
 
     const Transcript = () => {
         return (
-            <div className="text-white bg-green-500 text-xl p-5 ">
+            <div className="text-white bg-blue-500 text-xl p-5 ">
                 Lorem ipsum dolor, sit amet
                 consectetur adipisicing elit. Minus error
                 recusandae expedita aspernatur? Numquam provident,
@@ -43,7 +43,7 @@ function testPage() {
     }
     const VideoHeading = (props) => {
         return (
-            <div className="bg-green-600 p-2 text-xl text-white text-center">{props.heading}</div>
+            <div className="bg-blue-600 p-2 text-xl text-white text-center">{props.heading}</div>
         )
     }
 
@@ -56,7 +56,7 @@ function testPage() {
     }
     const PanelIcon = (props) => {
         return (
-            <div className="bg-pink-500 w-12 h-12 rounded-full inline-block m-2 cursor-pointer">{props.icon}</div>
+            <div className="w-12 h-12 rounded-full inline-block m-2 cursor-pointer">{props.icon}</div>
         )
     }
 
@@ -89,8 +89,8 @@ function testPage() {
 
                     {/* The below code is of courses playlist */}
 
-                    <div className="w-80  bg-green-400 hidden md:inline-block">
-                        <div className="bg-green-900 text-white text-xl text-center px-1 py-3 ">All Event's List</div>
+                    <div className="w-80  bg-blue-400 hidden md:inline-block">
+                        <div className="bg-blue-900 text-white text-xl text-center px-1 py-3 ">All Event's List</div>
                         <div className="w-full overflow-y-scroll h-96">
 
                             <VideoHeading heading="First half" />
@@ -114,7 +114,7 @@ function testPage() {
             </div >
 
             <div className="mt-5 grid grid-cols-2 
-                 w-full text-center text-xl py-2 px-1 gap-1 bg-green-700 text-white">
+                 w-full text-center text-xl py-2 px-1 gap-1 bg-blue-700 text-white">
 
                 <div className="py-3 px-2 cursor-pointer"
                     onClick={() => transcription(!transpile)}>Transcription</div>
@@ -147,7 +147,7 @@ function testPage() {
 
             </div> */}
 
-            <footer className="bg-gray-500 px-5 py-10
+            <footer className="bg-gray-800 px-5 py-10
                   text-white text-center text-xl mt-5">
                 All rights reserved
             </footer>

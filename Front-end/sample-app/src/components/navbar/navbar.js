@@ -7,8 +7,8 @@ function navbar() {
     return (
         <>
             <div className="sticky top-0
-     left-0 right-0 text-center py-3 bg-green-500 text-3xl
-      text-white flex justify-between px-24 z-50">
+     left-0 right-0 text-center py-3 bg-blue-500 text-3xl
+      text-white flex justify-between md:px-20 px-8 z-50">
                 <span className="my-auto">Training lab</span>
 
                 <span className="flex">
