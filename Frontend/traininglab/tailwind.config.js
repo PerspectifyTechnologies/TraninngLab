@@ -10,8 +10,8 @@ module.exports = {
       imgHeight: "30vh",
       starterHeight: "110vh",
       trialHeight: "90vh",
-      eveHeight:'100vh',
-      flexHeight:'70vh'
+      eveHeight: "100vh",
+      flexHeight: "70vh",
     },
     borderRadius: {
       imgRadius: "10px",
@@ -23,9 +23,25 @@ module.exports = {
     extend: {
       colors: {
         navBackground: "#332155",
+        customwhite: "#FFFFFF",
+        customnewblue: "#00ADB5",
+        customblack: "#02111B",
         imgColor: "#d8e3e7",
         perColor: "#f7fbfc",
-        labColor:'yellow'
+        labColor: "yellow",
+        customhoverblue: "#3edbf0",
+        customdarkblue: "#222831",
+        onhover: "#b7b7a4",
+      },
+      fontFamily: {
+        myfonts: [
+          "Trebuchet MS",
+          "Lucida Sans Unicode",
+          "Lucida Grande",
+          "Lucida Sans",
+          "Arial",
+          "sans-serif",
+        ],
       },
     },
   },

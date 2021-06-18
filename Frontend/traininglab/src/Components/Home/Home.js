@@ -8,35 +8,23 @@ import Visual from "../Courses/Visual/Visual";
 import ReactDeveloper from "../Courses/ReactDeveloper/ReactDeveloper";
 import Events from "../Events/Events";
 import Test from "../Test/Test";
+import LoginPage from "../LoginPage";
+import SignupPage from "../SignupPage";
 
 const Home = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/">
-          <Landing></Landing>
-        </Route>
-        <Route path="/home">
-          <Starter></Starter>
-        </Route>
-        <Route path="/events">
-          <Events></Events>
-        </Route>
-        <Route path="/tests">
-          <Test></Test>
-        </Route>
-        <Route path="/net">
-          <Net></Net>
-        </Route>
-        <Route path="/visual">
-          <Visual></Visual>
-        </Route>
-        <Route path="/react">
-          <ReactDeveloper></ReactDeveloper>
-        </Route>
-        <Route path="*">
-          <Nomatch />
-        </Route>
+        <Route path="/" exact component={Landing} />
+        <Route path="/home" component={Starter} />
+        <Route path="/login" component={LoginPage} />
+        <Route path="/signup" component={SignupPage} />
+        <Route path="/events" component={Events} />
+        <Route path="/tests" component={Test} />
+        <Route path="/net" component={Net} />
+        <Route path="/visual" component={Visual} />
+        <Route path="/react" component={ReactDeveloper} />
+        <Route path="*" component={Nomatch} />
       </Switch>
     </Router>
   );
