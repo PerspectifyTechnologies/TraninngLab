@@ -78,6 +78,7 @@ function signUp() {
             confirmWarn.textContent == "" &&
             passwordWarn.textContent == ""
         ) {
+            proceedWarn.textContent = ""
             console.log("Proceed")
         }
         else {
