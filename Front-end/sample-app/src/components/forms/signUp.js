@@ -99,7 +99,7 @@ function signUp() {
             <Navbar />
             <div className="flex justify-center">
 
-                <form action="" className="shadow-2xl w-11/12 md:w-5/12 h-auto mt-12 mb-10 pb-5 rounded-2xl border-4 flex justify-center flex-col items-center">
+                <form action="" className="shadow-2xl w-11/12 md:w-5/12 h-auto mt-8 mb-2 pb-5 rounded-2xl border-4 flex justify-center flex-col items-center">
                     <div className="text-2xl my-5">Sign Up</div>
 
                     <input type="text" name="" id="" className="my-4 w-3/4 outline-none border-b-2" placeholder="Your Name" id="name" />
