@@ -1,14 +1,22 @@
 import React from 'react'
 import './App.css'
 // import FrontPage from './components/front page/frontPage'
-import TestPage from './components/Event page/eventPage'
+// import EventPage from './components/event page/eventPage'
+// import TestPage from './components/test page/testPage'
+// import CoursePage from './components/courses page/coursesPage'
+// import SignIn from './components/forms/signIn'
+import SignUp from './components/forms/signUp'
+
 function App() {
 
   return (
-    <div>
+    <>
       {/* <FrontPage /> */}
-      <TestPage />
-    </div>
+      {/* <EventPage /> */}
+      {/* <TestPage /> */}
+      {/* <CoursePage /> */}
+      <SignUp />
+    </>
   )
 }
 

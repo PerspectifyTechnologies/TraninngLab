@@ -8,17 +8,17 @@ function frontPage(props) {
 
             <div className="absolute top-2 right-2 flex mt-2 mr-4">
                 <div className="mx-2 border-2 rounded-xl 
-                px-4 py-2 border-pink-500 text-pink-500 cursor-pointer
-                 duration-200 hover:bg-pink-500 hover:text-white text-2xl" >Sign in</div>
+                px-4 py-2 border-green-500 text-green-500 cursor-pointer
+                 duration-200 hover:bg-green-500 hover:text-white text-2xl" >Sign in</div>
 
                 <div className="mx-2 border-2 rounded-xl px-4 py-2
-                 border-pink-500 text-pink-500 cursor-pointer duration-200
-                  hover:bg-pink-500 hover:text-white text-2xl">Sign up</div>
+                 border-green-500 text-green-500 cursor-pointer duration-200
+                  hover:bg-green-500 hover:text-white text-2xl">Sign up</div>
             </div>
 
             <div className="absolute left-0 right-0 sm:top-72 top-48 flex justify-center ">
-                <div className="border-2 rounded-xl px-4 py-2 border-pink-500
-                 text-pink-500 cursor-pointer duration-200 hover:bg-pink-500
+                <div className="border-2 rounded-xl px-4 py-2 border-green-500
+                 text-green-500 cursor-pointer duration-200 hover:bg-green-500
                   hover:text-white text-2xl" onClick={props.next}> Get Started </div>
             </div></>
     )

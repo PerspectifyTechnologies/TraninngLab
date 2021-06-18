@@ -1,7 +1,8 @@
-import { render } from '@testing-library/react'
+// import { render } from '@testing-library/react'
 import React, { useState } from 'react'
 import './../../App.css'
-import notification from './../../assets/notification.png'
+import Navbar from './../navbar/navbar'
+
 
 function testPage() {
     const event = "Event"
@@ -62,26 +63,13 @@ function testPage() {
     let [transpile, transcription] = useState(true)
     let [userNotes, notes] = useState(false)
 
-    let notificationCount = 2
-
 
     return (
         <>
 
             {/* The below code is of top navbar */}
 
-            <div className="sticky top-0
-     left-0 right-0 text-center py-3 bg-green-500 text-3xl
-      text-white flex justify-between px-24">
-                <span className="my-auto">Training lab</span>
-
-                <span className="flex">
-                    <img src={notification} alt="notification"
-                        className="cursor-pointer w-8 h-8 my-auto" />
-                    <span className="text-base">{notificationCount}</span>
-                </span>
-            </div>
-
+            <Navbar />
 
             {/* The below code is of the main display page */}
 
