@@ -27,7 +27,7 @@ namespace WebApi.DatabaseServices
             return 0;
         }
 
-        public bool MatchLoginCreds(string username, string password)
+        public bool MatchLoginCreds(string username, string password,int refresh)
         {
             using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
             {
@@ -41,7 +41,8 @@ namespace WebApi.DatabaseServices
                         if (reader["username"].ToString() == username && Crypto.SHA256(password) == reader["password"].ToString())
                         {
                             reader.Close();
-                            AddInUserActivityLog(conn,username);
+                            if(refresh == 0)
+                                AddInUserActivityLog(conn,username);
                             return true;
                         }
                     }

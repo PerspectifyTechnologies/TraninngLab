@@ -38,9 +38,9 @@ namespace WebApi.Controllers
                     string token = "";
 
                     TimeSpan ts = DateTime.Now - expiryDate;
-                    if (ts.TotalSeconds <= 30)//Refresh Token Validity is 6 hours NEED TO CONFIGURE(for testing 30 secs)
+                    if (ts.TotalSeconds <= 40)//Refresh Token Validity is 6 hours NEED TO CONFIGURE(for testing 40 secs)
                     {
-                        token = jwtAuthenticationManager.GenerateTokenIfValid(username, password);//Generate new Jwt Token
+                        token = jwtAuthenticationManager.GenerateTokenIfValid(username, password,1);//Generate new Jwt Token
                         new GenerateRefreshToken(username);//Store new Refresh Token With New Validity
                     }
                     else
@@ -58,7 +58,7 @@ namespace WebApi.Controllers
             }
             catch (Exception e)
             {
-                return Unauthorized(new { Status = "Error", Message = e.Message });
+                return Unauthorized(new { Status = "Error exception", Message = e.Message });
             }
         }
         private void BlackListToken( string token)

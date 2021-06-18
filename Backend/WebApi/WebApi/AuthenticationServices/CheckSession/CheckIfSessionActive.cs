@@ -15,16 +15,75 @@ namespace WebApi.AuthenticationServices.CheckSession
                 try
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("select * from RefreshTokens where username = '" + username + "' and DATE_ADD(expirationdate,interval 30 second) < now();", conn);
+                    MySqlCommand cmd = new MySqlCommand("select * from RefreshTokens where username = '" + username + "' and DATE_ADD(expirationdate,interval 40 second) < now();", conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.Read() == false)
+                    if (reader.Read() == true)
                     {
+                        UpdateUserActivity(username);
                         return true;
                     }
                 }
                 catch (Exception)
                 { }
                 return false;
+            }
+        }
+
+        private void UpdateUserActivity(string username)
+        {
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    DeleteRefreshToken(username);
+                    MySqlCommand cmd = new MySqlCommand("update useractivitylog set logouttime='" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") +
+                        "' where logid = '" + GetUsID(username) + "';", conn);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    reader.Read();
+                }
+                catch (Exception)
+                {
+                }
+            }
+        }
+
+        private int GetUsID(string username)
+        {
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("select max(logid) from useractivitylog where username = '" + username + "';", conn);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    reader.Read();
+                    int ID = reader.GetInt32(0);
+                    reader.Close();
+                    return ID;
+                }
+                catch (Exception)
+                {
+                }
+            }
+            return 0;
+        }
+
+        private void DeleteRefreshToken(string username)
+        {
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = "delete from testinglab.RefreshTokens where username ='" + username + "';";
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    reader.Close();
+                }
+                catch (Exception)
+                {
+                }
             }
         }
     }

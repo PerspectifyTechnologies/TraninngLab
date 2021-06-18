@@ -30,11 +30,6 @@ namespace WebApi.Controllers
         [Route("Home")]
         public IActionResult GetAuth([FromBody]CurrentSession currentSession)//All not Done
         {
-            //////these are the basic mandotary checks before accessing any authorised content
-            //CheckIfSessionActive checkIfSessionActive = new CheckIfSessionActive();
-            //if (checkIfSessionActive.IfInvalid(currentSession.Username))//check if the refresh token is expired, if false then continue, else land user in login page
-            //    return StatusCode(StatusCodes.Status400BadRequest,
-            //     new { Status = "Error", Message = "Session Expired. Login Again" });
             CheckBlacklist checkBlacklist = new CheckBlacklist();
             if (checkBlacklist.IfPresent(HttpContext.Request.Headers["Authorization"].ToString().Substring(7)))
                 return StatusCode(StatusCodes.Status400BadRequest,
@@ -47,20 +42,21 @@ namespace WebApi.Controllers
         [HttpPost("login")]//All not Done
         public IActionResult Login([FromBody] LoginModel userCred)
         {
+            string mess = "";
             //check if the refresh token is expired, then continue, else land user in login page
-            //CheckIfSessionActive checkIfSessionActive = new CheckIfSessionActive();
-            //if (checkIfSessionActive.IfInvalid(userCred.Username))
-            //    return StatusCode(StatusCodes.Status400BadRequest,
-            //     new { Status = "Error", Message = "Session Expired. Login Again" });
+            //WE CAN ADD THIS CODE IN OTHER FUNCTION FOR A FEATURE WHERE A USER CLICKS ON HOME LINK, MAIN URL, IF REFRESH TOKEN VALID, AUTHENTICATE WITHOUT LOGIN
+            CheckIfSessionActive checkIfSessionActive = new CheckIfSessionActive();
+            if (checkIfSessionActive.IfInvalid(userCred.Username))
+                mess = "Session was Expired. Logging in Again \n" ;
             DatabaseLoginServices databaseLoginServices = new DatabaseLoginServices();
             int i = databaseLoginServices.GetLogIdOfUSer(userCred.Username);//to check if the user is already logged in
             if (i == 0)
             {
-                var token = jwtAuthenticationManager.GenerateTokenIfValid(userCred.Username, userCred.Password);//Generate JWT token only when Login Creds Match
+                var token = jwtAuthenticationManager.GenerateTokenIfValid(userCred.Username, userCred.Password, 0);//Generate JWT token only when Login Creds Match
                 if (token == null)
                     return Unauthorized(new { Status = "Error", Message = "Wrong credentials" });
                 new GenerateRefreshToken(userCred.Username);//Generate Refresh Token
-                return Ok(new { Status = "Success", JwtToken = token });
+                return Ok(new { Status = mess+"Success", JwtToken = token });
             }
             return Unauthorized(new { Status = "Error", Message = "Already Logged In...!!   Land User In Home Page" });
         }

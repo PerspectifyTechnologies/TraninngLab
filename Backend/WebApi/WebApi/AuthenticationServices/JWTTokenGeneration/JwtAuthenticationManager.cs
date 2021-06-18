@@ -16,16 +16,16 @@ namespace WebApi
             this.key = key;
         }
 
-        public string GenerateTokenIfValid(string username, string password)
+        public string GenerateTokenIfValid(string username, string password, int refresh)
         {
             DatabaseLoginServices databaseLoginService = new DatabaseLoginServices();
-            if (!databaseLoginService.MatchLoginCreds(username, password))
+            if (!databaseLoginService.MatchLoginCreds(username, password, refresh))
             {
                 return null;//not matching USER CREDENTIALS
             }
-            return GenerateJWTToken(username, password);
+            return GenerateJWTToken(username, password, refresh);
         }
-        public string GenerateJWTToken(string username, string password)
+        public string GenerateJWTToken(string username, string password,int refresh)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenKey = Encoding.ASCII.GetBytes(key);
@@ -36,7 +36,7 @@ namespace WebApi
                     new Claim(ClaimTypes.Name,username),
                     new Claim("USERSECRET", password)
                 }),
-                Expires = DateTime.Now.AddSeconds(15),//In seconds CONFIGURE TO MINUTES OR HOURS
+                Expires = DateTime.Now.AddSeconds(20),//In seconds CONFIGURE TO MINUTES OR HOURS
                 SigningCredentials =
                 new SigningCredentials(
                     new SymmetricSecurityKey(tokenKey),
