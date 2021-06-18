@@ -4,32 +4,38 @@ import './../../App.css'
 function testPage() {
 
     let Question = (props) => {
-        return <li className="text-3xl">{props.question}</li>
+        return <div>{props.question}</div>
     }
 
     let Option = (props) => {
-        return <li className="text-2xl bg-black py-2 px-10 rounded-3xl mx-5 my-10 cursor-pointer">{props.answer}</li>
+        return <div className="text-center  text-2xl bg-black py-2 px-5 rounded-3xl m-5 cursor-pointer">{props.answer}</div>
     }
 
     return (
         <>
             <div className="absolute top-5 right-10 cursor-pointer text-5xl">&times;</div>
 
-            <div className="absolute inset-0 m-auto shadow-2xl min-w-min w-3/4 h-3/4 border-4">
-                <ol className="list-decimal mx-16 mt-20 mb-5">
+            <div className="overflow-hidden relative top-0 bottom-0 left-0 right-0 mx-auto mt-24 shadow-2xl min-w-min w-3/4 h-auto  border-4">
+                <div className="mt-10 mx-16">
 
-                    <Question question="What is a bot ?" />
+                    <div className="flex text-3xl">
+                        Q.<Question question="What is a bot ?" />
+                    </div>
 
-                </ol>
+                    <div className="flex flex-wrap justify-center mt-10 text-white">
 
-                <ol className="flex flex-wrap mt-10 mb-16 mx-8 text-white">
+                        <Option answer="Captcha" />
+                        <Option answer="Virtual Assistant" />
+                        <Option answer="A robot" />
+                        <Option answer="None of these" />
 
-                    <Option answer="Captcha" />
-                    <Option answer="Virtual Assistant" />
-                    <Option answer="A robot" />
-                    <Option answer="None of these" />
+                    </div>
+                </div>
 
-                </ol>
+                <div className="flex float-right mx-5 mt-24 mb-10">
+                    <div className="border-2 border-red-500 text-red-500 cursor-pointer mx-5 px-4 py-2 rounded-xl hover:text-white hover:bg-red-500 duration-200">Previous</div>
+                    <div className="border-2 border-blue-500 text-blue-500 cursor-pointer mx-5 px-4 py-2 rounded-xl hover:text-white hover:bg-blue-500 duration-200">Next</div>
+                </div>
             </div>
         </>
     )
