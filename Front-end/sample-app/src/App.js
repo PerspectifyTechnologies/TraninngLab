@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.css'
 import FrontPage from './components/front page/frontPage'
-import EventPage from './components/event page/eventPage'
+import EventPage from './components/zvent page/eventPage'
 import TestPage from './components/test page/testPage'
 import CoursePage from './components/courses page/coursesPage'
 import SignIn from './components/forms/signIn'
