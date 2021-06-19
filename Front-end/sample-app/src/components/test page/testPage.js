@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './../../App.css'
+import { Link } from 'react-router-dom'
 
 function testPage() {
 
@@ -11,9 +12,12 @@ function testPage() {
         return <div className="text-center  text-2xl bg-black py-2 px-5 rounded-3xl m-5 cursor-pointer">{props.answer}</div>
     }
 
+
     return (
         <>
-            <div className="absolute top-5 right-10 cursor-pointer text-5xl">&times;</div>
+            <Link to='/courses'>
+                <div className="absolute top-5 right-10 cursor-pointer text-5xl">&times;</div>
+            </Link>
 
             <div className="overflow-hidden relative top-0 bottom-0 left-0 right-0 mx-auto mt-24 shadow-2xl min-w-min w-3/4 h-auto  border-4">
                 <div className="mt-10 mx-16">

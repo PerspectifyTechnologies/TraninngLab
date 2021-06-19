@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './../../App.css'
 import BackPage from './../../assets/4380.jpg'
 
@@ -11,15 +12,19 @@ function frontPage(props) {
                 px-4 py-2 border-blue-500 text-blue-500 cursor-pointer
                  duration-200 hover:bg-blue-500 hover:text-white text-2xl" >Sign in</div>
 
-                <div className="mx-2 border-2 rounded-xl px-4 py-2
+                <Link to='/signUp'>
+                    <div className="mx-2 border-2 rounded-xl px-4 py-2
                  border-blue-500 text-blue-500 cursor-pointer duration-200
                   hover:bg-blue-500 hover:text-white text-2xl">Sign up</div>
+                </Link>
             </div>
 
             <div className="absolute left-0 right-0 sm:top-72 top-48 flex justify-center ">
-                <div className="border-2 rounded-xl px-4 py-2 border-blue-500
+                <Link to="/courses">
+                    <div className="border-2 rounded-xl px-4 py-2 border-blue-500
                  text-blue-500 cursor-pointer duration-200 hover:bg-blue-500
                   hover:text-white text-2xl" onClick={props.next}> Get Started </div>
+                </Link>
             </div></>
     )
 }

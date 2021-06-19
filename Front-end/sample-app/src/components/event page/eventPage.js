@@ -2,39 +2,13 @@
 import React, { useState } from 'react'
 import './../../App.css'
 import Navbar from '../navbar/navbar'
+import Transcript from './transcription'
+import Notes from './notes'
 
 
 function testPage() {
     const event = "Event"
 
-    const Transcript = () => {
-        return (
-            <div className="text-white bg-blue-500 text-xl p-5 ">
-                Lorem ipsum dolor, sit amet
-                consectetur adipisicing elit. Minus error
-                recusandae expedita aspernatur? Numquam provident,
-                repellendus enim tempora quasi quibusdam voluptatum
-                inventore minus aliquam amet minima eveniet soluta nam
-                accusamus ducimus! Voluptatem, beatae error aliquid dolor
-                id consectetur ullam repellat provident incidunt, quos quibusdam
-                possimus eaque cumque adipisci, in amet!
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Neque velit dolores unde aliquid excepturi explicabo rem iusto
-                temporibus ut alias blanditiis, modi nulla totam debitis sint
-                repellendus labore et quam iure praesentium pariatur distinctio
-                quidem saepe! Dolorem obcaecati possimus aliquam architecto sequi
-                labore dolor praesentium exercitationem fugit quo. Quas, saepe!
-            </div>
-        )
-    }
-
-    const Notes = () => {
-        return (
-            <textarea className="bg-white text-2xl py-2 px-4 w-full h-32"
-                placeholder="  Type your notes here...." cols="10">
-            </textarea>
-        )
-    }
 
     const Video = (props) => {
         return (
