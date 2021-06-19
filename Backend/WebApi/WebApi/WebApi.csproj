@@ -16,8 +16,10 @@
   <ItemGroup>
     <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
     <None Remove="CourseModel\" />
+    <None Remove="EventServices\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CourseServices\" />
+    <Folder Include="EventServices\" />
   </ItemGroup>
 </Project>

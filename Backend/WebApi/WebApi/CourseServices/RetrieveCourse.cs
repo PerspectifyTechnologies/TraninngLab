@@ -11,14 +11,14 @@ using System.Diagnostics;
 
 namespace WebApi.CourseServices
 {
-    public class Retrieve
+    public class RetrieveCourse
     {
         
         List<Course> CourseList;
         
-        static Retrieve retriveCourseObject = null;
+        static RetrieveCourse retrieveCourseObject = null;
 
-        private Retrieve()
+        private RetrieveCourse()
         {
             CourseList = new List<Course>();
             String cs = "server = localhost; userid = root; password = Abh1Ank1; database = TrainingLab";
@@ -52,11 +52,11 @@ namespace WebApi.CourseServices
             }
         }
 
-        public static Retrieve getInstance()
+        public static RetrieveCourse getInstance()
         {
             
-            retriveCourseObject = new Retrieve();
-            return retriveCourseObject;
+            retrieveCourseObject = new RetrieveCourse();
+            return retrieveCourseObject;
             
         }
 
