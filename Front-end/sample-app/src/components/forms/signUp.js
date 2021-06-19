@@ -79,7 +79,8 @@ function signUp() {
             passwordWarn.textContent == ""
         ) {
             proceedWarn.textContent = ""
-            console.log("Proceed")
+            // console.log("Proceed")
+            window.location.replace('/');
         }
         else {
             proceedWarn.textContent = "Please complete the form to continue"
