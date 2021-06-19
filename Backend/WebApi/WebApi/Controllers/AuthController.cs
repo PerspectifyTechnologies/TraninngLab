@@ -11,10 +11,10 @@ namespace WebApi.Controllers
     [Authorize]
     [Route("[controller]")]
     [ApiController]
-    public class APIController : ControllerBase
+    public class AuthController : ControllerBase
     {
         private readonly IJwtAuthenticationManager jwtAuthenticationManager;
-        public APIController(IJwtAuthenticationManager jwtAuthenticationManager)
+        public AuthController(IJwtAuthenticationManager jwtAuthenticationManager)
         {
             this.jwtAuthenticationManager = jwtAuthenticationManager;
         }
