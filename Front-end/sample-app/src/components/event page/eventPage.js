@@ -9,6 +9,13 @@ function Eventpage() {
 
     //getting data from API
 
+
+
+function testPage() {
+    const event = "Event"
+
+
+
     const url = "http://localhost:44360/";
 
     const getEvents = () => {

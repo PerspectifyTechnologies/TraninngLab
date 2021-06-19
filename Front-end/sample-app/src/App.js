@@ -12,6 +12,7 @@ import CoursePage from './components/courses page/coursesPage'
 import SignIn from './components/forms/signIn'
 import SignUp from './components/forms/signUp'
 import ReactPage from './components/courses page/react';
+// import Api from './components/api/api'
 
 function App() {
 
@@ -38,6 +39,16 @@ function App() {
           </Route> */}
         </Switch>
     </Router>
+
+
+      {/* <Api /> */}
+
+      {/* <FrontPage /> */}
+      {/* <EventPage /> */}
+      {/* <CoursePage /> */}
+      {/* <TestPage /> */}
+      {/* <SignUp /> */}
+
     </>
   )
 }

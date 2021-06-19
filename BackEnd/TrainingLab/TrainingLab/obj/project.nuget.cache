@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "L3c75sfFz4bRNZrw/Gtt/1psJlEXIlf3EIeaG0dD6ydZGFZqtPngiLSsI2v+j1QC2O4sZfQUg6ErhIGPM2N6Eg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\HIMANI\\OneDrive\\BackEnd\\TrainingLab\\TrainingLab\\TrainingLab.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\HIMANI\\.nuget\\packages\\stub.system.data.sqlite.core.netstandard\\1.0.114.2\\stub.system.data.sqlite.core.netstandard.1.0.114.2.nupkg.sha512",
+    "C:\\Users\\HIMANI\\.nuget\\packages\\system.data.sqlite.core\\1.0.114.2\\system.data.sqlite.core.1.0.114.2.nupkg.sha512"
+  ],
+  "logs": []
+}
