@@ -24,9 +24,9 @@ namespace WebApi.EventServices
         private RetrieveEvents()
         {
             activeEventList = new List<Event>();
-            String cs = "server = localhost; userid = root; password = Abh1Ank1; database = TrainingLab";
+            
 
-            MySqlConnection con = new MySqlConnection(cs);
+            MySqlConnection con = new MySqlConnection(DBCreds.ConnectionString);
             try
             {
                 DateTime currentTime = new DateTime();
@@ -69,33 +69,34 @@ namespace WebApi.EventServices
             return retrieveEventsObject;
 
         }
-        
-
-        //public void Add(Event eventObj)
-        //{
-        //    activeEventList.Add(eventObj);
-        //    String cs = "server = localhost; userid = root; password = Abh1Ank1; database = TrainingLab";
-
-        //    MySqlConnection con = new MySqlConnection(cs);
-        //    try
-        //    {
 
 
-        //        con.Open();
-        //        string query = "Insert INTO CourseDetails(Name) VALUES(\"" + course.Name + "\");";
-        //        MySqlCommand command = new MySqlCommand(query, con);
+        public void Add(Event eventObj)
+        {
+            activeEventList.Add(eventObj);
+            
 
-        //        MySqlDataReader reader = command.ExecuteReader();
+            MySqlConnection con = new MySqlConnection(DBCreds.ConnectionString);
+            try
+            {
+
+                int activeParameter = eventObj.Active ? 1 : 0;
+                con.Open();
+                string query = "Insert INTO EventList VALUES(\"" + eventObj.EventID + "\",\""+eventObj.Name+"\",\'"+eventObj.StartTime.ToString("yyyy-MM-dd HH:mm:ss") + "\',"+activeParameter+",\""+eventObj.Url+ "\",\'" + eventObj.EndTime.ToString("yyyy-MM-dd HH:mm:ss") + "\');";
+
+                MySqlCommand command = new MySqlCommand(query, con);
+
+                MySqlDataReader reader = command.ExecuteReader();
 
 
 
-        //        con.Close();
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Debug.WriteLine(e.ToString());
-        //    }
-        //}
+                con.Close();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+        }
         //public int Remove(int CourseID)
         //{
         //    for (int i = 0; i < activeEventList.Count; i++)
@@ -128,6 +129,8 @@ namespace WebApi.EventServices
         //    }
         //    return 0;
         //}
+
+
         public List<Event> getAllEvents()
         {
 
