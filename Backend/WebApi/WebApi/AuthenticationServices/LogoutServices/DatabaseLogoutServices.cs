@@ -19,7 +19,7 @@ namespace WebApi.DatabaseServices
                     conn.Open();
                     DeleteRefreshToken(conn,username);
                     BlackListToken(conn,token);
-                    MySqlCommand cmd = new MySqlCommand("update useractivitylog set logouttime='"+ DateTime.Now.ToString("yyyy-MM-dd H:mm:ss")+
+                    MySqlCommand cmd = new MySqlCommand("update UserActivityLog set LogOutTime='"+ DateTime.Now.ToString("yyyy-MM-dd H:mm:ss")+
                         "' where logid = '"+GetUserID(conn,username)+"';", conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read()) { }
@@ -62,7 +62,7 @@ namespace WebApi.DatabaseServices
         {
             try
             {
-                MySqlCommand cmd = new MySqlCommand("select max(logid) from useractivitylog where username = '" + username + "';", conn);
+                MySqlCommand cmd = new MySqlCommand("select max(logid) from UserActivityLog where userName = '" + username + "';", conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 reader.Read();
                 int ID = reader.GetInt32(0);
