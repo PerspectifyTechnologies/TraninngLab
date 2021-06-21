@@ -7,7 +7,8 @@ import TestPage from './components/test page/testPage'
 import CoursePage from './components/courses page/coursesPage'
 import SignIn from './components/forms/signIn'
 import SignUp from './components/forms/signUp'
-// import Api from './components/api/api'
+import Api from './components/api/api'
+import Youtube from './components/react-youtube/reactYoutube'
 
 function App() {
 
@@ -31,13 +32,10 @@ function App() {
         </Route>
       </Switch>
 
+      {/* <Youtube /> */}
+
       {/* <Api /> */}
 
-      {/* <FrontPage /> */}
-      {/* <EventPage /> */}
-      {/* <CoursePage /> */}
-      {/* <TestPage /> */}
-      {/* <SignUp /> */}
     </>
   )
 }

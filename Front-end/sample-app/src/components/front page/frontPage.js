@@ -10,12 +10,12 @@ function frontPage(props) {
             <div className="absolute top-2 right-2 flex mt-2 mr-4">
                 <div className="mx-2 border-2 rounded-xl 
                 px-4 py-2 border-blue-500 text-blue-500 cursor-pointer
-                 duration-200 hover:bg-blue-500 hover:text-white text-2xl" >Sign in</div>
+                 duration-200 hover:bg-blue-500 hover:text-white text-2xl bg-white" >Sign in</div>
 
                 <Link to='/signUp'>
                     <div className="mx-2 border-2 rounded-xl px-4 py-2
                  border-blue-500 text-blue-500 cursor-pointer duration-200
-                  hover:bg-blue-500 hover:text-white text-2xl">Sign up</div>
+                  hover:bg-blue-500 hover:text-white text-2xl bg-white">Sign up</div>
                 </Link>
             </div>
 
@@ -23,7 +23,7 @@ function frontPage(props) {
                 <Link to="/courses">
                     <div className="border-2 rounded-xl px-4 py-2 border-blue-500
                  text-blue-500 cursor-pointer duration-200 hover:bg-blue-500
-                  hover:text-white text-2xl" onClick={props.next}> Get Started </div>
+                  hover:text-white text-2xl bg-white" onClick={props.next}> Get Started </div>
                 </Link>
             </div></>
     )
