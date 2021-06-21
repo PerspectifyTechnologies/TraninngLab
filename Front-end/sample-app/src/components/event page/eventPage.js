@@ -11,8 +11,7 @@ function Eventpage() {
 
 
 
-function testPage() {
-    const event = "Event"
+
 
 
 

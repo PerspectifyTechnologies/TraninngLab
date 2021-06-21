@@ -30,10 +30,9 @@ const courses = [
     {
         id : 5,
         name : "react"
-    }
-]
+    }]
   
-const history = useHistory();
+    const history = useHistory();
 
  
 
@@ -49,12 +48,12 @@ const history = useHistory();
                 return (
                     <motion.div  whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }} key = {course.id} className="inline-block shadow-2xl py-10 px-16 border-2
-                    //      m-5 rounded-3xl cursor-pointer text-3xl bg-white" onClick = {() => history.push('./courses/react')}>
+                       m-5 rounded-3xl cursor-pointer text-3xl bg-white" onClick = {() => history.push('./courses/react')}>
                         {course.name}
                     </motion.div>
                 )
             })}
-
+            </div>
         </>
     )
 }
