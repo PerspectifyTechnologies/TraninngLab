@@ -15,7 +15,7 @@ namespace WebApi.DatabaseServices
                 try
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("select * from BlackListTokens;", conn);
+                    MySqlCommand cmd = new MySqlCommand("select * from blacklisttokens;", conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {

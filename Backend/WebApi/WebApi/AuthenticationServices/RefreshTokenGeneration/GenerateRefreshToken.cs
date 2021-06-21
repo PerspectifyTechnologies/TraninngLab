@@ -25,7 +25,7 @@ namespace WebApi
                 {
                     conn.Open();
                     DeleteOldRefreshToken(conn,refreshTokenEntry.Username);
-                    string query = "INSERT INTO RefreshTokens(username,refreshtoken,expirationdate) VALUES('" + 
+                    string query = "INSERT INTO refreshtokens(username,refreshtoken,expirationdate) VALUES('" + 
                         refreshTokenEntry.Username + "','" +
                         refreshTokenEntry.RefreshToken + "','"+
                         refreshTokenEntry.ExpirationTime.ToString("yyyy-MM-dd H:mm:ss") + "');";
@@ -43,7 +43,7 @@ namespace WebApi
         {
             try
             {
-                string query = "delete from testinglab.refreshtokens where username ='" + username + "';";
+                string query = "delete from refreshtokens where username ='" + username + "';";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 reader.Close();

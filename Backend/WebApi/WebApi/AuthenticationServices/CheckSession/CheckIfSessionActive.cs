@@ -15,7 +15,7 @@ namespace WebApi.AuthenticationServices.CheckSession
                 try
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("select * from RefreshTokens where username = '" + username + "' and DATE_ADD(expirationdate,interval 40 second) < now();", conn);
+                    MySqlCommand cmd = new MySqlCommand("select * from refreshtokens where username = '" + username + "' and DATE_ADD(expirationdate,interval 40 second) < now();", conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     if (reader.Read() == true)
                     {
@@ -37,8 +37,8 @@ namespace WebApi.AuthenticationServices.CheckSession
                 {
                     conn.Open();
                     DeleteRefreshToken(username);
-                    MySqlCommand cmd = new MySqlCommand("update useractivitylog set logouttime='" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") +
-                        "' where logid = '" + GetUsID(username) + "';", conn);
+                  MySqlCommand cmd = new MySqlCommand("update UserActivityLog set LogOutTime='" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") +
+                        "' where LogID = '" + GetUsID(username) + "';", conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     reader.Read();
                 }
@@ -55,7 +55,7 @@ namespace WebApi.AuthenticationServices.CheckSession
                 try
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("select max(logid) from useractivitylog where username = '" + username + "';", conn);
+                    MySqlCommand cmd = new MySqlCommand("select max(LogID) from UserActivityLog where UserName = '" + username + "';", conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     reader.Read();
                     int ID = reader.GetInt32(0);
@@ -76,7 +76,7 @@ namespace WebApi.AuthenticationServices.CheckSession
                 try
                 {
                     conn.Open();
-                    string query = "delete from testinglab.RefreshTokens where username ='" + username + "';";
+                    string query = "delete from refreshokens where username ='" + username + "';";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     reader.Close();

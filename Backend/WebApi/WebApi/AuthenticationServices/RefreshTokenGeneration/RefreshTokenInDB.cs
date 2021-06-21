@@ -12,7 +12,7 @@ namespace WebApi.RefreshTokenGeneration
                 try
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("select * from RefreshTokens;", conn);
+                    MySqlCommand cmd = new MySqlCommand("select * from refreshtokens;", conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
