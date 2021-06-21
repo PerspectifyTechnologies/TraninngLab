@@ -11,19 +11,19 @@ using System.Diagnostics;
 
 namespace WebApi.CourseServices
 {
-    public class Retrieve
+    public class RetrieveCourse
     {
         
         List<Course> CourseList;
         
-        static Retrieve retriveCourseObject = null;
+        static RetrieveCourse retrieveCourseObject = null;
 
-        private Retrieve()
+        private RetrieveCourse()
         {
             CourseList = new List<Course>();
-            String cs = "server = localhost; userid = root; password = Abh1Ank1; database = TrainingLab";
+            
 
-            MySqlConnection con = new MySqlConnection(cs);
+            MySqlConnection con = new MySqlConnection(DBCreds.ConnectionString);
             try {
 
                 con.Open();
@@ -52,20 +52,20 @@ namespace WebApi.CourseServices
             }
         }
 
-        public static Retrieve getInstance()
+        public static RetrieveCourse getInstance()
         {
             
-            retriveCourseObject = new Retrieve();
-            return retriveCourseObject;
+            retrieveCourseObject = new RetrieveCourse();
+            return retrieveCourseObject;
             
         }
 
         public void Add(Course course)
         {
             CourseList.Add(course);
-            String cs = "server = localhost; userid = root; password = Abh1Ank1; database = TrainingLab";
+            
 
-            MySqlConnection con = new MySqlConnection(cs);
+            MySqlConnection con = new MySqlConnection(DBCreds.ConnectionString);
             try
             {
 
@@ -95,9 +95,9 @@ namespace WebApi.CourseServices
                     CourseList.RemoveAt(i);
 
 
-                    String cs = "Data Source=/Users/abii/Projects/Bank/Bank/bankDatabase.db; Version=3;";
+                    
 
-                    MySqlConnection con = new MySqlConnection(cs);
+                    MySqlConnection con = new MySqlConnection(DBCreds.ConnectionString);
                     try
                     {
                         con.Open();

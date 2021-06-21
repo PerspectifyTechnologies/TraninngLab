@@ -10,14 +10,18 @@
     <PackageReference Include="MySql.Data" Version="8.0.25" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="AWSSDK.ElasticBeanstalk" Version="3.7.0.32" />
   </ItemGroup>
 
 
   <ItemGroup>
     <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
     <None Remove="CourseModel\" />
+    <None Remove="EventServices\" />
+    <None Remove="AWSSDK.ElasticBeanstalk" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CourseServices\" />
+    <Folder Include="EventServices\" />
   </ItemGroup>
 </Project>

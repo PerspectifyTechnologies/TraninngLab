@@ -103,9 +103,9 @@ namespace WebApi.CourseServices
         public List<SubCourse> GetSubCoursesFromCourseID(int CourseID)
         {
             SubCourseList = new List<SubCourse>();
-            String cs = "server = localhost; userid = root; password = Abh1Ank1; database = TrainingLab";
+            
 
-            MySqlConnection con = new MySqlConnection(cs);
+            MySqlConnection con = new MySqlConnection(DBCreds.ConnectionString);
             try
             {
 

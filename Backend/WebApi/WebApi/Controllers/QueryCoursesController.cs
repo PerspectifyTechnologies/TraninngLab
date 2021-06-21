@@ -18,7 +18,7 @@ namespace WebApi.Controllers
         {
 
 
-            return Retrieve.getInstance().getAllCourses();
+            return RetrieveCourse.getInstance().getAllCourses();
 
         }
         [HttpGet]
