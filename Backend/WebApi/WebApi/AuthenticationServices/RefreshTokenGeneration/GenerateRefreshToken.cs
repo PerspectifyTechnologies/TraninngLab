@@ -6,7 +6,8 @@ namespace WebApi
 {
     public class GenerateRefreshToken
     {
-        internal GenerateRefreshToken(string username)
+        private readonly string username;
+        public GenerateRefreshToken(string username)
         {
             RefreshTokenModel refreshTokenEntry = new RefreshTokenModel()
             {
