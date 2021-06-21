@@ -7,7 +7,7 @@ logout(): remove JWT from Local Storage*/
 
 import axios from "axios";
 
-const API = "";
+const API = "https://localhost:44388/api/";
 
 const register = async (username, email, password) => {
   const signup_data = {
@@ -15,7 +15,7 @@ const register = async (username, email, password) => {
     email: email,
     password: password,
   };
-  return await axios.post(API + "signup", signup_data);
+  return await axios.post(API + "register", signup_data);
 };
 
 const login = async (username, password) => {

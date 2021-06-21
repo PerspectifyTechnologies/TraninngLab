@@ -13,7 +13,7 @@ namespace WebApi.DatabaseServices
                 try
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("select logid from UserActivityLog where userName = '" + username + "' and LogOutTime is null;", conn);
+                    MySqlCommand cmd = new MySqlCommand("select LogID from UserActivityLog where userName = '" + username + "' and LogOutTime is null;", conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     reader.Read();
                     int ID = reader.GetInt32(0);
@@ -34,11 +34,11 @@ namespace WebApi.DatabaseServices
                 try
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("Select * from UserAuthentication", conn);
+                    MySqlCommand cmd = new MySqlCommand("select * from UserAuthentication", conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        if (reader["username"].ToString() == username && Crypto.SHA256(password) == reader["password"].ToString())
+                        if (reader["userName"].ToString() == username && Crypto.SHA256(password) == reader["password"].ToString())
                         {
                             reader.Close();
                             if(refresh == 0)
@@ -58,7 +58,7 @@ namespace WebApi.DatabaseServices
             {
                 string query = "insert into UserActivityLog(userName,LogInTime) values('" +
                 username + "','" +
-                DateTime.UtcNow.ToString("yyyy-MM-dd H:mm:ss") + "');";
+                DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "');";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 reader.Close();

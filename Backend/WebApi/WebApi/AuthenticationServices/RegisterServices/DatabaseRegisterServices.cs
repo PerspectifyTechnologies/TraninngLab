@@ -53,7 +53,7 @@ namespace WebApi.DatabaseServices
         {
             try
             {
-                string query = "delete from TestingLab.InviteList where email ='" + email + "';";
+                string query = "delete from testinglab.InviteList where email ='" + email + "';";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 reader.Close();
@@ -67,10 +67,10 @@ namespace WebApi.DatabaseServices
         {
             try
             {
-                string query = "insert into UserAuthentication(userName,password,email) values('" +
+                string query = "insert into UserAuthentication(username,password,email) values('" +
                 registerModel.UserName + "','" +
-                //registerModel.FirstName + "','" +
-                //registerModel.LastName + "','" +
+               // registerModel.FirstName + "','" +
+               // registerModel.LastName + "','" +
                 Crypto.SHA256(registerModel.Password) + "','" +
                 registerModel.Email + "');";
                 MySqlCommand cmd = new MySqlCommand(query, conn);

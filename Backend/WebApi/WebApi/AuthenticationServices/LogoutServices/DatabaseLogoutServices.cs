@@ -20,7 +20,7 @@ namespace WebApi.DatabaseServices
                     DeleteRefreshToken(conn,username);
                     BlackListToken(conn,token);
                     MySqlCommand cmd = new MySqlCommand("update UserActivityLog set LogOutTime='"+ DateTime.Now.ToString("yyyy-MM-dd H:mm:ss")+
-                        "' where logid = '"+GetUserID(conn,username)+"';", conn);
+                        "' where LogID = '"+GetUserID(conn,username)+"';", conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read()) { }
                 }
@@ -34,7 +34,7 @@ namespace WebApi.DatabaseServices
         {
             try
             {
-                string query = "delete from testinglab.RefreshTokens where username ='" + username + "';";
+                string query = "delete from RefreshTokens where username ='" + username + "';";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 reader.Close();
@@ -48,7 +48,7 @@ namespace WebApi.DatabaseServices
         {
             try
             {
-                string query = "insert into BlackListTokens(token,entrytime) values('"+ token.Substring(7) +"',now());";
+                string query = "insert into blacklisttokens(token,entrytime) values('"+ token.Substring(7) +"',now());";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 reader.Close();
@@ -62,7 +62,7 @@ namespace WebApi.DatabaseServices
         {
             try
             {
-                MySqlCommand cmd = new MySqlCommand("select max(logid) from UserActivityLog where userName = '" + username + "';", conn);
+                MySqlCommand cmd = new MySqlCommand("select max(LogId) from UserActivityLog where userName = '" + username + "';", conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 reader.Read();
                 int ID = reader.GetInt32(0);
