@@ -58,7 +58,7 @@ namespace WebApi.DatabaseServices
             {
                 string query = "insert into useractivitylog(username,logintime) values('" +
                 username + "','" +
-                DateTime.UtcNow.ToString("yyyy-MM-dd H:mm:ss") + "');";
+                DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") + "');";
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 reader.Close();

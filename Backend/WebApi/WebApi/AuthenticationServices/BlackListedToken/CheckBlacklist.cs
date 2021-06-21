@@ -15,11 +15,11 @@ namespace WebApi.DatabaseServices
                 try
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("select * from blacklisttokens;", conn);
+                    MySqlCommand cmd = new MySqlCommand("select * from BlackListTokens;", conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        string thistoken = reader["token"].ToString(); 
+                        string thistoken = reader["Token"].ToString(); 
                         if (thistoken == token)
                         {
                             reader.Close();

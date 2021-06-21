@@ -72,7 +72,7 @@ const Signup = () => {
     setSubmitLoading(true);
     event.preventDefault();
     if (handleFormValidation()) {
-      submitLoading(false)
+      setSubmitLoading(false)
       dispatch(register(userName, email, password))
         .then(() => {
           setSubmitLoading(false);
