@@ -10,8 +10,6 @@ import Angular from './Angular'
 
 function CoursesPage() {
 
-
-    // <<<<<<< HEAD
     const courses = [
         {
             id: 1,

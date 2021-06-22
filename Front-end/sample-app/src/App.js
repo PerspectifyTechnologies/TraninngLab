@@ -29,6 +29,7 @@ function App() {
 
 
       <Switch>
+
         <Route exact path="/" component={FrontPage} />
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/signup" component={SignUp} />
@@ -36,25 +37,12 @@ function App() {
         <Route exact path="/events" component={EventPage} />
         <Route exact path="/test" component={TestPage} />
         <Route exact path='/courses/react' component={ReactPage} />
-        <Route exacr path='/signIn' component={SignIn} />
-
-
-        <Router>
-          <Switch>
-            <Route exact path="/" component={FrontPage} />
-            <Route exact path="/signin" component={SignIn} />
-            <Route exact path="/signup" component={SignUp} />
-            <Route exact path="/courses" component={CoursePage} />
-            <Route exact path="/events" component={EventPage} />
-            <Route exact path="/test" component={TestPage} />
-            <Route exact path='/courses/react' component={ReactPage} />
-            <Route exact path='/courses/angular' component={Angular} />
-            <Route exact path='/courses/csharp' component={Csharp} />
-            <Route exact path='/courses/node' component={Node} />
-            <Route exact path='/courses/blender' component={Blender} />
-          </Switch>
-        </Router>
+        <Route exact path='/courses/angular' component={Angular} />
+        <Route exact path='/courses/csharp' component={Csharp} />
+        <Route exact path='/courses/node' component={Node} />
+        <Route exact path='/courses/blender' component={Blender} />
       </Switch>
+
 
 
     </>
