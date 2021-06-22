@@ -37,7 +37,7 @@ namespace WebApi.AuthenticationServices.CheckSession
                 {
                     conn.Open();
                     DeleteRefreshToken(username);
-                  MySqlCommand cmd = new MySqlCommand("update UserActivityLog set LogOutTime='" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") +
+                    MySqlCommand cmd = new MySqlCommand("update UserActivityLog set LogOutTime='" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") +
                         "' where LogID = '" + GetUsID(username) + "';", conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     reader.Read();
