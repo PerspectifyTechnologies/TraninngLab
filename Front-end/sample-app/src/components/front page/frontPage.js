@@ -13,7 +13,7 @@ function frontPage(props) {
             <motion.div
                 initial={{ marginTop: "-100vh" }}
                 animate={{ marginTop: 0 }}
-                transition={{ delay: 1, duration: 1, type: 'spring', stiffness: 150 }}
+                transition={{ duration: 1, type: 'spring', stiffness: 150 }}
             >
                 <div className='relative top-0 left-0 right-0 bottom-0'>
 
