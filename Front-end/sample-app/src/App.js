@@ -11,27 +11,28 @@ import TestPage from './components/test page/testPage'
 import CoursePage from './components/courses page/coursesPage'
 import SignIn from './components/forms/signIn'
 import SignUp from './components/forms/signUp'
-<<<<<<< HEAD
+// <<<<<<< HEAD
 import Api from './components/api/api'
 import Youtube from './components/react-youtube/reactYoutube'
-=======
+// =======
 import ReactPage from './components/courses page/react';
 // import Api from './components/api/api'
->>>>>>> ada56f9285446993261a090c9bbdb5da630c130f
+// >>>>>>> ada56f9285446993261a090c9bbdb5da630c130f
 
 function App() {
 
   return (
     <>
-    <Router>
-    <Switch>
-    <Route exact path = "/" component = {FrontPage} />
-      <Route exact path = "/signin" component = {SignIn} />
-      <Route exact path = "/signup" component = {SignUp} />
-      <Route exact path = "/courses" component = {CoursePage} />
-      <Route exact path = "/events" component = {EventPage} />
-      <Route exact path = "/test" component = {TestPage} />
-      <Route exact path = '/courses/react' component = {ReactPage} />
+      <Router>
+        <Switch>
+          <Route exact path="/" component={FrontPage} />
+          <Route exact path="/signin" component={SignIn} />
+          <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/courses" component={CoursePage} />
+          <Route exact path="/events" component={EventPage} />
+          <Route exact path="/test" component={TestPage} />
+          <Route exact path='/courses/react' component={ReactPage} />
+          <Route exacr path='/signIn' component={SignIn} />
 
           {/* <Route path="/">
             <About />
@@ -43,22 +44,22 @@ function App() {
             <Home />
           </Route> */}
         </Switch>
-    </Router>
+      </Router>
 
 
       {/* <Youtube /> */}
 
       {/* <Api /> */}
 
-<<<<<<< HEAD
-=======
+      {/* <<<<<<< HEAD */}
+      {/* ======= */}
       {/* <FrontPage /> */}
       {/* <EventPage /> */}
       {/* <CoursePage /> */}
       {/* <TestPage /> */}
       {/* <SignUp /> */}
 
->>>>>>> ada56f9285446993261a090c9bbdb5da630c130f
+      {/* >>>>>>> ada56f9285446993261a090c9bbdb5da630c130f */}
     </>
   )
 }
