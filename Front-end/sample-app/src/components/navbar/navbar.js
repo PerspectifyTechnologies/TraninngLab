@@ -25,7 +25,7 @@ function navbar(props) {
                 </div>
 
                 <span className="flex">
-                    <div className="bg-green-500 inline-block mx-5 p-5 rounded-full cursor-pointer" onClick={props.changer}></div>
+                    <div className="bg-green-500 inline-block mx-5 p-5 rounded-full cursor-pointer"></div>
 
                     <Link to="/events">
                         <div className="flex">

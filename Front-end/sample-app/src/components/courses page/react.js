@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState } from 'react'
 import ReactPlayer from 'react-player'
 import Navbar from '../navbar/navbar'
@@ -7,21 +6,12 @@ import { motion } from 'framer-motion'
 
 const Courses = () => {
     const [nav, openNav] = useState(false)
-    const btn = document.getElementById('toggle')
     const changer = () => {
         if (nav) {
             openNav(false)
-
-            setTimeout(() => {
-                btn.innerText = 'Open'
-            }, 500)
         }
         if (!nav) {
             openNav(true)
-
-            setTimeout(() => {
-                btn.innerText = 'Close'
-            }, 500)
         }
     }
 
@@ -59,7 +49,7 @@ const Courses = () => {
                 transition={{ delay: 1 }}
                 className='relative top-0 right-0 left-0 bottom-0'
             >
-                <Navbar changer={changer} />
+                <Navbar />
                 <div className="flex md:justify-between justify-center flex-col md:flex-row bg-no-repeat bg-cover mt-0 md:mt-24 md:mx-10 mx-0 mb-10" >
 
                     <motion.div
@@ -86,7 +76,7 @@ const Courses = () => {
                     </motion.div>
 
                     <div className="md:hidden flex bg-white w-32 my-5 mx-5 border-4 p-3 rounded-xl text-2xl cursor-pointer z-30"
-                        onClick={changer}><span>☰</span><span id='toggle'>Open</span></div>
+                        onClick={changer}>☰ Menu</div>
 
                     <div className="flex justify-center items-center flex-col">
                         <div className=" w-full md:mx-0 mx-10 h-full z-10">
@@ -112,61 +102,62 @@ const Courses = () => {
                 </div>
             </motion.div>
         </div >
-=======
-import React, { useState, useEffect } from 'react'
-import ReactPlayer from 'react-player'
-import Navbar from '../navbar/navbar'
-import axios from 'axios'
+        // =======
+        // import React, { useState, useEffect } from 'react'
+        //     import ReactPlayer from 'react-player'
+        //     import Navbar from '../navbar/navbar'
+        //     import axios from 'axios'
 
 
-const Courses = () => {
+        //     const Courses = () => {
 
-    const [courses, setCourses] = useState("")
+        //         const [courses, setCourses] = useState("")
 
-    const url = "http://localhost:44360/";
+        //         const url = "http://localhost:44360/";
 
-    const getCourses = () => {
-        axios.get(`${url}courses`)
-            .then((response) => {
-                const allCourses = response.data.courses;
-                setCourses(allCourses)
-            }).catch(error => console.log(`Error : ${error}`))
-    }
-
-
-    useEffect(() => {
-        getCourses()
-    }, []);
-
-    return (
-        <div>
-            <Navbar />
-            <div className="flex justify-between bg-no-repeat bg-cover" >
-
-                {courses.map(course => {
-                    return (
-                        <div>
-                            <div className="w-full mt-14 ml-24">
-
-                                <ReactPlayer controls width="720px" height="400px" url="https://www.youtube.com/watch?v=JPT3bFIwJYA" />
-                                <div>
-                                    <textarea className="border-1 mt-10 mb-10 border-gray-900" rows="10" cols="100" name="comment" form="usrform" placeholder="Take notes..."></textarea>
-                                </div>
-                            </div>
-                            <div className=" bg-blue-900 text-white mt-10 mr-8 w-4/12 h-screen mb-10 border-2 border-gray-300">
-                                <p className="mt-4 pl-5 mb-4 pb-3 cursor-pointer border-b-2 border-gray-300">{course.chapters}</p>
-                               
-                            </div>
-                        </div>
-                    )
-                })}
+        //         const getCourses = () => {
+        //             axios.get(`${url}courses`)
+        //                 .then((response) => {
+        //                     const allCourses = response.data.courses;
+        //                     setCourses(allCourses)
+        //                 }).catch(error => console.log(`Error : ${error}`))
+        //         }
 
 
-            </div>
+        //         useEffect(() => {
+        //             getCourses()
+        //         }, []);
 
-        </div>
->>>>>>> 794daa231597c8b19ad2f22348990b1f109c25b6
+        //         return (
+        //             <div>
+        //                 <Navbar />
+        //                 <div className="flex justify-between bg-no-repeat bg-cover" >
+
+        //                     {courses.map(course => {
+        //                         return (
+        //                             <div>
+        //                                 <div className="w-full mt-14 ml-24">
+
+        //                                     <ReactPlayer controls width="720px" height="400px" url="https://www.youtube.com/watch?v=JPT3bFIwJYA" />
+        //                                     <div>
+        //                                         <textarea className="border-1 mt-10 mb-10 border-gray-900" rows="10" cols="100" name="comment" form="usrform" placeholder="Take notes..."></textarea>
+        //                                     </div>
+        //                                 </div>
+        //                                 <div className=" bg-blue-900 text-white mt-10 mr-8 w-4/12 h-screen mb-10 border-2 border-gray-300">
+        //                                     <p className="mt-4 pl-5 mb-4 pb-3 cursor-pointer border-b-2 border-gray-300">{course.chapters}</p>
+
+        //                                 </div>
+        //                             </div>
+        //                         )
+        //                     })}
+
+
+        //                 </div>
+
+        //             </div>
+        //             // >>>>>>> 794daa231597c8b19ad2f22348990b1f109c25b6
+        //         )
+        //     }
     )
 }
-
 export default Courses
