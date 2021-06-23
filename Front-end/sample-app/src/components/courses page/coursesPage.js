@@ -48,7 +48,7 @@ function CoursesPage() {
 
     return (
 
-        <div className='w-screen overflow-hidden'>
+        <div className='w-screen overflow-x-hidden'>
 
 
             <motion.div
@@ -56,13 +56,13 @@ function CoursesPage() {
                 animate={{ marginLeft: 0 }}
                 transition={{ duration: 0.5, type: 'spring', stiffness: 200, delay: 0.2 }}
             >
-                <div className="relative top-0 left-0 right-0 bottom-0 over h-screen w-screen">
+                <div className="relative top-0 left-0 right-0 bottom-0 h-screen w-screen">
                     <Navbar />
                     <img src={CoursesBackPage} alt="" className="absolute
 
              top-0 bottom-0 left-0 right-0 w-screen h-screen z-0 " />
 
-                    <div className="flex flex-wrap justify-center items-center m-5 bg-transparent absolute z-40">
+                    <div className="flex flex-wrap justify-center items-center m-5 bg-transparent absolute z-10">
                         {courses.map(course => {
                             return (
                                 <motion.div whileHover={{ scale: 1.1 }}

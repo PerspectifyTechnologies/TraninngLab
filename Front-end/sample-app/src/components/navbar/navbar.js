@@ -18,10 +18,6 @@ function navbar(props) {
                         <span className="my-auto md:text-3xl text-2xl mx-5">Training lab</span>
                     </Link>
 
-                    <Link to='/test'>
-                        <div className="my-auto mx-5 md:text-2xl text-xl cursor-pointer">Take Test</div>
-                    </Link>
-
                 </div>
 
                 <span className="flex">

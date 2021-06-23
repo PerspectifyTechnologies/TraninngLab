@@ -79,11 +79,11 @@ const Courses = () => {
                         onClick={changer}>☰ Menu</div>
 
                     <div className="flex justify-center items-center flex-col">
-                        <div className=" w-full md:mx-0 mx-10 h-full z-10">
+                        <div className=" w-full md:mx-auto mx-10 h-full z-10">
                             <ReactPlayer controls width='100%' height="400px" url="https://www.youtube.com/watch?v=JPT3bFIwJYA" />
                         </div>
-                        <div>
-                            <textarea className="w-auto border mt-10 border-gray-900 " rows="10" cols="100" name="comment" form="usrform" placeholder="Take notes..."></textarea>
+                        <div className='mx-2 mt-6 '>
+                            <textarea className="w-full border border-gray-900 " rows="10" cols="100" name="comment" form="usrform" placeholder="Take notes..."></textarea>
                         </div>
                     </div>
 

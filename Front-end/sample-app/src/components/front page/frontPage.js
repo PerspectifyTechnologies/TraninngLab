@@ -51,7 +51,7 @@ top-0 bottom-0 left-0 right-0 w-screen h-screen z-0 " />
 
 
                         className="absolute left-0 right-0 sm:top-72 top-48 flex justify-center ">
-                        <Link to="/courses">
+                        <Link to="/selection">
                             <div className="border-2 rounded-xl px-4 py-2 border-blue-500
                  text-blue-500 cursor-pointer duration-200 hover:bg-blue-500
                   hover:text-white text-2xl bg-white z-50" onClick={props.next}> Get Started </div>

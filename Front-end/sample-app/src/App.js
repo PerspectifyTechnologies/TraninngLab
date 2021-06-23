@@ -11,10 +11,7 @@ import TestPage from './components/test page/testPage'
 import CoursePage from './components/courses page/coursesPage'
 import SignIn from './components/forms/signIn'
 import SignUp from './components/forms/signUp'
-// <<<<<<< HEAD
-// import Api from './components/api/api'
-// import Youtube from './components/react-youtube/reactYoutube'
-// =======
+import SelectionPage from './components/Selection Page/SelectionPage'
 import ReactPage from './components/courses page/react';
 import Angular from './components/courses page/Angular';
 import Csharp from './components/courses page/Csharp';
@@ -41,9 +38,8 @@ function App() {
         <Route exact path='/courses/csharp' component={Csharp} />
         <Route exact path='/courses/node' component={Node} />
         <Route exact path='/courses/blender' component={Blender} />
+        <Route exact path='/selection' component={SelectionPage} />
       </Switch>
-
-
 
     </>
   )
