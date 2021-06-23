@@ -17,6 +17,7 @@ import Angular from './components/courses page/Angular';
 import Csharp from './components/courses page/Csharp';
 import Node from './components/courses page/Node';
 import Blender from './components/courses page/Blender'
+import MongoDB from './components/courses page/MongoDB'
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
         <Route exact path='/courses/csharp' component={Csharp} />
         <Route exact path='/courses/node' component={Node} />
         <Route exact path='/courses/blender' component={Blender} />
+        <Route exact path='/courses/mongodb' component={MongoDB} />
         <Route exact path='/selection' component={SelectionPage} />
       </Switch>
 

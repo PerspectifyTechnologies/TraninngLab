@@ -13,7 +13,7 @@ function SelectionPage() {
             <motion.div
                 initial={{ marginLeft: '100vw' }}
                 animate={{ marginLeft: 0 }}
-                transition={{ duration: 0.5, type: 'spring', stiffness: 200, delay: 0.2 }}
+                transition={{ duration: 0.5, type: 'spring', stiffness: 150, delay: 0.2 }}
                 className='relative '>
 
                 <img src={BackImage} alt="" className='absolute top-0 bottom-0 left-0 right-0 w-screen h-screen mx-auto mt-0 z-0' />
@@ -26,6 +26,7 @@ function SelectionPage() {
                     <Link to='/courses'>
                         <motion.div
                             whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                             className="m-5 bg-white min-w-min w-96 h-72 rounded-3xl cursor-pointer flex flex-col shadow-2xl">
                             <img src={TechImage} alt="" className='rounded-t-3xl h-3/5' />
                             <div className=" text-center my-5">Courses</div>
@@ -35,6 +36,7 @@ function SelectionPage() {
                     <Link to='/test'>
                         <motion.div
                             whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                             className="m-5 bg-white min-w-min w-96 h-72 rounded-3xl cursor-pointer flex flex-col shadow-2xl">
                             <img src={TestImage} alt="" className='rounded-t-3xl h-3/5' />
                             <div className="text-center my-5">Take Test</div>
@@ -44,6 +46,7 @@ function SelectionPage() {
                     <Link to='/events'>
                         <motion.div
                             whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                             className="m-5 bg-white min-w-min w-96 h-72 rounded-3xl cursor-pointer flex flex-col shadow-2xl">
                             <img src={EventImage} alt="" className='rounded-t-3xl h-3/5' />
                             <div className="text-center my-5">Events</div>

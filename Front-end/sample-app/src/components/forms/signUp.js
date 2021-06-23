@@ -2,6 +2,7 @@
 import React from 'react'
 import Navbar from './../navbar/navbar'
 import { motion } from 'framer-motion'
+import axios from 'axios'
 
 
 function signUp() {
@@ -73,6 +74,12 @@ function signUp() {
 
         //The final submitting when everthing is fine
         let proceedWarn = document.querySelector("#proceed-warn")
+        const url = 'https://localhost:44356/'
+        let details = {
+            name: name,
+            eMail: eMail,
+            password: password1
+        }
 
         if (
             nameWarn.textContent == "" &&
@@ -81,8 +88,18 @@ function signUp() {
             passwordWarn.textContent == ""
         ) {
             proceedWarn.textContent = ""
-            console.log("Proceed")
-            window.location.replace('/courses');
+            // console.log(details)
+            document.querySelector("#name").value = ""
+            document.querySelector("#e-mail").value = ""
+            document.querySelector("#password").value = ""
+            document.querySelector("#confirmPassword").value = ""
+
+            axios.post(url, {
+                details
+            }).then(res => {
+                console.log(res.data)
+            })
+            // window.location.replace('/courses');
         }
         else {
             proceedWarn.textContent = "Please complete the form to continue"
@@ -107,6 +124,8 @@ function signUp() {
         passwordWarn.textContent = ""
         proceedWarn.textContent = ""
     }
+
+
 
     return (
         <div
