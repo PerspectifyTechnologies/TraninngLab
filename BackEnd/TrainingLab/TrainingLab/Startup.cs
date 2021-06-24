@@ -40,6 +40,8 @@ namespace TrainingLab
             }
 
             app.UseHttpsRedirection();
+             
+            IApplicationBuilder applicationBuilder = app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseRouting();
 
