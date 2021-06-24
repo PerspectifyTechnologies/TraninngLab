@@ -7,7 +7,8 @@ using TrainingLab.Models;
 
 namespace TrainingLab.Controllers
 {
-   
+    [ApiController]
+    [Route("[controller]")]
     public class EventController : Controller
     {
         SQLiteConnection con = new SQLiteConnection("Data Source=C:\\Users\\HIMANI\\OneDrive\\BackEnd\\TrainingLab\\TrainingLab\\TrainingLabDB.db");
@@ -28,9 +29,32 @@ namespace TrainingLab.Controllers
             {
                 cmd.CommandText = "select * from Event where EventName='" + eventName + "'";
             }
-            SQLiteDataReader dr = cmd.ExecuteReader();
+            dr = cmd.ExecuteReader();
             EventModel[] eventModel = new EventModel[dr.StepCount + 1];
+            string s = getEvents(eventModel);
+            dr.Close();
+            con.Close();
+            return s;
+        }
+
+        [HttpGet("FutureEvents")]
+        public EventModel[] GetFutureEvent()
+        {
+            cmd.Connection = con;
+            cmdd.Connection = con;
+            con.Open();
+            cmd.CommandText = "select * from Event where StartTime>='"+System.DateTime.UtcNow.AddHours(5.50)+"'";       
+            dr = cmd.ExecuteReader();
+            EventModel[] eventModel = new EventModel[dr.StepCount+1];           
+            string s=getEvents(eventModel);
+            dr.Close();
+            con.Close();
+            return s;
+        }
+        public string getEvents(EventModel[] eventModel)
+        {
             int i = 0;
+            StringBuilder sb = new StringBuilder();
             if (dr.HasRows)
             {
                 while (dr.Read())
@@ -39,53 +63,22 @@ namespace TrainingLab.Controllers
                     getEventAttendee(i, eventModel, dr["EventName"].ToString());
                     eventModel[i].Id = int.Parse(dr["Id"].ToString());
                     eventModel[i].EventName = dr["EventName"].ToString();
-                    string s = dr.GetString(2);
-                    eventModel[i].StartTime = DateTime.Parse(s);
-                    s = dr.GetString(3);
-                    eventModel[i].EndTime = DateTime.Parse(s);
+                    eventModel[i].StartTime = DateTime.Parse(dr.GetString(2));                  
+                    eventModel[i].EndTime = DateTime.Parse(dr.GetString(3));
                     eventModel[i].Description = dr["Description"].ToString();
                     eventModel[i].EventURL = dr["EventURL"].ToString();
-                    
-                   
+                    sb.Append("{\"id\":\"" + eventModel[i].Id + "\",");
+                    sb.Append("\"eventName\":\"" + eventModel[i].EventName + "\",");
+                    sb.Append("\"eventURL\":\"" + eventModel[i].EventURL + "\",");
+                    sb.Append("\"startTime\":\"" + eventModel[i].StartTime + "\",");
+                    sb.Append("\"endTime\":\"" + eventModel[i].EndTime + "\",");
+                    sb.Append("\"description\":\"" + eventModel[i].Description + "\",");
+                    sb.Append("\"panelists\":\"" + eventModel[i].Panelists + "\",");
+                    sb.Append("\"attendee\":\"" + eventModel[i].Attendee + "\"}");
                     i++;
                 }
             }
-            dr.Close();
-            con.Close();
-            return eventModel;
-        }
-
-        [HttpGet("FutureEvents")]
-        public EventModel[] GetFutureEvent()
-        {
-
-            cmd.Connection = con;
-            cmdd.Connection = con;
-            con.Open();
-            cmd.CommandText = "select * from Event where StartTime>='"+System.DateTime.UtcNow.AddHours(5.50)+"'";       
-            SQLiteDataReader dr = cmd.ExecuteReader();
-            EventModel[] eventModel = new EventModel[dr.StepCount+1];
-            int i = 0;
-            if (dr.HasRows)
-            {
-                while (dr.Read())
-                {
-                    eventModel[i] = new EventModel();
-                    getEventAttendee(i, eventModel, dr["EventName"].ToString());
-                    eventModel[i].Id =int.Parse(dr["Id"].ToString());
-                    eventModel[i].EventName = dr["EventName"].ToString();
-                    string s = dr.GetString(2);
-                    eventModel[i].StartTime = DateTime.Parse(s);
-                    s = dr.GetString(3);
-                    eventModel[i].EndTime = DateTime.Parse(s);
-                    eventModel[i].Description = dr["Description"].ToString();
-                    eventModel[i].EventURL = dr["EventURL"].ToString();
-                    i++;
-                }
-            }
-            dr.Close();
-            con.Close();
-            return eventModel;
+            return "\"events\": [" + sb.ToString() + "]";
         }
         public async void getEventAttendee(int i,EventModel[] eventModel,string eventName)
         {
