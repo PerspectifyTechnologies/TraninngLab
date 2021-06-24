@@ -1,18 +1,26 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 using WebApi.AuthenticationServices.CheckSession;
 using WebApi.DatabaseServices;
 
 namespace WebApi.Controllers
 {
-    [Authorize]
+    [Produces("application/json")]
     [Route("[controller]")]
     [ApiController]
+    [EnableCors("ReactPolicy")]
+    [Authorize]
     public class ApiController : ControllerBase
     {
+        private static readonly string[] Summaries = new[]
+        {
+            "Freez", "Brac", "Chi", "Co", "Mi", "Wa", "Bal", "Ht", "Sweering", "Scohing"
+        };
         private readonly IJwtAuthenticationManager jwtAuthenticationManager;
         public ApiController(IJwtAuthenticationManager jwtAuthenticationManager)
         {
@@ -21,9 +29,26 @@ namespace WebApi.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public string Get()
+        public List<Employee> Get()
         {
-            return "value";
+            var rng = new Random();
+            List<Employee> employee = new List<Employee>();
+            employee.Add(new Employee
+            {
+                ID = rng.Next(-20, 55),
+                Name = Summaries[rng.Next(Summaries.Length)]
+            });
+            employee.Add(new Employee
+            {
+                ID = rng.Next(-20, 55),
+                Name = Summaries[rng.Next(Summaries.Length)]
+            });
+            employee.Add(new Employee
+            {
+                ID = rng.Next(-20, 55),
+                Name = Summaries[rng.Next(Summaries.Length)]
+            });
+            return employee;
         }
 
         [HttpGet]
