@@ -12,7 +12,7 @@ namespace TrainingLab.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class TestController : ControllerBase
+    public class TestController : Controller
     {
         SQLiteConnection con = new SQLiteConnection("Data Source=C:\\Users\\HIMANI\\OneDrive\\BackEnd\\TrainingLab\\TrainingLab\\TrainingLabDB.db");
         SQLiteCommand cmd = new SQLiteCommand();
