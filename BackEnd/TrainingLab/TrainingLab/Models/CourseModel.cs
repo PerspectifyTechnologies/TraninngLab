@@ -9,6 +9,7 @@ namespace TrainingLab.Models
     {
         public int Id { get; set; }
         public string CourseName { get; set; }
-        public List<string> Chapters { get; set; }
+        public string AuthorName { get; set; }
+        public string Chapters { get; set; }
     }
 }
