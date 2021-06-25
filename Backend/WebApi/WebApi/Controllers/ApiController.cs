@@ -81,7 +81,7 @@ namespace WebApi.Controllers
                 if (token == null)
                     return Unauthorized(new { Status = "Error", Message = "Wrong credentials" });
                 new GenerateRefreshToken(userCred.Username);//Generate Refresh Token
-                return Ok(new { Status = mess+"Success", JwtToken = token });
+                return Ok(new { Status = mess+"Success",username = userCred.Username, JwtToken = token });
             }
             return Unauthorized(new { Status = "Error", Message = "Already Logged In...!!   Land User In Home Page" });
         }
@@ -105,7 +105,7 @@ namespace WebApi.Controllers
                 return StatusCode(StatusCodes.Status200OK,
                     new  { Status = "Success", Message = "User created successfully!" });
             return StatusCode(StatusCodes.Status400BadRequest,
-                new  { Status = "Error", Message = "User creation failed! User already exists." });
+                new  { Status = "Error", Message = "FAILED why? user already exist or not invited..!!" });
         }
 
 

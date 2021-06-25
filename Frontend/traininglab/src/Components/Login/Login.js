@@ -54,12 +54,10 @@ const Login = (props) => {
     if (handleFormValidation()) {
       await dispatch(login(username, password))
         .then(() => {
-          props.history.push("/home");
-          window.location.reload();
           setSubmitLoading(false);
         })
         .catch((err) => {
-          console.log(err);
+          console.log("error from login",err);
           setSubmitLoading(false);
         });
     } else {

@@ -38,7 +38,7 @@ namespace WebApi.Controllers
                     string token = "";
 
                     TimeSpan ts = DateTime.Now - expiryDate;
-                    if (ts.TotalSeconds <= 40)//Refresh Token Validity is 6 hours NEED TO CONFIGURE(for testing 40 secs)
+                    if (ts.TotalDays <= 6)//Refresh Token Validity is 6 hours NEED TO CONFIGURE(for testing 40 secs)
                     {
                         token = jwtAuthenticationManager.GenerateTokenIfValid(username, password,1);//Generate new Jwt Token
                         new GenerateRefreshToken(username);//Store new Refresh Token With New Validity

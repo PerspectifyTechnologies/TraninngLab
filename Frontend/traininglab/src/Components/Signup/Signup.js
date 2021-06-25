@@ -77,7 +77,7 @@ const Signup = () => {
         .then(() => {
           setSubmitLoading(false);
           alert("You have registered successfully.");
-          window.location = "/login";
+          window.location.assign("/login")
         })
         .catch((err) => {
           setSubmitLoading(false);

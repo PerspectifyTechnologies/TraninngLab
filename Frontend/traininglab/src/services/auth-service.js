@@ -24,12 +24,11 @@ const login = async (username, password) => {
     password: password,
   };
   return await axios
-    .post(API + "signin", signin_data)
+    .post(API + "login", signin_data)
     .then((res) => {
-      console.log(res.data);
-      if (res.data.accesToken) {
-        localStorage.setItem("user", JSON.stringify(res.data));
-      }
+       if (res.data.jwtToken) {
+         localStorage.setItem("user", JSON.stringify(res.data));
+       }
       return res.data;
     })
     .catch((err) => {
@@ -38,7 +37,24 @@ const login = async (username, password) => {
 };
 
 const logout = () => {
+  var token = JSON.parse(localStorage.getItem("user"));
   localStorage.removeItem("user");
-};
+  var postData = {
+    username: token.username
+  };
+  
+  var axiosConfig = {
+    headers : {
+      'Authorization' : "bearer "+token.jwtToken
+    }
+  };
+  axios.post(API + "logout", postData, axiosConfig)
+  .then((res) => {
+    alert("User has been already registered. So please login.");
+  })
+  .catch((err) => {
+    console.log("Error in login: ", err);
+  });
+}
 
 export default { register, login, logout }; //eslint-disable-line
