@@ -135,34 +135,7 @@ namespace WebApi.CourseServices
             return null;
         }
         
-        //public int UpdateUser(User user)
-        //{
-        //    for (int i = 0; i < userList.Count; i++)
-        //    {
-        //        User userAtIndex = userList.ElementAt(i);
-        //        if (userAtIndex.AccNo.Equals(user.AccNo))
-        //        {
-        //            userList[i] = user;
-
-        //            String cs = "Data Source=/Users/abii/Projects/Bank/Bank/bankDatabase.db; Version=3;";
-
-        //            SQLiteConnection con = new SQLiteConnection(cs);
-        //            con.Open();
-        //            string query = "UPDATE BankAcc SET Name=\"" + user.Name + "\", AccNo=" + user.AccNo + ", Balance=" + user.Bal + " WHERE AccNo=" + user.AccNo + ";";
-        //            SQLiteCommand command = new SQLiteCommand(con);
-
-        //            command.CommandText = query;
-
-        //            command.ExecuteNonQuery();
-        //            con.Close();
-
-        //            return 1;
-        //        }
-
-        //    }
-
-        //    return 0;
-        //}
+        
     }
 }
 
