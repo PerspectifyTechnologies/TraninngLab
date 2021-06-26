@@ -67,7 +67,7 @@ const ReactDeveloper = () => {
                 </div>
                 <div className="flex justify-center items-center col-span-2">
                     <div style={{height:"33rem"}} className="  overflow-auto rounded-2xl">
-                        <div style={{backgroundColor:"#143753"}} className="p-7 ">
+                        <div style={{backgroundColor:"#143753",padding: "1.75rem"}} className="p-7 ">
                             {
                                 courseData.map(item => <p style={listStyle} className="cursor-pointer" onClick={()=>handleUrl(item.subCourseID)}>{item.name}</p> )
                             }
