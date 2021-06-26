@@ -77,23 +77,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\HIMANI\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\user\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HIMANI\\OneDrive\\BackEnd\\TrainingLab\\TrainingLab\\TrainingLab.csproj",
+      "projectUniqueName": "D:\\React\\Perspectify\\Second (Group) project\\My files\\Project 1\\Front-end\\BackEnd\\TrainingLab\\TrainingLab\\TrainingLab.csproj",
       "projectName": "TrainingLab",
-      "projectPath": "C:\\Users\\HIMANI\\OneDrive\\BackEnd\\TrainingLab\\TrainingLab\\TrainingLab.csproj",
-      "packagesPath": "C:\\Users\\HIMANI\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HIMANI\\OneDrive\\BackEnd\\TrainingLab\\TrainingLab\\obj\\",
+      "projectPath": "D:\\React\\Perspectify\\Second (Group) project\\My files\\Project 1\\Front-end\\BackEnd\\TrainingLab\\TrainingLab\\TrainingLab.csproj",
+      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+      "outputPath": "D:\\React\\Perspectify\\Second (Group) project\\My files\\Project 1\\Front-end\\BackEnd\\TrainingLab\\TrainingLab\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\HIMANI\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

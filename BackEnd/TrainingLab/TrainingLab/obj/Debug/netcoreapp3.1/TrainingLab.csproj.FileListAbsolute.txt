@@ -50,3 +50,10 @@ C:\Users\HIMANI\OneDrive\BackEnd\TrainingLab\TrainingLab\obj\Debug\netcoreapp3.1
 C:\Users\HIMANI\OneDrive\BackEnd\TrainingLab\TrainingLab\obj\Debug\netcoreapp3.1\TrainingLab.dll
 C:\Users\HIMANI\OneDrive\BackEnd\TrainingLab\TrainingLab\obj\Debug\netcoreapp3.1\TrainingLab.pdb
 C:\Users\HIMANI\OneDrive\BackEnd\TrainingLab\TrainingLab\obj\Debug\netcoreapp3.1\TrainingLab.genruntimeconfig.cache
+D:\React\Perspectify\Second (Group) project\My files\Project 1\Front-end\BackEnd\TrainingLab\TrainingLab\obj\Debug\netcoreapp3.1\TrainingLab.csproj.AssemblyReference.cache
+D:\React\Perspectify\Second (Group) project\My files\Project 1\Front-end\BackEnd\TrainingLab\TrainingLab\obj\Debug\netcoreapp3.1\TrainingLab.AssemblyInfoInputs.cache
+D:\React\Perspectify\Second (Group) project\My files\Project 1\Front-end\BackEnd\TrainingLab\TrainingLab\obj\Debug\netcoreapp3.1\TrainingLab.AssemblyInfo.cs
+D:\React\Perspectify\Second (Group) project\My files\Project 1\Front-end\BackEnd\TrainingLab\TrainingLab\obj\Debug\netcoreapp3.1\TrainingLab.csproj.CoreCompileInputs.cache
+D:\React\Perspectify\Second (Group) project\My files\Project 1\Front-end\BackEnd\TrainingLab\TrainingLab\obj\Debug\netcoreapp3.1\TrainingLab.MvcApplicationPartsAssemblyInfo.cache
+D:\React\Perspectify\Second (Group) project\My files\Project 1\Front-end\BackEnd\TrainingLab\TrainingLab\obj\Debug\netcoreapp3.1\TrainingLab.dll
+D:\React\Perspectify\Second (Group) project\My files\Project 1\Front-end\BackEnd\TrainingLab\TrainingLab\obj\Debug\netcoreapp3.1\TrainingLab.pdb
