@@ -1,66 +1,60 @@
-import React from "react";
-import { Route } from "react-router";
-import Navigation from "./Navigation";
-import cNetImage from "../../assets/cnet.svg";
-import visualImage from "../../assets/visual.jpg";
-import reactImage from "../../assets/react.png";
+import React from 'react';
+import { Route } from 'react-router';
+import Navigation from './Navigation';
+import cNetImage from '../../assets/cnet.svg'
+import visualImage from '../../assets/visual.jpg'
+import reactImage from '../../assets/react.png'
+import styles from './starter.module.css'
 
 const Starter = () => {
-  return (
-    <div>
-      <div>
-        <Navigation />
-      </div>
-      <div className="starterBg h-starterHeight">
-        <div className="flex justify-evenly items-center h-trialHeight">
-          <Route
-            render={({ history }) => (
-              <div
-                onClick={() => history.push("/net")}
-                className="flex flex-row justify-center w-1/4 bg-imgColor rounded-imgRadius h-imgHeight"
-              >
-                <img
-                  className="max-w-full h-auto w-1/4 cursor-pointer"
-                  src={cNetImage}
-                  alt=""
-                />
-              </div>
-            )}
-          />
+    
+            const imgFlex = {
+                display: "flex",
+                justifyContent: "center",
+                alignItems:"center",
+                width:"25%",
+                height: '30vh',
+                backgroundColor: "#d8e3e7",
+                borderRadius: "10px"
+            } 
 
-          <Route
-            render={({ history }) => (
-              <div
-                onClick={() => history.push("/visual")}
-                className="flex flex-row justify-center w-1/4 bg-imgColor rounded-imgRadius h-imgHeight"
-              >
-                <img
-                  className="my-12 max-w-full h-auto w-1/2 cursor-pointer"
-                  src={visualImage}
-                  alt=""
-                />
-              </div>
-            )}
-          />
 
-          <Route
-            render={({ history }) => (
-              <div
-                onClick={() => history.push("/react")}
-                className="flex flex-row justify-center w-1/4 bg-imgColor rounded-imgRadius h-imgHeight"
-              >
-                <img
-                  className="my-10 max-w-full h-auto w-1/2 cursor-pointer"
-                  src={reactImage}
-                  alt=""
-                />
-              </div>
-            )}
-          />
+            const starterStyle = {
+                height:"110vh"
+            }
+            
+    return (
+        <div>
+            <div>
+                <Navigation></Navigation>
+            </div>
+            <div style={starterStyle} class={styles.starterBg}>
+                    <div className="">
+                        <div style={{height: "90vh",display: "flex", justifyContent: "space-evenly",alignItems:"center"}}>
+                            
+                            <Route render={({history})=> (
+                                <div onClick={()=> history.push("/net")} style={imgFlex} >
+                                    <img style={{maxWidth: "100%",height: "auto", width:"25%"}} src={cNetImage} alt="" />
+                                </div>
+                            ) } />
+
+                            <Route render={({history})=> (
+                                <div onClick={()=> history.push("/visual")} style={imgFlex} >
+                                    <img style={{maxWidth: "100%",height: "auto", width:"50%"}} src={visualImage} alt="" />
+                                </div>
+                            ) } />
+
+                            <Route render={({history})=> (
+                                <div onClick={()=> history.push("/react")} style={imgFlex} >
+                                    <img style={{maxWidth: "100%",height: "auto", width:"50%"}} src={reactImage} alt="" />
+                                </div>
+                            ) } />
+
+                        </div>
+                    </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Starter;

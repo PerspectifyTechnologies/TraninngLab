@@ -10,6 +10,7 @@ import Events from "../Events/Events";
 import Test from "../Test/Test";
 import LoginPage from "../LoginPage";
 import SignupPage from "../SignupPage";
+import Motivational from "../Courses/Motivational/Motivational"
 
 const Home = () => {
   return (
@@ -24,6 +25,7 @@ const Home = () => {
         <Route path="/net" component={Net} />
         <Route path="/visual" component={Visual} />
         <Route path="/react" component={ReactDeveloper} />
+        <Route path="/motivational" component={Motivational} />
         <Route path="*" component={Nomatch} />
       </Switch>
     </Router>

@@ -56,6 +56,12 @@ const Navigation = () => {
           )}
         />
 
+        <Route render={({history})=>(
+                    <li onClick={()=> history.push('/motivational')} className="text-center">
+                        <Link  className="my-6 mx-4 text-white block no-underline cursor-pointer" >Usefull_Resource</Link>
+                    </li>
+                )} />
+
         {currentUser ? (
           <div className="flex flex-row">
             <li className="text-center">{currentUser.username}</li>

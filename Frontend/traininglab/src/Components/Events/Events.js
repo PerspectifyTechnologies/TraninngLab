@@ -1,30 +1,24 @@
-import React from "react";
-import Navigation from "../Landing/Navigation";
+import React from 'react';
+import Navigation from '../Landing/Navigation';
+import styles from '../Landing/starter.module.css';
+import EventDetails from "./EventDetails"
 
 const Events = () => {
-  // text-align: center !important;
 
-  return (
-    <div>
-      <Navigation />
-      <div className="starterBg text-white h-eveHeight">
+    // text-align: center !important;
+
+    const eventStyle = {height:"100vh",color:"#fff"};
+
+    return (
         <div>
-          <h1 className="text-center py-10">Event Name</h1>
+            <Navigation></Navigation>
+            <div style={eventStyle} className={styles.starterBg}>
+                <div className="container mx-auto px-28">
+                    <EventDetails></EventDetails>
+                </div>
+            </div>
         </div>
-        <div className="h-flexHeight flex items-center justify-center">
-          <iframe
-            width="700"
-            height="406"
-            src="https://www.youtube.com/embed/DLX62G4lc44"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Events;
