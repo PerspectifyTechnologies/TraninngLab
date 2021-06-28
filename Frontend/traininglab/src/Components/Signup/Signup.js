@@ -10,6 +10,7 @@ const Signup = () => {
   const [confPassword, setConfPassword] = useState("");
   const [formErrors, setFormErrors] = useState({ err: "" });
   const [submitLoading, setSubmitLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const { message } = useSelector((state) => state.message);
   const dispatch = useDispatch();
@@ -72,22 +73,27 @@ const Signup = () => {
     setSubmitLoading(true);
     event.preventDefault();
     if (handleFormValidation()) {
-      setSubmitLoading(false)
       dispatch(register(userName, email, password))
         .then(() => {
-          setSubmitLoading(false);
+          setError(false);
           alert("You have registered successfully.");
-          window.location.assign("/login")
+          setSubmitLoading(false);
+          window.location.assign("/login");
         })
         .catch((err) => {
-          setSubmitLoading(false);
-          alert("User has been already registered. So please login.");
-          console.log("error from signup:", err);
+          setError(true);
+          console.log("Error from signup:", err);
         });
-    }
-    else{
+    } else {
       setSubmitLoading(false)
+      setError(false);
     }
+  };
+
+  if (error) {
+    alert(message);
+    setError(false);
+    setSubmitLoading(false);
   }
 
   return (
@@ -163,10 +169,9 @@ const Signup = () => {
             value={userName}
             onChange={handleChangeUsername}
           />
-          {(formErrors.err.userNameErr && (
+          {formErrors.err.userNameErr && (
             <p className="text-red-600">{formErrors.err.userNameErr}</p>
-          )) ||
-            (message && <p className="text-red-600">{message}</p>)}
+          )}
         </div>
 
         <div className="font-myfonts mt-2 text-sm">
@@ -180,10 +185,9 @@ const Signup = () => {
             value={email}
             onChange={handleChangeEmail}
           />
-          {(formErrors.err.emailErr && (
+          {formErrors.err.emailErr && (
             <p className="text-red-600">{formErrors.err.emailErr}</p>
-          )) ||
-            (message && <p className="text-red-600">{message}</p>)}
+          )}
         </div>
 
         <div className="font-myfonts mt-2 text-sm">
