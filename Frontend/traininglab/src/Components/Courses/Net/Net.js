@@ -14,7 +14,7 @@ const Net = () => {
       name: "An Introduction to C# learning cycle.",
       url: "https://prespectify-traininglab.s3.ap-south-1.amazonaws.com/C%23_for_BackEnd/01.An_Introduction_To_The_C%23_Learning_Cycle.mp4",
       subCourseID: 1,
-      title: "Title",
+      title: "An Introduction to C# learning cycle.",
       desc: "Desc",
     },
     {
@@ -119,9 +119,17 @@ const Net = () => {
   //         });
   // },[])
 
+  const [linkInfo,setLinkInfo] = useState({
+    courseID: 1,
+    name: "An Introduction to C# learning cycle.",
+    url: "https://prespectify-traininglab.s3.ap-south-1.amazonaws.com/C%23_for_BackEnd/01.An_Introduction_To_The_C%23_Learning_Cycle.mp4",
+    subCourseID: 1,
+    title: "An Introduction to C# learning cycle.",
+    desc: "Desc",
+  })
   const handleUrl = (id) => {
     const linkData = courseData.find((item) => item.subCourseID === id && item);
-
+    setLinkInfo(linkData);
     const link = linkData?.url;
     setVideoUrl(link);
   };
@@ -144,7 +152,12 @@ const Net = () => {
           style={{ height: "100vh" }}
           className="flex justify-center items-center col-span-3 "
         >
+          <div>
+            <div style={{background:"#63272A",color:"white"}} className="my-5 text-center   p-5">
+              <p className=" font-bold">{linkInfo.title}</p>
+            </div>
           <ReactPlayer controls url={videoUrl} />
+          </div>
         </div>
         <div className="flex justify-center items-center col-span-2">
           <div

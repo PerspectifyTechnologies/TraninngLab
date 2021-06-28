@@ -14,15 +14,40 @@ const Navigation = () => {
     window.location='/home'
   };
 
+  const bgStyle = {
+    backgroundColor:"#332155"
+}
+const ulStyle = {
+    display: "flex",
+    flexWrap: "wrap",
+    paddingLeft: "0",
+    marginBottom: "0",
+    listStyle: "none",
+    justifyContent:"center"
+  }
+  const navItem = 
+    {
+        
+        textAlign: "center"
+      }
+
+ const navLink = {
+     color:"white",
+    display: "block",
+    padding: "1rem 1rem",
+    textDecoration: "none",
+    color:"#f7fbfc",
+  }
+
   return (
-    <div className="bg-navBackground">
-      <ul className="flex flex-row flex-wrap pl-0 mb-0 justify-center list-none p-10">
+    <div style={bgStyle}>
+      <ul style={ulStyle} className="p-1">
         <Route
           render={({ history }) => (
-            <li onClick={() => history.push("/home")} className="text-center">
-              <Link
+            <li onClick={() => history.push("/home")} style={navItem}>
+              <Link style={navLink}
                 to="/home"
-                className="my-6 ml-4 mr-4 text-white block p-4 no-underline cursor-pointer"
+                
                 aria-current="page"
               >
                 Home
@@ -33,10 +58,10 @@ const Navigation = () => {
 
         <Route
           render={({ history }) => (
-            <li onClick={() => history.push("/events")} className="text-center">
-              <Link
+            <li onClick={() => history.push("/events")} style={navItem}>
+              <Link style={navLink}
                 to="/events"
-                className="my-6 mx-4 text-white block p-4 no-underline cursor-pointer"
+                
               >
                 Events
               </Link>
@@ -45,10 +70,10 @@ const Navigation = () => {
         />
         <Route
           render={({ history }) => (
-            <li onClick={() => history.push("/tests")} className="text-center">
-              <Link
+            <li onClick={() => history.push("/tests")} style={navItem}>
+              <Link style={navLink}
                 to="/tests"
-                className="my-6 mx-4 text-white block no-underline cursor-pointer"
+                
               >
                 Tests
               </Link>
@@ -57,19 +82,19 @@ const Navigation = () => {
         />
 
         <Route render={({history})=>(
-                    <li onClick={()=> history.push('/motivational')} className="text-center">
-                        <Link  className="my-6 mx-4 text-white block no-underline cursor-pointer" >Usefull_Resource</Link>
+                    <li onClick={()=> history.push('/motivational')} style={navItem}>
+                        <Link style={navLink}   >Usefull_Resource</Link>
                     </li>
                 )} />
 
         {currentUser ? (
           <div className="flex flex-row">
-            <li className="text-center">{currentUser.username}</li>
+            <li style={navItem}>{currentUser.username}</li>
             <Route
               render={() => (
                 <li
                   onClick={logOut}
-                  className="text-center my-6 mx-4 text-white block no-underline cursor-pointer"
+                  
                 >
                   Log Out
                 </li>
@@ -82,11 +107,11 @@ const Navigation = () => {
               render={({ history }) => (
                 <li
                   onClick={() => history.push("/signup")}
-                  className="text-center"
+                  style={navItem}
                 >
-                  <Link
+                  <Link style={navLink}
                     to="/signup"
-                    className="my-6 mx-4 text-white block no-underline cursor-pointer"
+                    
                   >
                     Sign Up
                   </Link>
@@ -97,11 +122,11 @@ const Navigation = () => {
               render={({ history }) => (
                 <li
                   onClick={() => history.push("/login")}
-                  className="text-center"
+                  style={navItem}
                 >
-                  <Link
+                  <Link style={navLink}
                     to="/login"
-                    className="my-6 mx-4 text-white block no-underline cursor-pointer"
+                    
                   >
                     Login
                   </Link>

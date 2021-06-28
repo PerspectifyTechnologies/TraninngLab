@@ -11,7 +11,7 @@ const EventDetails = () => {
 
   return (
     <div className="flex justify-center ">
-      <div style={{ background:"#1D1534",borderRadius:"10px",padding: "1.25rem"}} className="w-3/5 p-5 mt-5">
+      <div style={{ background:"#1D1534",borderRadius:"10px"}} className="w-3/5 p-5 mt-5">
         <div className="flex justify-center mb-4">
           <img width="60%"
             src="https://scontent.fdac13-1.fna.fbcdn.net/v/t1.6435-9/p960x960/206945676_220362023257207_19681846088328936_n.jpg?_nc_cat=108&ccb=1-3&_nc_sid=340051&_nc_ohc=s4yk_ZDvljQAX_g7SWT&_nc_ht=scontent.fdac13-1.fna&tp=6&oh=2c700c462c27d718d60e1c6204a17c03&oe=60DA0B98"
