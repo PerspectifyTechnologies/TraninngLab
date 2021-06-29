@@ -1,4 +1,4 @@
-Create Database TestingLab;
+Create Database Demo;
 CREATE TABLE `TestingLab`.`UserAuthentication` (
   `userName` VARCHAR(32) NOT NULL,
   `Admin` TINYINT NOT NULL DEFAULT 0,
@@ -141,7 +141,7 @@ insert into UserLevel (userName) Values("abh1abii");
 
 insert into InviteList Values ("abh1abii101@gmail.com");
 insert into InviteList Values ("admin@abiistudio.com");
-insert into InviteList Values ("abhi@gmail.com");
+insert into InviteList Values ("abhin@gmail.com");
 
 insert into LevelSlab Values(1,"Amateur",0);
 insert into LevelSlab Values(2,"Novice",30);
@@ -161,15 +161,22 @@ Select * from CourseDetails;
 Select * from EventActiveUser;
 Select * from EventList;
 Select * from InviteList;
+Select * from userlevel;
 Select * from LevelSlab;
 Select * from SubCourseDetails;
 Select * from TestDetails;
 Select * from UserActivityLog;
 Select * from UserAuthentication where username = "admin";
-Select * from UserLevel;
-Select * from UserProgress;
+Select * from refreshtokens;
+Select * from blacklisttokens;
 
-delete from invitelist where email = "abhi@gmail.com";
+delete from useractivityLog;
+delete from refreshtokens;
+delete from blacklisttokens;
+
+select * from RefreshTokens where username = "ablhwir" and DATE_ADD(expirationdate,interval 6 day) < now();
+
+delete from userauthentication where email = "abhi@gmail.com";
 
 desc blacklisttokens;
  

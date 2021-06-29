@@ -11,33 +11,31 @@ const Navigation = () => {
   const logOut = () => {
     dispatch(logout());
     alert("Logged out successfully.");
-    window.location='/home'
+    window.location = "/home";
   };
 
   const bgStyle = {
-    backgroundColor:"#332155"
-}
-const ulStyle = {
+    backgroundColor: "#332155",
+  };
+  const ulStyle = {
     display: "flex",
     flexWrap: "wrap",
     paddingLeft: "0",
     marginBottom: "0",
     listStyle: "none",
-    justifyContent:"center"
-  }
-  const navItem = 
-    {
-        
-        textAlign: "center"
-      }
+    justifyContent: "center",
+  };
+  const navItem = {
+    textAlign: "center",
+  };
 
- const navLink = {
-     color:"white",
+  const navLink = {
+    color: "white",
     display: "block",
     padding: "1rem 1rem",
     textDecoration: "none",
-    color:"#f7fbfc",
-  }
+    color: "#f7fbfc",
+  };
 
   return (
     <div style={bgStyle}>
@@ -45,11 +43,7 @@ const ulStyle = {
         <Route
           render={({ history }) => (
             <li onClick={() => history.push("/home")} style={navItem}>
-              <Link style={navLink}
-                to="/home"
-                
-                aria-current="page"
-              >
+              <Link style={navLink} to="/home" aria-current="page">
                 Home
               </Link>
             </li>
@@ -59,10 +53,7 @@ const ulStyle = {
         <Route
           render={({ history }) => (
             <li onClick={() => history.push("/events")} style={navItem}>
-              <Link style={navLink}
-                to="/events"
-                
-              >
+              <Link style={navLink} to="/events">
                 Events
               </Link>
             </li>
@@ -71,48 +62,32 @@ const ulStyle = {
         <Route
           render={({ history }) => (
             <li onClick={() => history.push("/tests")} style={navItem}>
-              <Link style={navLink}
-                to="/tests"
-                
-              >
+              <Link style={navLink} to="/tests">
                 Tests
               </Link>
             </li>
           )}
         />
 
-        <Route render={({history})=>(
-                    <li onClick={()=> history.push('/motivational')} style={navItem}>
-                        <Link style={navLink}   >Usefull_Resource</Link>
-                    </li>
-                )} />
+        <Route
+          render={({ history }) => (
+            <li onClick={() => history.push("/motivational")} style={navItem}>
+              <Link style={navLink}>Courses</Link>
+            </li>
+          )}
+        />
 
         {currentUser ? (
           <div className="flex flex-row">
             <li style={navItem}>{currentUser.username}</li>
-            <Route
-              render={() => (
-                <li
-                  onClick={logOut}
-                  
-                >
-                  Log Out
-                </li>
-              )}
-            />
+            <Route render={() => <li onClick={logOut}>Log Out</li>} />
           </div>
         ) : (
           <div className="flex flex-row">
             <Route
               render={({ history }) => (
-                <li
-                  onClick={() => history.push("/signup")}
-                  style={navItem}
-                >
-                  <Link style={navLink}
-                    to="/signup"
-                    
-                  >
+                <li onClick={() => history.push("/signup")} style={navItem}>
+                  <Link style={navLink} to="/signup">
                     Sign Up
                   </Link>
                 </li>
@@ -120,14 +95,8 @@ const ulStyle = {
             />
             <Route
               render={({ history }) => (
-                <li
-                  onClick={() => history.push("/login")}
-                  style={navItem}
-                >
-                  <Link style={navLink}
-                    to="/login"
-                    
-                  >
+                <li onClick={() => history.push("/login")} style={navItem}>
+                  <Link style={navLink} to="/login">
                     Login
                   </Link>
                 </li>

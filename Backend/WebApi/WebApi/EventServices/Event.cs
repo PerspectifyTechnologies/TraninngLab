@@ -46,8 +46,5 @@ namespace WebApi.EventServices
             active = false;
 
         }
-
-
-
     }
 }

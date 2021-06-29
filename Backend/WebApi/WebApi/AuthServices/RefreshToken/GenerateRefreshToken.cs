@@ -1,8 +1,9 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Security.Cryptography;
+using WebApi.AuthServices.Models;
 
-namespace WebApi
+namespace WebApi.RefreshToken
 {
     public class GenerateRefreshToken
     {

@@ -1,12 +1,9 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace WebApi.DatabaseServices
+namespace WebApi.AuthServices.Authentication
 {
-    public class CheckBlacklist : ICheckBlackList
+    public class CheckBlacklist
     {
         public bool IfPresent(string token)
         {

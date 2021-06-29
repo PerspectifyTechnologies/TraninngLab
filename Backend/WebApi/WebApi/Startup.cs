@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.AuthServices.Authentication;
 
 namespace WebApi
 {
@@ -50,7 +51,7 @@ namespace WebApi
                     ValidateLifetime = true
                 };
             });
-            services.AddSingleton<IJwtAuthenticationManager>(new JwtAuthenticationManager(key));
+            services.AddSingleton(new JwtAuthenticationManager(key));
             services.AddCors(o => o.AddPolicy("ReactPolicy", builder =>
             {
                 builder.AllowAnyOrigin()
