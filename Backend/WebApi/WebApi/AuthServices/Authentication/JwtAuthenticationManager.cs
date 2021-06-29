@@ -3,29 +3,27 @@ using System;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
-using WebApi.DatabaseServices;
 
-namespace WebApi
+namespace WebApi.AuthServices.Authentication
 {
-    public class JwtAuthenticationManager : IJwtAuthenticationManager
+    public class JwtAuthenticationManager
     {
-        //changing comment across systems for git learning(later remove)
         private readonly string key;
         public JwtAuthenticationManager(string key)
         {
             this.key = key;
         }
 
-        public string GenerateTokenIfValid(string username, string password, int refresh)
+        public string GenerateTokenIfValid(string username, string password, bool refresh)
         {
-            DatabaseLoginServices databaseLoginService = new DatabaseLoginServices();
+            LoginServices databaseLoginService = new LoginServices();
             if (!databaseLoginService.MatchLoginCreds(username, password, refresh))
             {
-                return null;//not matching USER CREDENTIALS
+                return null;
             }
-            return GenerateJWTToken(username, password, refresh);
+            return GenerateJWTToken(username, password);
         }
-        public string GenerateJWTToken(string username, string password,int refresh)
+        public string GenerateJWTToken(string username, string password)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenKey = Encoding.ASCII.GetBytes(key);
@@ -36,7 +34,7 @@ namespace WebApi
                     new Claim(ClaimTypes.Name,username),
                     new Claim("USERSECRET", password)
                 }),
-                Expires = DateTime.Now.AddHours(8),//In seconds CONFIGURE TO MINUTES OR HOURS
+                Expires = DateTime.Now.AddSeconds(20),//CONFIGURE TO MINUTES OR HOURS JWT TOKEN EXPIRY
                 SigningCredentials =
                 new SigningCredentials(
                     new SymmetricSecurityKey(tokenKey),

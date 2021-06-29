@@ -4,7 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace WebApi.RefreshTokenGeneration
+namespace WebApi.RefreshToken
 {
     public class FromJWTToken
     {
@@ -12,11 +12,11 @@ namespace WebApi.RefreshTokenGeneration
         {
             var tokenValidationParameters = new TokenValidationParameters
             {
-                ValidateAudience = false, //to validate the audience and issuer depending on your use case
+                ValidateAudience = false,
                 ValidateIssuer = false,
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("dasdaswr0q9ur3 0ru208nncrm23c0ru23c0em23r902m3cr23cr32")),
-                ValidateLifetime = true //here we are saying that we care about the token's expiration date
+                ValidateLifetime = false
             };
             try
             {

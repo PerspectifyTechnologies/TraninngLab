@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace WebApi.DatabaseServices
+﻿namespace WebApi.AuthServices.Models
 {
     public class RegisterModel
     {

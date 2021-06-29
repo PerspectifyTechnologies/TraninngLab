@@ -1,7 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 
-namespace WebApi.RefreshTokenGeneration
+namespace WebApi.RefreshToken
 {
     public class RefreshTokenInDB
     {

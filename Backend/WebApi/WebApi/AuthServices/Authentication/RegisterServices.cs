@@ -1,10 +1,11 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Web.Helpers;
+using WebApi.AuthServices.Models;
 
-namespace WebApi.DatabaseServices
+namespace WebApi.AuthServices.Authentication
 {
-    public class DatabaseRegisterServices : IDatabaseRegisterServices
+    public class RegisterServices
     {
         public bool RegisterRecordsIfValid(RegisterModel registerModel)
         {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebApi.RefreshTokenGeneration
+namespace WebApi.RefreshToken
 {
     public class DateFormat
     {

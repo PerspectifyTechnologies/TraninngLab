@@ -1,15 +1,9 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace WebApi.DatabaseServices
+namespace WebApi.AuthServices.Authentication
 {
-    public class DatabaseLogoutServices : IDatabaseLogoutServices
+    public class LogoutServices
     {
-        //but have not figured out what to do with the JWTtoken
-
         public void Logout(string username,string token)
         {
             using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
@@ -19,8 +13,9 @@ namespace WebApi.DatabaseServices
                     conn.Open();
                     DeleteRefreshToken(conn,username);
                     BlackListToken(conn,token);
-                    MySqlCommand cmd = new MySqlCommand("update UserActivityLog set LogOutTime='"+ DateTime.Now.ToString("yyyy-MM-dd H:mm:ss")+
-                        "' where LogID = '"+GetUserID(conn,username)+"';", conn);
+                    MySqlCommand cmd = new MySqlCommand("update UserActivityLog set LogOutTime='"+ 
+                                                        DateTime.Now.ToString("yyyy-MM-dd H:mm:ss")+
+                                                        "' where LogID = '"+ GetUserID(conn,username)+"';", conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read()) { }
                 }

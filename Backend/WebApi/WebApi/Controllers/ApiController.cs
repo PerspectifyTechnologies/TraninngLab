@@ -2,11 +2,9 @@
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using WebApi.AuthenticationServices.CheckSession;
-using WebApi.DatabaseServices;
+using WebApi.AuthServices.Authentication;
+using WebApi.AuthServices.Models;
+using WebApi.RefreshToken;
 
 namespace WebApi.Controllers
 {
@@ -17,108 +15,84 @@ namespace WebApi.Controllers
     [Authorize]
     public class ApiController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freez", "Brac", "Chi", "Co", "Mi", "Wa", "Bal", "Ht", "Sweering", "Scohing"
-        };
-        private readonly IJwtAuthenticationManager jwtAuthenticationManager;
-        public ApiController(IJwtAuthenticationManager jwtAuthenticationManager)
+        private readonly JwtAuthenticationManager jwtAuthenticationManager;
+        public ApiController(JwtAuthenticationManager jwtAuthenticationManager)
         {
             this.jwtAuthenticationManager = jwtAuthenticationManager;
         }
 
         [AllowAnonymous]
         [HttpGet]
-        public List<Employee> Get()
+        public string Get()
         {
-            var rng = new Random();
-            List<Employee> employee = new List<Employee>();
-            employee.Add(new Employee
-            {
-                ID = rng.Next(-20, 55),
-                Name = Summaries[rng.Next(Summaries.Length)]
-            });
-            employee.Add(new Employee
-            {
-                ID = rng.Next(-20, 55),
-                Name = Summaries[rng.Next(Summaries.Length)]
-            });
-            employee.Add(new Employee
-            {
-                ID = rng.Next(-20, 55),
-                Name = Summaries[rng.Next(Summaries.Length)]
-            });
-            return employee;
+            return "";
         }
 
+        //to get authorized access
         [HttpGet]
         [Route("Home")]
-        public IActionResult GetAuth([FromBody]CurrentSession currentSession)//All not Done
+        public IActionResult GetAuth()
         {
-            CheckBlacklist checkBlacklist = new CheckBlacklist();
-            if (checkBlacklist.IfPresent(HttpContext.Request.Headers["Authorization"].ToString().Substring(7)))
-                return StatusCode(StatusCodes.Status400BadRequest,
-                 new { Status = "Error", Message = "Token Invalid. Login Again or use another token" });
-            return Ok(new { Status = "Success", OnlyAuthorizedMembers = "will see this message" });
+            if (new CheckBlacklist().IfPresent(HttpContext.Request.Headers["Authorization"].ToString().Substring(7)))
+                return Unauthorized(new { Status = "Error"});
+            return Ok(new { Status = "Success"});
         }
 
 
         [AllowAnonymous]
-        [HttpPost("login")]//All not Done
-        public IActionResult Login([FromBody] LoginModel userCred)
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] LoginModel credentials)
         {
-            string mess = "";
-            //check if the refresh token is expired, then continue, else land user in login page
-            //WE CAN ADD THIS CODE IN OTHER FUNCTION FOR A FEATURE WHERE A USER CLICKS ON HOME LINK, MAIN URL, IF REFRESH TOKEN VALID, AUTHENTICATE WITHOUT LOGIN
-            CheckIfSessionActive checkIfSessionActive = new CheckIfSessionActive();
-            if (checkIfSessionActive.IfInvalid(userCred.Username))
-                mess = "Session was Expired. Logging in Again \n" ;
-            DatabaseLoginServices databaseLoginServices = new DatabaseLoginServices();
-            int i = databaseLoginServices.GetLogIdOfUSer(userCred.Username);//to check if the user is already logged in
-            if (i == 0)
+            string message = "";
+            if (new CheckIfSessionActive().IfInvalid(credentials.Username))
+                message = "Session was Expired. Logging in Again !\n" ;
+            if (new LoginServices().GetLogIdOfUSer(credentials.Username) == 0)
             {
-                var token = jwtAuthenticationManager.GenerateTokenIfValid(userCred.Username, userCred.Password, 0);//Generate JWT token only when Login Creds Match
+                var token = jwtAuthenticationManager
+                            .GenerateTokenIfValid(credentials.Username, credentials.Password, false);
                 if (token == null)
-                    return Unauthorized(new { Status = "Error", Message = "Wrong credentials" });
-                new GenerateRefreshToken(userCred.Username);//Generate Refresh Token
-                return Ok(new { Status = mess+"Success",username = userCred.Username, JwtToken = token });
+                    return Unauthorized(new { Status = "Error",
+                                              Message = "Wrong credentials" });
+                new GenerateRefreshToken(credentials.Username);
+                return Ok(new { Status = message+" Success",
+                                Username = credentials.Username,
+                                JwtToken = token });
             }
-            return Unauthorized(new { Status = "Error", Message = "Already Logged In...!!   Land User In Home Page" });
+            return Unauthorized(new { Status = "Error", 
+                                      Message = "Already Logged In" });
         }
 
 
-        [HttpPost("logout")]//All Done
-        public IActionResult Logout([FromBody] LogoutModel userCred)
+        [HttpPost("logout")]
+        public IActionResult Logout([FromBody] LogoutModel credentials)
         {
-            DatabaseLogoutServices databaseLogoutServices = new DatabaseLogoutServices();
-            databaseLogoutServices.Logout(userCred.Username, HttpContext.Request.Headers["Authorization"]);
-            return Ok(new { Status = "Success", Message = "Successfully Logged Out"});
+            new LogoutServices().Logout(credentials.Username, HttpContext.Request.Headers["Authorization"]);
+            return Ok(new { Status = "Success",
+                            Message = "Successfully Logged Out"});
         }
 
 
         [AllowAnonymous]
-        [HttpPost("register")]//All Done
+        [HttpPost("register")]
         public IActionResult Register([FromBody] RegisterModel registerModel)
         {
-            DatabaseRegisterServices databaseRegisterServices = new DatabaseRegisterServices();
-            if (!databaseRegisterServices.RegisterRecordsIfValid(registerModel))
-                return StatusCode(StatusCodes.Status200OK,
-                    new  { Status = "Success", Message = "User created successfully!" });
-            return StatusCode(StatusCodes.Status400BadRequest,
-                new  { Status = "Error", Message = "FAILED why? user already exist or not invited..!!" });
+            if (!new RegisterServices().RegisterRecordsIfValid(registerModel))
+                return Ok(new  { Status = "Success",
+                                 Message = "User created successfully!" });
+            return Unauthorized(new  { Status = "Error",
+                                       Message = "FAILED why? user already exist or not invited..!!" });
         }
 
 
         [AllowAnonymous]
-        [HttpPost("refresh")]//All Done
+        [HttpPost("refresh")]
         public IActionResult Refresh([FromBody] TokenValidationBody refreshToken)
         {
-            CheckBlacklist checkBlacklist = new CheckBlacklist();
-            if (checkBlacklist.IfPresent(refreshToken.Token)) 
-                return StatusCode(StatusCodes.Status400BadRequest,
-                 new { Status = "Error", Message = "Token Invalidated, request with new token" });
-            RefreshJWTTokenIfValid refresh = new RefreshJWTTokenIfValid(jwtAuthenticationManager);
-            return refresh.RefreshTokenIfValid( refreshToken);
+            if (new CheckBlacklist().IfPresent(refreshToken.Token)) 
+                return Unauthorized(new { Status = "Error",
+                                          JwtToken = "" });
+            return new RefreshJWTTokenIfValid(jwtAuthenticationManager)
+                            .RefreshTokenIfValid(refreshToken); 
         }
     }
 }

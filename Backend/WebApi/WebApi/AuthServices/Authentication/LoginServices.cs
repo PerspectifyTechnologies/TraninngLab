@@ -2,9 +2,9 @@
 using System;
 using System.Web.Helpers;
 
-namespace WebApi.DatabaseServices
+namespace WebApi.AuthServices.Authentication
 {
-    public class DatabaseLoginServices : IDatabaseLoginServices
+    public class LoginServices
     {
         public int GetLogIdOfUSer(string username)
         {
@@ -13,7 +13,8 @@ namespace WebApi.DatabaseServices
                 try
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("select LogID from UserActivityLog where userName = '" + username + "' and LogOutTime is null;", conn);
+                    MySqlCommand cmd = new MySqlCommand("select LogID from UserActivityLog where userName = '" + username + 
+                                                        "' and LogOutTime is null;", conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     reader.Read();
                     int ID = reader.GetInt32(0);
@@ -26,8 +27,7 @@ namespace WebApi.DatabaseServices
             }
             return 0;
         }
-
-        public bool MatchLoginCreds(string username, string password,int refresh)
+        public bool MatchLoginCreds(string username, string password,bool refresh)
         {
             using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
             {
@@ -41,7 +41,7 @@ namespace WebApi.DatabaseServices
                         if (reader["userName"].ToString() == username && Crypto.SHA256(password) == reader["password"].ToString())
                         {
                             reader.Close();
-                            if(refresh == 0)
+                            if(!refresh)
                                 AddInUserActivityLog(conn,username);
                             return true;
                         }

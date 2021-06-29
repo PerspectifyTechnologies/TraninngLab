@@ -1,4 +1,4 @@
-﻿namespace WebApi
+﻿namespace WebApi.AuthServices.Models
 {
     public class RefreshTokenModel
     {

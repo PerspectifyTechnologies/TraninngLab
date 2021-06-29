@@ -1,10 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace WebApi.AuthenticationServices.CheckSession
+namespace WebApi.AuthServices.Authentication
 {
     public class CheckIfSessionActive
     {
@@ -15,7 +12,8 @@ namespace WebApi.AuthenticationServices.CheckSession
                 try
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("select * from refreshtokens where username = '" + username + "' and DATE_ADD(expirationdate,interval 6 day) < now();", conn);
+                    MySqlCommand cmd = new MySqlCommand("select * from refreshtokens where username = '" + username +
+                                                        "' and DATE_ADD(expirationdate,interval 40 second) < now();", conn);//CONFIGURE THE EXPIRATION
                     MySqlDataReader reader = cmd.ExecuteReader();
                     if (reader.Read() == true)
                     {
@@ -38,7 +36,7 @@ namespace WebApi.AuthenticationServices.CheckSession
                     conn.Open();
                     DeleteRefreshToken(username);
                     MySqlCommand cmd = new MySqlCommand("update UserActivityLog set LogOutTime='" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") +
-                        "' where LogID = '" + GetUsID(username) + "';", conn);
+                        "' where LogID = '" + GetID(username) + "';", conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     reader.Read();
                 }
@@ -48,7 +46,7 @@ namespace WebApi.AuthenticationServices.CheckSession
             }
         }
 
-        private int GetUsID(string username)
+        private int GetID(string username)
         {
             using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
             {
