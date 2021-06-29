@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../../actions/auth";
 
@@ -54,18 +54,19 @@ const Login = (props) => {
     if (handleFormValidation()) {
       await dispatch(login(username, password))
         .then(() => {
-          setSubmitLoading(false);
+          setSubmitLoading(true);
         })
         .catch((err) => {
-          console.log("error from login",err);
-          setSubmitLoading(false);
+          console.log("error from login", err);
+          setSubmitLoading(true);
         });
+      setSubmitLoading(false);
     } else {
       setSubmitLoading(false);
     }
 
     if (isLoggedIn) {
-      return <Redirect to="/home" />;
+      window.location = "/home";
     }
   };
   return (
@@ -142,7 +143,7 @@ const Login = (props) => {
             onChange={handleChangeUserName}
           />
           {(formErrors.err.userNameErr && (
-            <p>{formErrors.err.userNameErr}</p>
+            <p className="text-red-600">{formErrors.err.userNameErr}</p>
           )) ||
             (message && <p className="text-red-600">{message}</p>)}
         </div>
@@ -156,7 +157,7 @@ const Login = (props) => {
             onChange={handleChangePassword}
           />
           {(formErrors.err.passwordErr && (
-            <p>{formErrors.err.passwordErr}</p>
+            <p className="text-red-600">{formErrors.err.passwordErr}</p>
           )) ||
             (message && <p className="text-red-600">{message}</p>)}
         </div>

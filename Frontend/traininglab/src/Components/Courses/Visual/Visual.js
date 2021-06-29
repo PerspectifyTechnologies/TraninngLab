@@ -1,11 +1,12 @@
-import React from "react";
+import React from 'react';
+import styles from './visual.module.css'
 
 const Visual = () => {
-  return (
-    <div className='visual-starterBg h-eveHeight'>
-      Visual designer
-    </div>
-  );
+    return (
+        <div style={{height:"100vh"}} className={styles.starterBg}>
+            visual designer
+        </div>
+    );
 };
 
 export default Visual;
