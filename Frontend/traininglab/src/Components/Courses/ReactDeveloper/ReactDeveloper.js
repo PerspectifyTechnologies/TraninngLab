@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './reactdevelop.module.css'
 import ReactPlayer from "react-player";
 
@@ -10,29 +10,19 @@ const ReactDeveloper = () => {
 
 //   console.log(courseData);
 
-  // useEffect(()=>{
-  //   fetch("http://prespectify-traininglab.ap-south-1.elasticbeanstalk.com/api/QueryCourses/SubCourses?SubCourseID=1")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //     });
-  // },[])
+const [reactData, setReactData] = useState([]);
+useEffect(() => {
+  fetch(
+    "https://localhost:44388/api/QueryCourses/SubCourses?SubCourseID=2"
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("newdata",data);
+      setReactData(data)
+    });
+}, []);
 
-  // useEffect(()=>{
-  //   fetch('http://prespectify-traininglab.ap-south-1.elasticbeanstalk.com/api/QueryCourses/SubCourses?SubCourseID=1', {
-  //           method: 'GET', // *GET, POST, PUT, DELETE, etc.
-  //           mode: 'cors', // no-cors, *cors, same-origin
-  //           cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-  //           credentials: 'same-origin', // include, *same-origin, omit
-  //           headers: {
-  //                "Content-Type": "application/json"
-  //           }
-  //         })
-  //         .then((res) => res.json())
-  //         .then((data) => {
-  //           console.log(data);
-  //         });
-  // },[])
+  
  
   const [linkInfo,setLinkInfo] = useState({
     courseID: 1,
