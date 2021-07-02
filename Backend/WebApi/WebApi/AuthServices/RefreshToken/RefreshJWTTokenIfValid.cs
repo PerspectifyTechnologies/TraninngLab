@@ -2,13 +2,18 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Linq;
-using WebApi.AuthServices.Authentication;
+using WebApi.AuthServices;
 using WebApi.AuthServices.Models;
 
 namespace WebApi.RefreshToken
 {
     public class RefreshJWTTokenIfValid : Controller
     {
+        private static Lazy<RefreshJWTTokenIfValid> Initializer = new Lazy<RefreshJWTTokenIfValid>(() => new RefreshJWTTokenIfValid());
+        public static RefreshJWTTokenIfValid Instance => Initializer.Value;
+        private RefreshJWTTokenIfValid()
+        {
+        }
         private readonly JwtAuthenticationManager jwtAuthenticationManager;
         public RefreshJWTTokenIfValid(JwtAuthenticationManager jwtAuthenticationManager)
         {
@@ -19,7 +24,7 @@ namespace WebApi.RefreshToken
         {
             try
             {
-                var Principle = new FromJWTToken().ValidateAndGetClaims(refreshToken.Token);//check validity of the JWT token and retrieve claims
+                var Principle = FromJWTToken.Instance.ValidateAndGetClaims(refreshToken.Token);//check validity of the JWT token and retrieve claims
 
                 if (Principle != null)
                 {
@@ -28,7 +33,7 @@ namespace WebApi.RefreshToken
                         x.Type.ToString().Equals(
                         "USERSECRET", StringComparison.InvariantCultureIgnoreCase))
                         .Value;
-                    Tuple<string, string> Refreshtoken = new RefreshTokenInDB().Check(username);
+                    Tuple<string, string> Refreshtoken = RefreshTokenInDB.Instance.Check(username);
                     if (Refreshtoken is null)
                         throw new Exception(message: "No Refresh Token for The User");
                     DateTime expiryDate = new DateFormat().ConvertToSTDDateTime(Refreshtoken.Item2);

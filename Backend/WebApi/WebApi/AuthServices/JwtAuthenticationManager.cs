@@ -4,7 +4,7 @@ using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
-namespace WebApi.AuthServices.Authentication
+namespace WebApi.AuthServices
 {
     public class JwtAuthenticationManager
     {
@@ -16,8 +16,7 @@ namespace WebApi.AuthServices.Authentication
 
         public string GenerateTokenIfValid(string username, string password, bool refresh)
         {
-            LoginServices databaseLoginService = new LoginServices();
-            if (!databaseLoginService.MatchLoginCreds(username, password, refresh))
+            if (!LoginServices.Instance.MatchLoginCreds(username, password, refresh))
             {
                 return null;
             }

@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.AuthServices.Authentication;
+using WebApi.AuthServices;
 
 namespace WebApi
 {

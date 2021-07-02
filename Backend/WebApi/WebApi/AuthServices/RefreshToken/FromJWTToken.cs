@@ -8,6 +8,11 @@ namespace WebApi.RefreshToken
 {
     public class FromJWTToken
     {
+        private static Lazy<FromJWTToken> Initializer = new Lazy<FromJWTToken>(() => new FromJWTToken());
+        public static FromJWTToken Instance => Initializer.Value;
+        private FromJWTToken()
+        {
+        }
         internal ClaimsPrincipal ValidateAndGetClaims(string token)
         {
             var tokenValidationParameters = new TokenValidationParameters

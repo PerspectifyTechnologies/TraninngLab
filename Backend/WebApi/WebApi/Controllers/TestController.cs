@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,9 @@ namespace WebApi.Controllers
     public class TestController : Controller
     {
         [HttpGet("{id}")]
-        public IDictionary<int,QnA> GetQnA(int TestID)
+        public async Task<string> GetQnA(int TestID)
         {
-            return new GetQnA().GetRandomTen(TestID);
+            return JsonConvert.SerializeObject(await QnA.Instance.GetRandomTen(TestID));
         }
     }
 }

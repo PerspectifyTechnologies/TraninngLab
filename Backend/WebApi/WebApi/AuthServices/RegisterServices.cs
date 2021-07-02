@@ -3,10 +3,15 @@ using System;
 using System.Web.Helpers;
 using WebApi.AuthServices.Models;
 
-namespace WebApi.AuthServices.Authentication
+namespace WebApi.AuthServices
 {
     public class RegisterServices
     {
+        private static Lazy<RegisterServices> Initializer = new Lazy<RegisterServices>(() => new RegisterServices());
+        public static RegisterServices Instance => Initializer.Value;
+        private RegisterServices()
+        {
+        }
         public bool RegisterRecordsIfValid(RegisterModel registerModel)
         {
             using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))

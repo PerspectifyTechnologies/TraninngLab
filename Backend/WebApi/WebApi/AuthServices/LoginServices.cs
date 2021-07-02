@@ -2,10 +2,15 @@
 using System;
 using System.Web.Helpers;
 
-namespace WebApi.AuthServices.Authentication
+namespace WebApi.AuthServices
 {
     public class LoginServices
     {
+        private static Lazy<LoginServices> Initializer = new Lazy<LoginServices>(() => new LoginServices());
+        public static LoginServices Instance => Initializer.Value;
+        private LoginServices()
+        {
+        }
         public int GetLogIdOfUSer(string username)
         {
             using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))

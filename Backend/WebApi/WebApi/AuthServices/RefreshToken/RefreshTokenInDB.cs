@@ -5,6 +5,11 @@ namespace WebApi.RefreshToken
 {
     public class RefreshTokenInDB
     {
+        private static Lazy<RefreshTokenInDB> Initializer = new Lazy<RefreshTokenInDB>(() => new RefreshTokenInDB());
+        public static RefreshTokenInDB Instance => Initializer.Value;
+        private RefreshTokenInDB()
+        {
+        }
         internal Tuple<string, string> Check(string username)
         {
             using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))

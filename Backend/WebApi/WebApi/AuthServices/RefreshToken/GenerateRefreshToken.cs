@@ -7,6 +7,11 @@ namespace WebApi.RefreshToken
 {
     public class GenerateRefreshToken
     {
+        private static Lazy<GenerateRefreshToken> Initializer = new Lazy<GenerateRefreshToken>(() => new GenerateRefreshToken());
+        public static GenerateRefreshToken Instance => Initializer.Value;
+        private GenerateRefreshToken()
+        {
+        }
         public GenerateRefreshToken(string username)
         {
             RefreshTokenModel refreshTokenEntry = new RefreshTokenModel()

@@ -1,9 +1,14 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-namespace WebApi.AuthServices.Authentication
+namespace WebApi.AuthServices
 {
     public class LogoutServices
     {
+        private static Lazy<LogoutServices> Initializer = new Lazy<LogoutServices>(() => new LogoutServices());
+        public static LogoutServices Instance => Initializer.Value;
+        private LogoutServices()
+        {
+        }
         public void Logout(string username,string token)
         {
             using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))

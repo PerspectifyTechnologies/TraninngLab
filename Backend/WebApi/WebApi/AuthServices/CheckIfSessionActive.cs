@@ -1,10 +1,15 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 
-namespace WebApi.AuthServices.Authentication
+namespace WebApi.AuthServices
 {
     public class CheckIfSessionActive
     {
+        private static Lazy<CheckIfSessionActive> Initializer = new Lazy<CheckIfSessionActive>(() => new CheckIfSessionActive());
+        public static CheckIfSessionActive Instance => Initializer.Value;
+        private CheckIfSessionActive()
+        {
+        }
         public bool IfInvalid(string username)
         {
             using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))

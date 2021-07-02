@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.AuthServices.Authentication;
+using System.Threading.Tasks;
+using WebApi.AuthServices;
 using WebApi.AuthServices.Models;
 using WebApi.RefreshToken;
 
@@ -30,10 +31,10 @@ namespace WebApi.Controllers
 
         //to get authorized access
         [HttpGet]
-        [Route("Home")]
+        [Route("home")]
         public IActionResult GetAuth()
         {
-            if (new CheckBlacklist().IfPresent(HttpContext.Request.Headers["Authorization"].ToString().Substring(7)))
+            if (CheckBlacklist.Instance.IfPresent(HttpContext.Request.Headers["Authorization"].ToString().Substring(7)))
                 return Unauthorized(new { Status = "Error"});
             return Ok(new { Status = "Success"});
         }
@@ -44,9 +45,9 @@ namespace WebApi.Controllers
         public IActionResult Login([FromBody] LoginModel credentials)
         {
             string message = "";
-            if (new CheckIfSessionActive().IfInvalid(credentials.Username))
+            if (CheckIfSessionActive.Instance.IfInvalid(credentials.Username))
                 message = "Session was Expired. Logging in Again !\n" ;
-            if (new LoginServices().GetLogIdOfUSer(credentials.Username) == 0)
+            if (LoginServices.Instance.GetLogIdOfUSer(credentials.Username) == 0)
             {
                 var token = jwtAuthenticationManager
                             .GenerateTokenIfValid(credentials.Username, credentials.Password, false);
@@ -66,7 +67,7 @@ namespace WebApi.Controllers
         [HttpPost("logout")]
         public IActionResult Logout([FromBody] LogoutModel credentials)
         {
-            new LogoutServices().Logout(credentials.Username, HttpContext.Request.Headers["Authorization"]);
+            LogoutServices.Instance.Logout(credentials.Username, HttpContext.Request.Headers["Authorization"]);
             return Ok(new { Status = "Success",
                             Message = "Successfully Logged Out"});
         }
@@ -76,7 +77,7 @@ namespace WebApi.Controllers
         [HttpPost("register")]
         public IActionResult Register([FromBody] RegisterModel registerModel)
         {
-            if (!new RegisterServices().RegisterRecordsIfValid(registerModel))
+            if (!RegisterServices.Instance.RegisterRecordsIfValid(registerModel))
                 return Ok(new  { Status = "Success",
                                  Message = "User created successfully!" });
             return Unauthorized(new  { Status = "Error",
@@ -88,7 +89,8 @@ namespace WebApi.Controllers
         [HttpPost("refresh")]
         public IActionResult Refresh([FromBody] TokenValidationBody refreshToken)
         {
-            if (new CheckBlacklist().IfPresent(refreshToken.Token)) 
+            
+            if (CheckBlacklist.Instance.IfPresent(refreshToken.Token)) 
                 return Unauthorized(new { Status = "Error",
                                           JwtToken = "" });
             return new RefreshJWTTokenIfValid(jwtAuthenticationManager)
