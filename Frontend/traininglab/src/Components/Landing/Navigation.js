@@ -3,15 +3,53 @@ import { Route } from "react-router";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../actions/auth";
+import axios from "axios";
+
+const API = "https://localhost:44388/api/";
+
+
 
 const Navigation = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
+  const authrize_access = (history,url) => {
+    var token = JSON.parse(localStorage.getItem("user"));
+    var axiosConfig = {
+    headers : {
+      'Authorization' : "bearer "+token.jwtToken
+    }
+    };
+    axios.get(API+"auth",axiosConfig)
+    .then((res) => {
+      history.push(url);
+    })
+    .catch((error) => {
+      if(error.response.status === 401){
+        var postData = {
+        token: token.jwtToken
+      };
+      axios.post(API + "refresh", postData)
+      .then((res2) => {
+          localStorage.removeItem("user");
+          localStorage.setItem("user", JSON.stringify(res2.data));
+          history.push(url);
+      })
+      .catch((error) =>{
+        alert("Session Expired Login Again.");
+        dispatch(logout());
+        history.push("/login");
+        console.log("Error in refreshing: ", error);
+      });
+
+        console.log("Error in refreshing: ", error);
+      }
+    });
+    };
   const logOut = () => {
     dispatch(logout());
     alert("Logged out successfully.");
-    window.location = "/home";
+    window.location = "/login";
   };
 
   const bgStyle = {
@@ -40,10 +78,14 @@ const Navigation = () => {
   return (
     <div style={bgStyle}>
       <ul style={ulStyle} className="p-1">
-        <Route
+       
+
+        {currentUser ? (
+          <div className="flex flex-row">
+             <Route
           render={({ history }) => (
-            <li onClick={() => history.push("/home")} style={navItem}>
-              <Link style={navLink} to="/home" aria-current="page">
+            <li onClick={() =>{authrize_access(history,"/home")}} style={navItem}>
+              <Link style={navLink}  aria-current="page">
                 Home
               </Link>
             </li>
@@ -52,8 +94,8 @@ const Navigation = () => {
 
         <Route
           render={({ history }) => (
-            <li onClick={() => history.push("/events")} style={navItem}>
-              <Link style={navLink} to="/events">
+            <li onClick={() => {authrize_access(history,"/events")}} style={navItem}>
+              <Link style={navLink}>
                 Events
               </Link>
             </li>
@@ -61,8 +103,8 @@ const Navigation = () => {
         />
         <Route
           render={({ history }) => (
-            <li onClick={() => history.push("/tests")} style={navItem}>
-              <Link style={navLink} to="/tests">
+            <li onClick={() => {authrize_access(history,"/tests")}} style={navItem}>
+              <Link style={navLink}>
                 Tests
               </Link>
             </li>
@@ -71,14 +113,11 @@ const Navigation = () => {
 
         <Route
           render={({ history }) => (
-            <li onClick={() => history.push("/motivational")} style={navItem}>
+            <li onClick={() => {authrize_access(history,"/motivational")}} style={navItem}>
               <Link style={navLink}>Courses</Link>
             </li>
           )}
         />
-
-        {currentUser ? (
-          <div className="flex flex-row">
             <li style={navItem}>{currentUser.username}</li>
             <Route render={() => <li onClick={logOut}>Log Out</li>} />
           </div>

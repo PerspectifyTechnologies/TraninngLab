@@ -37,7 +37,7 @@ const Landing = () => {
               render={({ history }) => (
                 <div
                   onClick={() => {
-                    history.push("/home");
+                    history.push("/login");
                   }}
                   style={{
                     display: "flex",

@@ -58,7 +58,8 @@ const Login = (props) => {
 
     if (handleFormValidation()) {
       await dispatch(login(username, password))
-        .then(() => {
+        .then(({ history }) => {
+          history.push("/home");
           setSubmitLoading(true);
         })
         .catch((err) => {
@@ -69,7 +70,6 @@ const Login = (props) => {
     } else {
       setSubmitLoading(false);
     }
-
     console.log(isLoggedIn);
     if (isLoggedIn) {
       //window.location = "/home";

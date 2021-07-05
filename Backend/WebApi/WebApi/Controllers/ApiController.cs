@@ -31,7 +31,7 @@ namespace WebApi.Controllers
 
         //to get authorized access
         [HttpGet]
-        [Route("home")]
+        [Route("auth")]
         public IActionResult GetAuth()
         {
             if (CheckBlacklist.Instance.IfPresent(HttpContext.Request.Headers["Authorization"].ToString().Substring(7)))

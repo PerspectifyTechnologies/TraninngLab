@@ -40,6 +40,7 @@ namespace WebApi.RefreshToken
                     string token = "";
 
                     TimeSpan ts = DateTime.Now - expiryDate;
+                    BlackListToken(refreshToken.Token);
                     if (ts.TotalSeconds <= 40)
                     {
                         token = jwtAuthenticationManager.GenerateTokenIfValid(username, password,true);
@@ -47,12 +48,14 @@ namespace WebApi.RefreshToken
                     }
                     else
                     {
+                        LogoutServices.Instance.Logout(username, refreshToken.Token);
                         return Unauthorized( new { Status = "error",
+                                                   Username = username,
                                                    JwtToken = "" });
                     }
-                    BlackListToken(refreshToken.Token);
                     return Ok(new { Status = "Success",
-                                    JwtToken = token });
+                        Username = username,
+                        JwtToken = token });
 
                 }
                 else
