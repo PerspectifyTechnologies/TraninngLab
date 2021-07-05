@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebApi.TestServices.Model;
 using WebApi.TestServices.Models;
 
 namespace WebApi.TestServices
@@ -40,9 +41,8 @@ namespace WebApi.TestServices
 
         private QnAModel GetQuestionsAndOptions(int questionID)
         {
-            List<string> options = new List<string>();
+            List<Option> options = new List<Option>();
             string question = null;
-            int answer=0;
             using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
             {
                 try
@@ -52,9 +52,11 @@ namespace WebApi.TestServices
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        options.Add(reader["Answer"].ToString());
-                        if (Convert.ToBoolean(reader["Answer"]) == true)
-                            answer = options.Count;
+                        options.Add(new Option()
+                        {
+                            Answer = reader["Answer"].ToString(),
+                            IsCorrect = (Convert.ToBoolean(reader["Answer"]) == true) ? (true):(false)
+                        }) ;
                         if (question == null)
                             question = reader["Question"].ToString();
                     }
@@ -64,8 +66,7 @@ namespace WebApi.TestServices
             }
             return new QnAModel(){
                 Question = question,
-                Options = options,
-                Answer = answer };
+                Options = options };
 
         }
     }
