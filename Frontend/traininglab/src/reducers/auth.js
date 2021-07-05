@@ -11,7 +11,7 @@ const userReducer = (state = initialState, action) => {
     case types.SIGNUP_SUCCESS:
       return {
         ...state,
-        isLoggedIn: true, // i think it should be true
+        isLoggedIn: false, 
       };
     case types.SIGNUP_FAIL:
       return {

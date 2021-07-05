@@ -70,10 +70,8 @@ const Login = (props) => {
       setSubmitLoading(false);
     }
 
-    console.log(isLoggedIn);
     if (isLoggedIn) {
-      //window.location = "/home";
-      history.replace(from);
+      window.location = "/home";
     }
   };
   return (
