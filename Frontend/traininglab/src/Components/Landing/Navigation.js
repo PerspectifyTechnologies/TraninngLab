@@ -82,6 +82,8 @@ const Navigation = () => {
             <li style={navItem}>{currentUser.username}</li>
             <Route render={() => <li onClick={logOut}>Log Out</li>} />
           </div>
+
+          
         ) : (
           <div className="flex flex-row">
             <Route

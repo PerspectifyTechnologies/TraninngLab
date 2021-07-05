@@ -5,8 +5,12 @@ import cNetImage from '../../assets/cnet.svg'
 import visualImage from '../../assets/visual.jpg'
 import reactImage from '../../assets/react.png'
 import styles from './starter.module.css'
+import { useSelector } from 'react-redux';
 
 const Starter = () => {
+
+    const data = useSelector((state)=>state.auth)
+    console.log(data?.state?.isLoggedIn);
     
             const imgFlex = {
                 display: "flex",

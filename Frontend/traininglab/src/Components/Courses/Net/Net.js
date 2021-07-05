@@ -115,6 +115,7 @@ const Net = () => {
     title: "An Introduction to C# learning cycle.",
     desc: "Desc",
   })
+  
   const handleUrl = (id) => {
     const linkData = netData?.find((item) => item?.subCourseID === id && item);
     setLinkInfo(linkData);

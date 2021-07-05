@@ -11,21 +11,44 @@ import Test from "../Test/Test";
 import LoginPage from "../LoginPage";
 import SignupPage from "../SignupPage";
 import Motivational from "../Courses/Motivational/Motivational"
-
+import PrivateRoute from "../PrivateRoute/PrivateRoute"
 const Home = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/" exact component={Landing} />
-        <Route path="/home" component={Starter} />
+        <Route exact path="/"  component={Landing} />
+        
         <Route path="/login" component={LoginPage} />
         <Route path="/signup" component={SignupPage} />
-        <Route path="/events" component={Events} />
-        <Route path="/tests" component={Test} />
-        <Route path="/net" component={Net} />
-        <Route path="/visual" component={Visual} />
-        <Route path="/react" component={ReactDeveloper} />
-        <Route path="/motivational" component={Motivational} />
+
+        <PrivateRoute path="/home">
+          <Starter></Starter>
+        </PrivateRoute>
+        <PrivateRoute path="/events">
+          <Events></Events>
+        </PrivateRoute>
+        <PrivateRoute path="/tests">
+          <Test></Test>
+        </PrivateRoute>
+        <PrivateRoute path="/net">
+          <Net></Net>
+        </PrivateRoute>
+        <PrivateRoute path="/visual">
+          <Visual></Visual>
+        </PrivateRoute>
+        <PrivateRoute path="/react">
+          <ReactDeveloper></ReactDeveloper>
+        </PrivateRoute>
+        <PrivateRoute path="/motivational">
+          <Motivational></Motivational>
+        </PrivateRoute>
+        {/* <PrivateRoute path="/home" component={Starter} />
+        <PrivateRoute path="/events" component={Events} />
+        <PrivateRoute path="/tests" component={Test} />
+        <PrivateRoute path="/net" component={Net} />
+        <PrivateRoute path="/visual" component={Visual} />
+        <PrivateRoute path="/react" component={ReactDeveloper} />
+        <PrivateRoute path="/motivational" component={Motivational} /> */}
         <Route path="*" component={Nomatch} />
       </Switch>
     </Router>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../../actions/auth";
 
@@ -46,6 +46,11 @@ const Login = (props) => {
     return formIsValid;
   };
 
+  let history = useHistory();
+  let location = useLocation();
+
+  let { from } = location.state || { from: { pathname: "/" } };
+
   const handleSubmit = async (event) => {
     //eslint-disable-line
     event.preventDefault();
@@ -65,8 +70,10 @@ const Login = (props) => {
       setSubmitLoading(false);
     }
 
+    console.log(isLoggedIn);
     if (isLoggedIn) {
-      window.location = "/home";
+      //window.location = "/home";
+      history.replace(from);
     }
   };
   return (
