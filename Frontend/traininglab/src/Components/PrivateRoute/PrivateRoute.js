@@ -14,7 +14,7 @@ function PrivateRoute({ children, ...rest }) {
       <Route
         {...rest}
         render={({ location }) =>
-          !auth.isLoggedIn ? (
+          auth.isLoggedIn ? (
             children
           ) : (
             <Redirect
