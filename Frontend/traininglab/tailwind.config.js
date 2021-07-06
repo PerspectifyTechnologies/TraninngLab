@@ -7,8 +7,13 @@ module.exports = {
       colors: {
         customblack: '#02111B',
         custombrown: '#3F4045',
+<<<<<<< HEAD
         customnewblue: '#00ADB5',
         customhoverblue: '#3edbf0',
+=======
+        customnewblue: '#f4d35e',
+        customhoverblue: '#02111B',
+>>>>>>> aa9767e234833bcbb9b03eab5d779e533f4ad2df
         customwhite: '#FFFFFF',
         customgray: '#eeeeee',
         coffee: '#30292F',
@@ -34,6 +39,12 @@ module.exports = {
         trialback: '#0B172A',
         trialback2: '#BC4123',
       },
+<<<<<<< HEAD
+=======
+      boxShadow: {
+        customsm: '2px 10px 35px 1px rgba(153, 153, 153, 0.3)',
+      },
+>>>>>>> aa9767e234833bcbb9b03eab5d779e533f4ad2df
       fontFamily: {
         myfonts: [
           'Trebuchet MS',
@@ -43,10 +54,27 @@ module.exports = {
           'sans-serif',
         ],
       },
+<<<<<<< HEAD
+=======
+      margin: {
+        fx: '500px',
+        svg: '800px',
+        img: '505px'
+      },
+      height: {
+        quanth: '1550px',
+        shyamh: '424px',
+        customcar: '400px',
+      },
+>>>>>>> aa9767e234833bcbb9b03eab5d779e533f4ad2df
     },
   },
   variants: {
     extend: {},
+<<<<<<< HEAD
   },
   plugins: [],
+=======
+  }
+>>>>>>> aa9767e234833bcbb9b03eab5d779e533f4ad2df
 };

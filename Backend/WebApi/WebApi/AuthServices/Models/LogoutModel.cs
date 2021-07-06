@@ -3,5 +3,6 @@
     public class LogoutModel
     {
         public string Username { get; set; }
+        public string token { get; set; }
     }
 }

@@ -223,7 +223,7 @@ const Signup = () => {
         </div>
 
         <button
-          className="w-1/3 cursor-pointer font-myfonts font-normal mx-auto text-lg h-12 mt-8 border-2 outline-none border-none bg-customnewblue hover:bg-customhoverblue text-customwhite hover:text-customdarkblue text-center "
+          className="w-1/3 cursor-pointer font-myfonts font-normal mx-auto text-lg h-12 mt-8 border-2 outline-none border-none bg-customnewblue hover:bg-customhoverblue text-customblack hover:text-customnewblue text-center "
           type="submit"
           onClick={handleSubmit}
           disabled={submitLoading}

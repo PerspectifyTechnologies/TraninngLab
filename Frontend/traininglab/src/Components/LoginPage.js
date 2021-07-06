@@ -14,7 +14,7 @@ const LoginPage = () => {
           <h4 className="font-myfonts text-customblack">
             Sign In to continue to your Account
           </h4>
-          <div className="seperator"></div>
+          <div ></div>
         </div>
         <Login />
       </div>
