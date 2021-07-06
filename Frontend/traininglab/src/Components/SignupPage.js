@@ -15,7 +15,7 @@ const SignupPage = () => {
           <h4 className="font-myfonts mt-12 text-customblack">
             Begin Your Journey
           </h4>
-          <div className="seperator"></div>
+          <div></div>
         </div>
         <Signup />
       </div>

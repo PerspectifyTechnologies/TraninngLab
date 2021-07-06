@@ -38,23 +38,19 @@ const login = async (username, password) => {
 
 const logout = () => {
   var token = JSON.parse(localStorage.getItem("user"));
+  console.log(token);
   localStorage.removeItem("user");
   var postData = {
-    username: token.username
-  };
-  
-  var axiosConfig = {
-    headers : {
-      'Authorization' : "bearer "+token.jwtToken
+    username: token.username,
+    token : "bearer "+token.jwtToken
     }
-  };
-  axios.post(API + "logout", postData, axiosConfig)
+  axios.post(API + "logout", postData)
   .then((res) => {
-    alert("User has been already registered. So please login.");
+    alert(res);
   })
   .catch((err) => {
     console.log("Error in login: ", err);
   });
-}
+};
 
 export default { register, login, logout }; //eslint-disable-line

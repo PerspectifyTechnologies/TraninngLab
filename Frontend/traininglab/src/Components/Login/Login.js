@@ -9,7 +9,7 @@ const Login = (props) => {
   const [formErrors, setFormErrors] = useState({ err: "" });
   const [submitLoading, setSubmitLoading] = useState(false);
 
-  const { isLoggedIn } = useSelector((state) => state.auth);
+  var { isLoggedIn } = useSelector((state) => state.auth);
   const { message } = useSelector((state) => state.message);
 
   const dispatch = useDispatch();
@@ -58,8 +58,7 @@ const Login = (props) => {
 
     if (handleFormValidation()) {
       await dispatch(login(username, password))
-        .then(({ history }) => {
-          history.push("/home");
+        .then(() => {
           setSubmitLoading(true);
         })
         .catch((err) => {
@@ -70,8 +69,8 @@ const Login = (props) => {
     } else {
       setSubmitLoading(false);
     }
-    if (isLoggedIn) {
-      window.location = "/home";
+    if (!isLoggedIn) {
+      history.push("/home");
     }
   };
   return (
@@ -167,7 +166,7 @@ const Login = (props) => {
             (message && <p className="text-red-600">{message}</p>)}
         </div>
         <button
-          className="cursor-pointer font-myfonts mx-auto text-lg w-1/3 h-12 mt-8 border-2 outline-none border-none bg-customnewblue hover:bg-customhoverblue text-customwhite hover:text-customdarkblue text-center "
+          className="cursor-pointer font-myfonts mx-auto text-lg w-1/3 h-12 mt-8 border-2 outline-none border-none bg-customnewblue hover:bg-customhoverblue text-customblack hover:text-customnewblue text-center "
           type="submit"
           onClick={handleSubmit}
           disabled={submitLoading}

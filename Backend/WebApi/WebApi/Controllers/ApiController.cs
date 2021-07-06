@@ -64,10 +64,11 @@ namespace WebApi.Controllers
         }
 
 
+        [AllowAnonymous]
         [HttpPost("logout")]
         public IActionResult Logout([FromBody] LogoutModel credentials)
         {
-            LogoutServices.Instance.Logout(credentials.Username, HttpContext.Request.Headers["Authorization"]);
+            LogoutServices.Instance.Logout(credentials.Username, credentials.token);
             return Ok(new { Status = "Success",
                             Message = "Successfully Logged Out"});
         }
