@@ -75,6 +75,8 @@ const Navigation = () => {
     color: "#f7fbfc",
   };
 
+  
+
   return (
     <div style={bgStyle}>
       <ul style={ulStyle} className="p-1">

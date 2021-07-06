@@ -74,6 +74,7 @@ const Login = (props) => {
       window.location = "/home";
     }
   };
+  
   return (
     <div className="font-myfonts form1-content-right">
       <button className="facebook-button sc-dnqmqq iTCbCQ">

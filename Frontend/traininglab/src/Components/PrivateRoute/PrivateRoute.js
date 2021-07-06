@@ -10,11 +10,17 @@ function PrivateRoute({ children, ...rest }) {
     const data = useSelector((state)=>state.auth)
     let auth = data?.state;
     console.log(auth);
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  console.log(isLoggedIn);
+
+  const { user: currentUser } = useSelector((state) => state.auth);
+    console.log(currentUser);
+
     return (
       <Route
         {...rest}
         render={({ location }) =>
-          auth.isLoggedIn ? (
+          !auth.isLoggedIn ? (
             children
           ) : (
             <Redirect
