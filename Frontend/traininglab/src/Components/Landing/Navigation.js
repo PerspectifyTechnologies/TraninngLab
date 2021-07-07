@@ -71,15 +71,11 @@ const Navigation = () => {
     padding: "1rem 1rem",
   }
 
-<<<<<<< HEAD
-  
-
-=======
   const user = {
     display: "block",
     padding: "1rem 1rem 1rem 1rem",
   }
->>>>>>> aa9767e234833bcbb9b03eab5d779e533f4ad2df
+
   return (
     <div style={bgStyle}>
       <ul style={ulStyle} className="p-1">
