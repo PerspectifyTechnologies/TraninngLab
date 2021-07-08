@@ -24,7 +24,7 @@ const Starter = () => {
 
 
             const starterStyle = {
-                height:"110vh"
+                height:"90vh"
             }
             
             const { user: currentUser } = useSelector((state) => state.auth);

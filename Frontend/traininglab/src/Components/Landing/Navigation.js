@@ -14,6 +14,10 @@ const Navigation =  () => {
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
+  var data = useSelector((state)=>state.auth)
+    let navAuth = data?.state?.isLoggedIn;
+    console.log(navAuth);
+
   const authrize_access = async(history,url) => {
     var token = JSON.parse(localStorage.getItem("user"));
     var axiosConfig = {
@@ -53,7 +57,8 @@ const Navigation =  () => {
   };
 
   const bgStyle = {
-    backgroundColor: "#02111B",
+    backgroundColor: "#171E27",
+    padding:"10px 0"
   };
   const ulStyle = {
     display: "flex",
@@ -66,10 +71,14 @@ const Navigation =  () => {
   const navItem = {
     textAlign: "center",
   };
-
+  
   const pos = {
     display: "block",
-    padding: "1rem 1rem",
+    padding: ".5rem 1rem",
+    // border:"2px solid #FFC107",
+    // borderRadius: "10px 0 10px 0",
+    marginRight:"10px",
+    color:"#FFC107"
   }
 
   const user = {
@@ -87,7 +96,7 @@ const Navigation =  () => {
              <Route
           render={({ history }) => (
             <li onClick={() =>{authrize_access(history,"/home")}} style={navItem}>
-              <Link style={pos} className="cursor-pointer font-myfonts border-none bg-customblack hover:bg-customnewblue text-customnewblue hover:text-customblack text-center " aria-current="page">
+              <Link style={pos} className="cursor-pointer font-myfonts border-none  text-center " aria-current="page">
                 Home
               </Link>
             </li>
@@ -97,7 +106,7 @@ const Navigation =  () => {
         <Route
           render={({ history }) => (
             <li onClick={() => {authrize_access(history,"/events")}} style={navItem}>
-              <Link style={pos} className="cursor-pointer font-myfonts border-none bg-customblack hover:bg-customnewblue text-customnewblue hover:text-customblack text-center ">
+              <Link style={pos} className="cursor-pointer font-myfonts border-none  text-center ">
                 Events
               </Link>
             </li>
@@ -106,7 +115,7 @@ const Navigation =  () => {
         <Route
           render={({ history }) => (
             <li onClick={() => {authrize_access(history,"/tests")}} style={navItem}>
-              <Link style={pos} className="cursor-pointer font-myfonts border-none bg-customblack hover:bg-customnewblue text-customnewblue hover:text-customblack text-center ">
+              <Link style={pos} className="cursor-pointer font-myfonts border-none  text-center ">
                 Tests
               </Link>
             </li>
@@ -116,12 +125,12 @@ const Navigation =  () => {
         <Route
           render={({ history }) => (
             <li onClick={() => {authrize_access(history,"/motivational")}} style={navItem}>
-              <Link style={pos} className="cursor-pointer font-myfonts border-none bg-customblack hover:bg-customnewblue text-customnewblue hover:text-customblack text-center ">Courses</Link>
+              <Link style={pos} className="cursor-pointer font-myfonts   text-center ">Courses</Link>
             </li>
           )}
         />
-            <li style={navItem}><Link style={user} className="cursor-pointer font-myfonts border-none bg-customblack  text-customnewblue text-center ">Welcome, {currentUser.username}</Link></li>
-            <li onClick={logOut} style={navItem} ><Link style={pos} className="cursor-pointer font-myfonts border-none bg-customblack hover:bg-customnewblue text-customnewblue hover:text-customblack text-center ">Log Out</Link></li>
+            <li style={pos}><Link  className="cursor-pointer font-myfonts text-center ">Welcome, {currentUser.username}</Link></li>
+            <li onClick={logOut} style={navItem} ><Link style={pos} className="cursor-pointer font-myfonts border-none  text-center ">Log Out</Link></li>
           </div>
 
           
@@ -130,7 +139,7 @@ const Navigation =  () => {
             <Route
               render={({ history }) => (
                 <li onClick={() => history.push("/signup")} style={navItem}>
-                  <Link style={pos} className="cursor-pointer font-myfonts border-none bg-customblack hover:bg-customnewblue text-customnewblue hover:text-customblack text-center " to="/signup">
+                  <Link style={pos} className="cursor-pointer font-myfonts border-none  text-center " to="/signup">
                     Sign Up
                   </Link>
                 </li>
@@ -139,7 +148,7 @@ const Navigation =  () => {
             <Route
               render={({ history }) => (
                 <li onClick={() => history.push("/login")} style={navItem}>
-                  <Link style={pos} className="cursor-pointer font-myfonts border-none bg-customblack hover:bg-customnewblue text-customnewblue hover:text-customblack text-center " to="/login">
+                  <Link style={pos} className="cursor-pointer font-myfonts border-none  text-center " to="/login">
                     Login
                   </Link>
                 </li>
