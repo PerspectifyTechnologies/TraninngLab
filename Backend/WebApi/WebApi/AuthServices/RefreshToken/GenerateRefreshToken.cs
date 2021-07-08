@@ -31,16 +31,17 @@ namespace WebApi.RefreshToken
                 {
                     conn.Open();
                     DeleteOldRefreshToken(conn,refreshTokenEntry.Username);
-                    string query = "INSERT INTO refreshtokens(username,refreshtoken,expirationdate) VALUES('" + 
-                        refreshTokenEntry.Username + "','" +
-                        refreshTokenEntry.RefreshToken + "','"+
-                        refreshTokenEntry.ExpirationTime.ToString("yyyy-MM-dd H:mm:ss") + "');";
+                    string query = "INSERT INTO refreshtokens VALUES('" + 
+                         refreshTokenEntry.Username + "', '" + 
+                         refreshTokenEntry.RefreshToken + "', '"+
+                         refreshTokenEntry.ExpirationTime.ToString("yyyy-MM-dd H:mm:ss") + "');";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     reader.Close();
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Console.WriteLine(e.Message);
                 }
             }
         }

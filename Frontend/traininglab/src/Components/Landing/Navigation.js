@@ -3,17 +3,18 @@ import { Route } from "react-router";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../actions/auth";
+import { logoutOnRefreshFail } from "../../actions/auth";
 import axios from "axios";
 
 const API = "https://localhost:44388/api/";
 
 
 
-const Navigation = () => {
+const Navigation =  () => {
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const authrize_access = (history,url) => {
+  const authrize_access = async(history,url) => {
     var token = JSON.parse(localStorage.getItem("user"));
     var axiosConfig = {
     headers : {
@@ -29,15 +30,15 @@ const Navigation = () => {
         var postData = {
         token: token.jwtToken
       };
-      axios.post(API + "refresh", postData)
+     axios.post(API + "refresh", postData)
       .then((res2) => {
-          localStorage.removeItem("user");
+        localStorage.removeItem("user");
           localStorage.setItem("user", JSON.stringify(res2.data));
           history.push(url);
       })
       .catch((error) =>{
         alert("Session Expired Login Again.");
-        dispatch(logout());
+        dispatch(logoutOnRefreshFail());
         history.push("/login");
         console.log("Error in refreshing: ", error);
       });
@@ -46,8 +47,8 @@ const Navigation = () => {
       }
     });
     };
-  const logOut = () => {
-    dispatch(logout());
+  const logOut = async () => {
+    await dispatch(logout());
     window.location = "/login";
   };
 

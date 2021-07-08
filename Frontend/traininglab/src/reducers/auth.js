@@ -1,6 +1,6 @@
 import * as types from "../actions/types";
 
-const user = JSON.parse(localStorage.getItem("user"));
+const user = localStorage.getItem("user");
 
 const initialState = user
   ? { isLoggedIn: true, user }

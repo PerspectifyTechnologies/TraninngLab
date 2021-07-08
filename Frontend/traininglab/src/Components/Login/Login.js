@@ -65,7 +65,6 @@ const Login = (props) => {
           console.log("error from login", err);
           setSubmitLoading(true);
         });
-      setSubmitLoading(false);
     } else {
       setSubmitLoading(false);
     }

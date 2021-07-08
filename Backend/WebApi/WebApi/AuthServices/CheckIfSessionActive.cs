@@ -18,7 +18,7 @@ namespace WebApi.AuthServices
                 {
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand("select * from refreshtokens where username = '" + username +
-                                                        "' and DATE_ADD(expirationdate,interval 40 second) < now();", conn);//CONFIGURE THE EXPIRATION
+                                                        "' and DATE_ADD(expirationdate,interval 6 day) < now();", conn);//CONFIGURE THE EXPIRATION
                     MySqlDataReader reader = cmd.ExecuteReader();
                     if (reader.Read() == true)
                     {

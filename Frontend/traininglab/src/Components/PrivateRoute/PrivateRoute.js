@@ -7,14 +7,20 @@ import { Route,Redirect } from "react-router";
 
 function PrivateRoute({ children, ...rest }) {
     //let auth = useAuth();
+    var LoggedIn;
+    if ("user" in localStorage) {
+      LoggedIn = true;
+  } else {
+    LoggedIn = false;
+  }
     var data = useSelector((state)=>state.auth)
     let auth = data?.state;
-    console.log(auth);
+    console.log(LoggedIn);
     return (
       <Route
         {...rest}
         render={({ location }) =>
-          !auth.isLoggedIn ? (
+          LoggedIn ? (
             children
           ) : (
             <Redirect

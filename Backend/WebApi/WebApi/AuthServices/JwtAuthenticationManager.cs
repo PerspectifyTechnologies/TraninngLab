@@ -33,7 +33,7 @@ namespace WebApi.AuthServices
                     new Claim(ClaimTypes.Name,username),
                     new Claim("USERSECRET", password)
                 }),
-                Expires = DateTime.Now.AddSeconds(20),//CONFIGURE TO MINUTES OR HOURS JWT TOKEN EXPIRY
+                Expires = DateTime.Now.AddHours(2),//CONFIGURE TO MINUTES OR HOURS JWT TOKEN EXPIRY
                 SigningCredentials =
                 new SigningCredentials(
                     new SymmetricSecurityKey(tokenKey),

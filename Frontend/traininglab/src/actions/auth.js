@@ -45,7 +45,11 @@ export const login = (username, password) => async (dispatch) => {
   );
 };
 
-export const logout = () => (dispatch) => {
+export const logout = () => async(dispatch) => {
   AuthService.logout();
+  dispatch({ type: types.LOGOUT });
+};
+export const logoutOnRefreshFail = () => async (dispatch) => {
+  localStorage.removeItem("user");
   dispatch({ type: types.LOGOUT });
 };

@@ -36,7 +36,7 @@ const login = async (username, password) => {
     });
 };
 
-const logout = () => {
+const logout = async() => {
   var token = JSON.parse(localStorage.getItem("user"));
   console.log(token);
   localStorage.removeItem("user");
@@ -44,9 +44,9 @@ const logout = () => {
     username: token.username,
     token : "bearer "+token.jwtToken
     }
-  axios.post(API + "logout", postData)
+   await axios.post(API +"logout", postData)
   .then((res) => {
-    alert(res);
+    console.log(res);
   })
   .catch((err) => {
     console.log("Error in login: ", err);

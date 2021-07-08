@@ -13,7 +13,6 @@ namespace WebApi.Controllers
     [Route("[controller]")]
     [ApiController]
     [EnableCors("ReactPolicy")]
-    [Authorize]
     public class ApiController : ControllerBase
     {
         private readonly JwtAuthenticationManager jwtAuthenticationManager;
@@ -30,6 +29,7 @@ namespace WebApi.Controllers
         }
 
         //to get authorized access
+        [Authorize]
         [HttpGet]
         [Route("auth")]
         public IActionResult GetAuth()

@@ -41,7 +41,7 @@ namespace WebApi.RefreshToken
 
                     TimeSpan ts = DateTime.Now - expiryDate;
                     BlackListToken(refreshToken.Token);
-                    if (ts.TotalSeconds <= 40)
+                    if (ts.TotalDays <= 6)
                     {
                         token = jwtAuthenticationManager.GenerateTokenIfValid(username, password,true);
                         new GenerateRefreshToken(username);
