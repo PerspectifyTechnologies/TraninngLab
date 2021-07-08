@@ -12,9 +12,9 @@ const Landing = () => {
 
   const pStyle = {
     fontSize: "2vw",
-    backgroundColor: "white",
-    borderRadius: "10px",
+    border: "2px solid white",
     padding: "1px",
+    color:"white",
     width: "20%",
   };
 

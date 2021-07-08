@@ -5,9 +5,9 @@
     padding: 0;
 }
 .mainDiv{
-    background: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.7)),url(../../assets/background.jpg) ;
+    background: linear-gradient(rgba(0,0,0,0.1),rgba(0,0,0,0.7)),url(../../assets/newBackgroud.jpg) ;
     background-size: cover;
-    height:110vh;
+    height:100vh;
 }
 
 .mainDiv h1{
