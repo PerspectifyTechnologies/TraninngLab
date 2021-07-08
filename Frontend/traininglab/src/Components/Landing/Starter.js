@@ -18,10 +18,10 @@ const Starter = () => {
                 alignItems:"center",
                 width:"25%",
                 height: '30vh',
-                backgroundColor: "#d8e3e7",
                 borderRadius: "10px"
             } 
 
+            
 
             const starterStyle = {
                 height:"90vh"
@@ -40,19 +40,19 @@ const Starter = () => {
                         <div style={{height: "90vh",display: "flex", justifyContent: "space-evenly",alignItems:"center"}}>
                             
                             <Route render={({history})=> (
-                                <div onClick={()=> history.push("/net")} style={imgFlex} >
+                                <div onClick={()=> history.push("/net")} style={imgFlex} className={styles.transparentCard} >
                                     <img style={{maxWidth: "100%",height: "auto", width:"25%"}} src={cNetImage} alt="" />
                                 </div>
                             ) } />
 
                             <Route render={({history})=> (
-                                <div onClick={()=> history.push("/visual")} style={imgFlex} >
+                                <div onClick={()=> history.push("/visual")} style={imgFlex} className={styles.transparentCard}>
                                     <img style={{maxWidth: "100%",height: "auto", width:"50%"}} src={visualImage} alt="" />
                                 </div>
                             ) } />
 
                             <Route render={({history})=> (
-                                <div onClick={()=> history.push("/react")} style={imgFlex} >
+                                <div onClick={()=> history.push("/react")} style={imgFlex} className={styles.transparentCard}>
                                     <img style={{maxWidth: "100%",height: "auto", width:"50%"}} src={reactImage} alt="" />
                                 </div>
                             ) } />

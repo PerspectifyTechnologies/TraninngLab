@@ -5,3 +5,13 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+.transparentCard  {
+    background: rgba(255,255,25,0.01);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 25px 45px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255,255,25,0.3);
+    border-right: 1px solid rgba(255,255,25,0.2);
+    border-bottom: 1px solid rgba(255,255,25,0.2);
+    border-radius: 10px;
+}

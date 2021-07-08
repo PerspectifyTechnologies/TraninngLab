@@ -31,15 +31,13 @@ const Motivational = () => {
     
       
       const listStyle = {
-          background:"#902167",
-          color:"white",
+          background:"#171E27",
+          color:"#FFC107",
           margin:"7px",
           padding:"10px",
           width:"30vw",
           borderRadius:"10px"
-      }
-      // #902167
-      // #332155
+      };
 
     return (
         <div style={{ height: "100%" }} className={styles.starterBg}>
@@ -54,8 +52,8 @@ const Motivational = () => {
                 >
                 <div>
                     <div
-              style={{ background: "#332155", color: "white" }}
-              className="my-5 text-center   p-5"
+              style={{  color: "#FFC107" }}
+              className="my-5 text-center  transparentCard p-5"
             >
               <p className=" font-bold">{linkInfo?.title}</p>
             </div>
@@ -64,7 +62,7 @@ const Motivational = () => {
                 </div>
                 <div className="flex justify-center items-center col-span-2">
                     <div style={{height:"33rem"}} className="  overflow-auto rounded-2xl">
-                        <div style={{backgroundColor:"#332155",padding: "1.75rem"}} className="p-7 ">
+                        <div style={{padding: "1.75rem"}} className="p-7 transparentCard">
                             {
                                 motivationalData.map(item => <p style={listStyle} className="cursor-pointer" onClick={()=>handleUrl(item.id)}>{item.title}</p> )
                             }

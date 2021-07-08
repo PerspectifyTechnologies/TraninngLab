@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './reactdevelop.module.css'
 import ReactPlayer from "react-player";
+import Navigation from '../../Landing/Navigation';
 
 const ReactDeveloper = () => {
 
@@ -41,28 +42,30 @@ useEffect(() => {
     
       
 
-      const listStyle = {
-          background:"#5F7680",
-          color:"white",
-          margin:"7px",
-          padding:"10px",
-          width:"30vw",
-          borderRadius:"10px"
-      }
+  const listStyle = {
+    background: "#171E27",
+    color: "#FFC107",
+    margin: "7px",
+    padding: "10px",
+    width: "30vw",
+    borderRadius: "10px",
+  };
       // #902167 #5F7680 
       // #332155 #143753
 
   return (
     <div style={{ height: "100%" }} className={styles.starterBg}>
-            
+            <div>
+              <Navigation></Navigation>
+            </div>
             <div className="grid grid-cols-5 gap-4">
                 
                 <div
-                style={{ height: "100vh" }}
+                style={{ height: "90vh" }}
                 className="flex justify-center items-center col-span-3 "
                 >
                     <div>
-                    <div style={{background:"#143753",color:"white"}} className="my-5 text-center   p-5">
+                    <div style={{color:"#FFC107"}} className="my-5 text-center transparentCard  p-5">
               <p className=" font-bold">{linkInfo.title}</p>
             </div>
                 <ReactPlayer controls url={videoUrl} />
@@ -70,7 +73,7 @@ useEffect(() => {
                 </div>
                 <div className="flex justify-center items-center col-span-2">
                     <div style={{height:"33rem"}} className="  overflow-auto rounded-2xl">
-                        <div style={{backgroundColor:"#143753",padding: "1.75rem"}} className="p-7 ">
+                        <div style={{padding: "1.75rem"}} className="p-7 transparentCard">
                             {
                                 reactData.map(item => <p style={listStyle} className="cursor-pointer" onClick={()=>handleUrl(item.subCourseID)}>{item.name}</p> )
                             }
