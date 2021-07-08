@@ -76,6 +76,7 @@ const Navigation =  () => {
     display: "block",
     padding: "1rem 1rem 1rem 1rem",
   }
+
   return (
     <div style={bgStyle}>
       <ul style={ulStyle} className="p-1">

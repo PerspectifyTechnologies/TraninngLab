@@ -27,6 +27,9 @@ const Starter = () => {
                 height:"110vh"
             }
             
+            const { user: currentUser } = useSelector((state) => state.auth);
+            console.log(currentUser);
+
     return (
         <div>
             <div>
