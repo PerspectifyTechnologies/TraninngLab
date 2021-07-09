@@ -74,7 +74,7 @@ const Login = (props) => {
   };
   
   return (
-    <div className="font-myfonts form1-content-right">
+    <div className="font-myfonts form1-content-right bg-custombg">
       <button className="facebook-button sc-dnqmqq iTCbCQ">
         <svg
           width="20"
@@ -194,7 +194,7 @@ const Login = (props) => {
           {!submitLoading && <div className="my-2">Login</div>}
         </button>
         <div className="text-sm mt-3 text-center w-4/5 text-customblack">
-          Not a member{" "}
+          Not a member..? {" "}
           <Link to="/signup" className="text-blue-600">
             Sign Up
           </Link>

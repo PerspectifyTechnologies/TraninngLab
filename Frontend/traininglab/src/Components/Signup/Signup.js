@@ -97,7 +97,7 @@ const Signup = () => {
   }
 
   return (
-    <div className="font-myfonts form-content-right">
+    <div className="font-myfonts form-content-right bg-custombg">
       <button className="facebook-button sc-dnqmqq iTCbCQ">
         <svg
           width="20"
@@ -251,7 +251,7 @@ const Signup = () => {
           {!submitLoading && <div className="my-2">Sign Up</div>}
         </button>
         <div className="text-sm mt-3 text-center w-4/5 text-customblack">
-          Already a member{" "}
+          Already a member..? {" "}
           <Link to="/login" className="text-blue-600">
             Login
           </Link>

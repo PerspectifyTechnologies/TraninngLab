@@ -11,12 +11,12 @@ const API = "https://localhost:44388/api/";
 
 
 const Navigation =  () => {
-  const { user: currentUser } = useSelector((state) => state.auth);
+  var currentUser = JSON.parse(localStorage.getItem("user"));
   const dispatch = useDispatch();
 
-  var data = useSelector((state)=>state.auth)
-    let navAuth = data?.state?.isLoggedIn;
-    console.log(navAuth);
+  //var data = useSelector((state)=>state.auth)
+   // let navAuth = data?.state?.isLoggedIn;
+    //console.log(navAuth);
 
   const authrize_access = async(history,url) => {
     var token = JSON.parse(localStorage.getItem("user"));
@@ -36,7 +36,7 @@ const Navigation =  () => {
       };
      axios.post(API + "refresh", postData)
       .then((res2) => {
-        localStorage.removeItem("user");
+          localStorage.removeItem("user");
           localStorage.setItem("user", JSON.stringify(res2.data));
           history.push(url);
       })
@@ -85,7 +85,6 @@ const Navigation =  () => {
     display: "block",
     padding: "1rem 1rem 1rem 1rem",
   }
-
   return (
     <div style={bgStyle}>
       <ul style={ulStyle} className="p-1">

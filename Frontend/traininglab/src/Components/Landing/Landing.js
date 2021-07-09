@@ -9,7 +9,6 @@ const Landing = () => {
     color: "#f7fbfc",
     paddingBottom: "10px",
   };
-
   const pStyle = {
     fontSize: "2vw",
     border: "2px solid white",

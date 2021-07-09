@@ -18,7 +18,7 @@ function PrivateRoute({ children, ...rest }) {
     console.log(LoggedIn);
     console.log(auth);
   const { isLoggedIn } = useSelector((state) => state.auth);
-  console.log(isLoggedIn);
+  console.log(LoggedIn);
 
   const { user: currentUser } = useSelector((state) => state.auth);
     console.log(currentUser);

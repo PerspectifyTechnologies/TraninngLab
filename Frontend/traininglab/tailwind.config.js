@@ -6,9 +6,10 @@ module.exports = {
     extend: {
       colors: {
         customblack: '#02111B',
+        custombg: '#adb5bd',
         custombrown: '#3F4045',
-        customnewblue: '#00ADB5',
-        customhoverblue: '#3edbf0',
+        customnewblue: '#fcbf49',
+        customhoverblue: '#02111B',
         customwhite: '#FFFFFF',
         customgray: '#eeeeee',
         coffee: '#30292F',
