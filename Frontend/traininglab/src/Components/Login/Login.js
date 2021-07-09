@@ -166,7 +166,8 @@ const Login = (props) => {
             (message && <p className="text-red-600">{message}</p>)}
         </div>
         <button
-          className="cursor-pointer font-myfonts mx-auto text-lg w-1/3 h-12 mt-8 border-2 outline-none border-none bg-customnewblue hover:bg-customhoverblue text-customblack hover:text-customnewblue text-center "
+          style={{background:"#FFC107",color:"#171E27"}}
+          className="cursor-pointer font-myfonts mx-auto text-lg w-1/3 h-12 mt-8 border-2 outline-none border-none  text-center "
           type="submit"
           onClick={handleSubmit}
           disabled={submitLoading}
