@@ -26,9 +26,9 @@ const login = async (username, password) => {
   return await axios
     .post(API + "login", signin_data)
     .then((res) => {
-       if (res.data.jwtToken) {
-         localStorage.setItem("user", JSON.stringify(res.data));
-       }
+      if (res.data.jwtToken) {
+        localStorage.setItem("user", JSON.stringify(res.data));
+      }
       return res.data;
     })
     .catch((err) => {
@@ -36,21 +36,22 @@ const login = async (username, password) => {
     });
 };
 
-const logout = async() => {
+const logout = async () => {
   var token = JSON.parse(localStorage.getItem("user"));
   console.log(token);
   localStorage.removeItem("user");
   var postData = {
     username: token.username,
-    token : "bearer "+token.jwtToken
-    }
-   await axios.post(API +"logout", postData)
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((err) => {
-    console.log("Error in login: ", err);
-  });
+    token: "bearer " + token.jwtToken,
+  };
+  await axios
+    .post(API + "logout", postData)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log("Error in logout: ", err);
+    });
 };
 
 export default { register, login, logout }; //eslint-disable-line

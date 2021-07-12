@@ -1,13 +1,12 @@
 import React from "react";
 import { Route } from "react-router";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { logout } from "../../actions/auth";
 import { logoutOnRefreshFail } from "../../actions/auth";
 import axios from "axios";
 
 const API = "https://localhost:44388/api/";
-
 
 
 const Navigation =  () => {
@@ -51,6 +50,7 @@ const Navigation =  () => {
       }
     });
     };
+
   const logOut = async () => {
     await dispatch(logout());
     window.location = "/login";

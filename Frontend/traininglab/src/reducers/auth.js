@@ -11,7 +11,7 @@ const userReducer = (state = initialState, action) => {
     case types.SIGNUP_SUCCESS:
       return {
         ...state,
-        isLoggedIn: false, 
+        isLoggedIn: false,
       };
     case types.SIGNUP_FAIL:
       return {
@@ -43,4 +43,4 @@ const userReducer = (state = initialState, action) => {
   }
 };
 
-export default userReducer
+export default userReducer;

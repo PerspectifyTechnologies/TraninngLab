@@ -45,10 +45,12 @@ export const login = (username, password) => async (dispatch) => {
   );
 };
 
-export const logout = () => async(dispatch) => {
+export const logout = () => async (dispatch) => {
   AuthService.logout();
+  localStorage.removeItem("user")
   dispatch({ type: types.LOGOUT });
 };
+
 export const logoutOnRefreshFail = () => async (dispatch) => {
   localStorage.removeItem("user");
   dispatch({ type: types.LOGOUT });
