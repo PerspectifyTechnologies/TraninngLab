@@ -5,14 +5,13 @@ namespace WebApi.AuthServices
 {
     public class CheckBlacklist
     {
-        private static Lazy<CheckBlacklist> Initializer = new Lazy<CheckBlacklist>(() => new CheckBlacklist());
-        public static CheckBlacklist Instance => Initializer.Value;
+        public static CheckBlacklist Instance = new CheckBlacklist();
         private CheckBlacklist()
         {
         }
         public bool IfPresent(string token)
         {
-            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
             {
                 try
                 {

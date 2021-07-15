@@ -5,14 +5,13 @@ namespace WebApi.AuthServices
 {
     public class CheckIfSessionActive
     {
-        private static Lazy<CheckIfSessionActive> Initializer = new Lazy<CheckIfSessionActive>(() => new CheckIfSessionActive());
-        public static CheckIfSessionActive Instance => Initializer.Value;
+        public static CheckIfSessionActive Instance = new CheckIfSessionActive();
         private CheckIfSessionActive()
         {
         }
         public bool IfInvalid(string username)
         {
-            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
             {
                 try
                 {
@@ -34,14 +33,14 @@ namespace WebApi.AuthServices
 
         private void UpdateUserActivity(string username)
         {
-            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
             {
                 try
                 {
                     conn.Open();
                     DeleteRefreshToken(username);
                     MySqlCommand cmd = new MySqlCommand("update UserActivityLog set LogOutTime='" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") +
-                        "' where LogID = '" + GetID(username) + "';", conn);
+                        "' where LogID = '" + GetUserID(username) + "';", conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     reader.Read();
                 }
@@ -51,9 +50,9 @@ namespace WebApi.AuthServices
             }
         }
 
-        private int GetID(string username)
+        private int GetUserID(string username)
         {
-            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
             {
                 try
                 {
@@ -74,7 +73,7 @@ namespace WebApi.AuthServices
 
         private void DeleteRefreshToken(string username)
         {
-            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
             {
                 try
                 {

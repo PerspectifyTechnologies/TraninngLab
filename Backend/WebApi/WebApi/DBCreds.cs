@@ -2,7 +2,7 @@
 {
     public class DBCreds
     {
-        internal static readonly string ConnectionString = "server = localhost; " +
+        internal static readonly string connectionString = "server = localhost; " +
                                                              "userid = root; " +
                                                             "password = Abhi@1214; " +
                                                              "database = testinglab";

@@ -59,7 +59,7 @@ namespace WebApi.Controllers
                                 Username = credentials.Username,
                                 JwtToken = token });
             }
-            else
+            else//temporary fix for front end routing issue
             {
                 LoginServices.Instance.Logout(credentials.Username);
                 var token = jwtAuthenticationManager

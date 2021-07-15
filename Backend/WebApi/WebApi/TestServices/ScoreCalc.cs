@@ -8,18 +8,14 @@ using WebApi.UserServices;
 
 namespace WebApi.TestServices
 {
-    public class ScoreCalc
-    {
-        private static Lazy<ScoreCalc> Initializer = new Lazy<ScoreCalc>(() => new ScoreCalc());
-        public static ScoreCalc Instance => Initializer.Value;
-        private ScoreCalc()
+    public class ScoreCalc 
+    { 
+        public static ScoreCalc Instance => new ScoreCalc();
+        public void UpdateScore(int courseID,int levelID, ScoreModel scoreModel)
         {
-        }
-        public void updateScore(int CourseID,int LevelID, ScoreModel scoreModel)
-        {
-            UserDetails.Instance.UpdateTestDetails(CourseID,LevelID);
-            updateScoreByCourse(CourseID,scoreModel); 
-            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            UserDetails.Instance.UpdateTestDetails(courseID,levelID);
+            updateScoreByCourse(courseID,scoreModel); 
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
             {
                 try
                 {
@@ -48,13 +44,14 @@ namespace WebApi.TestServices
         private void updateScoreByCourse(int courseID, ScoreModel scoreModel)
         {
             int flag = 0;
-            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
             {
                 try
                 {
                     conn.Open();
                     int prevScore = 0;
-                    string query = "select score from userprogress where username = '" + scoreModel.Username + "' and courseID = "+courseID+";";
+                    string query = "select score from userprogress where username = '" + scoreModel.Username +
+                        "' and courseID = "+courseID+";";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     if (reader.Read())
@@ -65,7 +62,9 @@ namespace WebApi.TestServices
                     {
                         reader.Close();
                         query = "insert into userprogress(username,score,courseid) values('" +
-                        scoreModel.Username + "',"+(scoreModel.Score)+", "+courseID+");";
+                                   scoreModel.Username + "',"+
+                                   (scoreModel.Score)+", "+
+                                   courseID+");";
                         cmd = new MySqlCommand(query, conn);
                         reader = cmd.ExecuteReader();
                         reader.Read();
@@ -74,7 +73,9 @@ namespace WebApi.TestServices
                     if(flag == 0)
                     {
                         reader.Close();
-                        query = "update userprogress set score = " + ((scoreModel.Score) + prevScore) + " where username = '" + scoreModel.Username + "' and courseID = " + courseID + ";";
+                        query = "update userprogress set score = " + ((scoreModel.Score) + prevScore) +
+                            " where username = '" + scoreModel.Username +
+                            "' and courseID = " + courseID + ";";
                         cmd = new MySqlCommand(query, conn);
                         reader = cmd.ExecuteReader();
                         while (reader.Read())

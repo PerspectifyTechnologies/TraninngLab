@@ -25,7 +25,7 @@ namespace WebApi.RefreshToken
 
         private void StoreRefreshToken(RefreshTokenModel refreshTokenEntry)
         {
-            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
             {
                 try
                 {

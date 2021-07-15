@@ -4,14 +4,13 @@ namespace WebApi.AuthServices
 {
     public class LogoutServices
     {
-        private static Lazy<LogoutServices> Initializer = new Lazy<LogoutServices>(() => new LogoutServices());
-        public static LogoutServices Instance => Initializer.Value;
+        public static LogoutServices Instance = new LogoutServices();
         private LogoutServices()
         {
         }
         public void Logout(string username,string token)
         {
-            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
             {
                 try
                 {
@@ -25,8 +24,7 @@ namespace WebApi.AuthServices
                     while (reader.Read()) { }
                 }
                 catch (Exception)
-                {
-                }
+                {}
             }
         }
 
@@ -40,8 +38,7 @@ namespace WebApi.AuthServices
                 reader.Close();
             }
             catch (Exception)
-            {
-            }
+            {}
         }
 
         private void BlackListToken(MySqlConnection conn,string token)
@@ -54,8 +51,7 @@ namespace WebApi.AuthServices
                 reader.Close();
             }
             catch (Exception)
-            {
-            }
+            {}
         }
 
         private int GetUserID(MySqlConnection conn, string username)
@@ -70,8 +66,7 @@ namespace WebApi.AuthServices
                 return ID;
             }
             catch (Exception)
-            {
-            }
+            {}
             return 0;
         }
     }

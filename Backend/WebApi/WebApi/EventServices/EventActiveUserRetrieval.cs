@@ -26,7 +26,7 @@ namespace WebApi.EventServices
             EventActiveUserList = new List<EventActiveUser>();
 
 
-            MySqlConnection con = new MySqlConnection(DBCreds.ConnectionString);
+            MySqlConnection con = new MySqlConnection(DBCreds.connectionString);
             try
             {
                
@@ -72,7 +72,7 @@ namespace WebApi.EventServices
             EventActiveUserList.Add(eventActiveUserObj);
 
 
-            MySqlConnection con = new MySqlConnection(DBCreds.ConnectionString);
+            MySqlConnection con = new MySqlConnection(DBCreds.connectionString);
             try
             {
 
@@ -107,7 +107,7 @@ namespace WebApi.EventServices
 
                     
 
-                    MySqlConnection con = new MySqlConnection(DBCreds.ConnectionString);
+                    MySqlConnection con = new MySqlConnection(DBCreds.connectionString);
                     try
                     {
                         con.Open();

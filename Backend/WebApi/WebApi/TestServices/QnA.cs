@@ -10,16 +10,12 @@ namespace WebApi.TestServices
     public class QnA
     {
         private int QuesID;
-        private static Lazy<QnA> Initializer = new Lazy<QnA>(() => new QnA());
-        public static QnA Instance => Initializer.Value; 
-        private QnA()
-        {
-        }
+        public static QnA Instance => new QnA(); 
         internal List<QnAModel> GetRandomTen(int testID)
         {
             QuesID = 0;
             List<QnAModel> Test = new List<QnAModel>();
-            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
             {
                 try
                 {
@@ -35,7 +31,7 @@ namespace WebApi.TestServices
                         questionID += 1;
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 { }
             }
             return Test;
@@ -45,7 +41,7 @@ namespace WebApi.TestServices
         {
             List<Option> options = new List<Option>();
             string question = null;
-            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
             {
                 try
                 {
@@ -68,7 +64,7 @@ namespace WebApi.TestServices
                     reader.Close();
 
                 }
-                catch (Exception e)
+                catch (Exception)
                 { }
             }
             return new QnAModel() {

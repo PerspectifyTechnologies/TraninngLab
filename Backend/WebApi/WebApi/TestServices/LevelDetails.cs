@@ -10,17 +10,12 @@ namespace WebApi.TestServices
 {
     public class LevelDetails
     {
-        private static Lazy<LevelDetails> Initializer = new Lazy<LevelDetails>(() => new LevelDetails());
-        public static LevelDetails Instance => Initializer.Value;
-        private LevelDetails()
-        {
-        }
-
-        internal List<TestlevelModels> getLevelInfo(int courseid)
+        public static LevelDetails Instance = new LevelDetails();
+        internal List<TestlevelModels> GetLevelInfo(int courseid)
         {
             int first = 1;
             List<TestlevelModels> LevelDetails = new List<TestlevelModels>();
-            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
             {
                 bool nextinline = false;
                 try
