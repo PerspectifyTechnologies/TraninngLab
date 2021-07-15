@@ -17,7 +17,6 @@ const Home = () => {
     <Router>
       <Switch>
         <Route exact path="/"  component={Landing} />
-        
         <Route path="/login" component={LoginPage} />
         <Route path="/signup" component={SignupPage} />
 
@@ -42,13 +41,6 @@ const Home = () => {
         <PrivateRoute path="/motivational">
           <Motivational></Motivational>
         </PrivateRoute>
-        {/* <PrivateRoute path="/home" component={Starter} />
-        <PrivateRoute path="/events" component={Events} />
-        <PrivateRoute path="/tests" component={Test} />
-        <PrivateRoute path="/net" component={Net} />
-        <PrivateRoute path="/visual" component={Visual} />
-        <PrivateRoute path="/react" component={ReactDeveloper} />
-        <PrivateRoute path="/motivational" component={Motivational} /> */}
         <Route path="*" component={Nomatch} />
       </Switch>
     </Router>

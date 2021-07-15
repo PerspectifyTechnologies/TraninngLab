@@ -4,7 +4,7 @@ import eventData from './eventData';
 const EventDetails = () => {
 
     const buttonStyle = {
-        border:"2px solid #8A2066",
+        border:"2px solid #FFC107",
         padding:"7px 15px",
         marginRight:"10px",
         borderRadius:"7px",
@@ -33,15 +33,28 @@ const handleDate = (e) => {
   console.log(newData);
   setEventDetails(newData);
 }
+const listStyle={
+  padding:"15px",
+  margin:"10px",
+  background:"#171E27"
+};
 
   return (
     <div className="flex justify-evenly  ">
         
         <div>
-          <input onChange={(event)=>handleDate(event)} type="date" />
+          <div>
+            <input onChange={(event)=>handleDate(event)} type="date" />
+          </div>
+          <div style={{ height: "33rem" }}
+             className="transparentCard overflow-auto rounded-2xl">
+            {
+              eventData?.map(item=><li style={listStyle} className="">{item?.eventName}</li>)
+            }
+          </div>
         </div>
 
-      <div style={{ background:"#1D1534",borderRadius:"10px"}} className="w-3/5 p-5 mt-5">
+      <div style={{ background:"#171E27",borderRadius:"10px"}} className="w-3/5 p-5 m-5">
         <div className="flex justify-center mb-4">
           <img style={{height:"250px"}}
             src={imageUrl}
@@ -50,7 +63,7 @@ const handleDate = (e) => {
           />
         </div>
         <div className="my-4">
-          <p style={{color:"#8A2066"}} className="font-bold">{eventDate}</p>
+          <p style={{color:"#FFC107"}} className="font-bold">{eventDate}</p>
           <h1 className="text-3xl font-bold flex my-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
             <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
@@ -74,6 +87,7 @@ const handleDate = (e) => {
           <p>{eventText}</p>
         </div>
       </div>
+
     </div>
   );
 };

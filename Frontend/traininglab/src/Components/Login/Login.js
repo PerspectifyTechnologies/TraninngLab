@@ -74,7 +74,7 @@ const Login = (props) => {
   };
   
   return (
-    <div className="font-myfonts form1-content-right bg-custombg">
+    <div className="font-myfonts form1-content-right bg-customwhite">
       <button className="facebook-button sc-dnqmqq iTCbCQ">
         <svg
           width="20"

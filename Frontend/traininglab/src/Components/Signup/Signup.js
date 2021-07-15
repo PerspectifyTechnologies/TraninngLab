@@ -97,7 +97,7 @@ const Signup = () => {
   }
 
   return (
-    <div className="font-myfonts form-content-right bg-custombg">
+    <div className="font-myfonts form-content-right bg-customwhite">
       <button className="facebook-button sc-dnqmqq iTCbCQ">
         <svg
           width="20"

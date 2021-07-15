@@ -48,7 +48,7 @@ const Landing = () => {
                   <div
                     className="flex items-center justify-evenly "
                     style={pStyle}
-                  >
+                >
                     <span className='cursor-pointer ' style={{ padding: "0", marginBottom: "0" }}>
                       Let's go
                     </span>
