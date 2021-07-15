@@ -1,14 +1,16 @@
 # TraninngLab
-<p>If you want setup this code, 
+If you want setup this code, 
 please clone the repository ,
-the open your terminal checkout the branch </p>
+the open your terminal checkout the branch 
 <br>
 `git checkout M-RuntimeT/(error/)`
 <br>
-<p>and change your directory to front end part and run</p>
+and change your directory to front end part and run
 <br>
-`npm install -f` it will install your dependency 
+`npm install -f`       it will install your dependency 
 <br>
-<p>then </p>
+then 
 <br>
-`npm start` and enjoy 
+`npm start` 
+<br>
+and enjoy 
