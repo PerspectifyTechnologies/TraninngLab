@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom"; //eslint-disable-line
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../../actions/auth";
 
@@ -47,9 +47,9 @@ const Login = (props) => {
   };
 
   let history = useHistory();
-  let location = useLocation();
+  //let location = useLocation();
 
-  let { from } = location.state || { from: { pathname: "/" } };
+  //let { from } = location.state || { from: { pathname: "/" } };
 
   const handleSubmit = async (event) => {
     //eslint-disable-line
