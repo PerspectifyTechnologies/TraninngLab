@@ -59,8 +59,26 @@ namespace WebApi.Controllers
                                 Username = credentials.Username,
                                 JwtToken = token });
             }
-            return Unauthorized(new { Status = "Error", 
-                                      Message = "Already Logged In" });
+            else
+            {
+                LoginServices.Instance.Logout(credentials.Username);
+                var token = jwtAuthenticationManager
+                            .GenerateTokenIfValid(credentials.Username, credentials.Password, false);
+                if (token == null)
+                    return Unauthorized(new
+                    {
+                        Status = "Error",
+                        Message = "Wrong credentials"
+                    });
+                new GenerateRefreshToken(credentials.Username);
+                return Ok(new
+                {
+                    Status = message + "already loggedin Success",
+                    Username = credentials.Username,
+                    JwtToken = token
+                });
+
+            }
         }
 
 

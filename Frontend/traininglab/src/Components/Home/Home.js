@@ -10,17 +10,21 @@ import Events from "../Events/Events";
 import Test from "../Test/Test";
 import LoginPage from "../LoginPage";
 import SignupPage from "../SignupPage";
+import ProfilePage from "../profile/ProfilePage";
 import Motivational from "../Courses/Motivational/Motivational"
 import PrivateRoute from "../PrivateRoute/PrivateRoute"
+import PrivateLoginRoute from "../PrivateRoute/PrivateLoginRoute"
 const Home = () => {
   return (
     <Router>
       <Switch>
         <Route exact path="/"  component={Landing} />
-        
-        <Route path="/login" component={LoginPage} />
-        <Route path="/signup" component={SignupPage} />
+        <PrivateLoginRoute path="/login"><LoginPage></LoginPage></PrivateLoginRoute>
+        <PrivateLoginRoute path="/signup"><SignupPage></SignupPage></PrivateLoginRoute>
 
+        <PrivateRoute path="/ProfilePage">
+          <ProfilePage></ProfilePage>
+        </PrivateRoute>
         <PrivateRoute path="/home">
           <Starter></Starter>
         </PrivateRoute>

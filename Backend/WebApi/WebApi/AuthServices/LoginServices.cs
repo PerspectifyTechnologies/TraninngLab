@@ -72,5 +72,39 @@ namespace WebApi.AuthServices
             {
             }
         }
+        public void Logout(string username)
+        {
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("update UserActivityLog set LogOutTime='" +
+                                                        DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") +
+                                                        "' where LogID = '" + GetUserID(conn, username) + "';", conn);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read()) { }
+                }
+                catch (Exception)
+                {
+                }
+            }
+        }
+        private int GetUserID(MySqlConnection conn, string username)
+        {
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand("select max(LogId) from UserActivityLog where userName = '" + username + "';", conn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                reader.Read();
+                int ID = reader.GetInt32(0);
+                reader.Close();
+                return ID;
+            }
+            catch (Exception)
+            {
+            }
+            return 0;
+        }
     }
 }

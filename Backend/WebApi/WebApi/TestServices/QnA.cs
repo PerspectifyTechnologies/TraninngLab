@@ -9,31 +9,33 @@ namespace WebApi.TestServices
 {
     public class QnA
     {
+        private int QuesID;
         private static Lazy<QnA> Initializer = new Lazy<QnA>(() => new QnA());
         public static QnA Instance => Initializer.Value; 
         private QnA()
         {
         }
-        internal async Task<IDictionary<int,QnAModel>> GetRandomTen(int testID)
+        internal List<QnAModel> GetRandomTen(int testID)
         {
-            IDictionary<int, QnAModel> Test = new Dictionary<int, QnAModel>();
+            QuesID = 0;
+            List<QnAModel> Test = new List<QnAModel>();
             using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
             {
                 try
                 {
+                    string query = "select * from testquestions where testID = '" + testID +
+                                                        "' order by rand() limit 5;";
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("select Distinct(QuestionID, Question) from QAndA where QuestionID in (" +
-                                                        "select QuestionID from TestCatalog where testID = '"+testID+
-                                                        "' order by rand() limit 10) order by QuestionID;", conn);
+                    MySqlCommand cmd = new MySqlCommand(query , conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     int questionID = 0;
                     while (reader.Read())
                     {
-                        await Task.Delay(2);
-                        Test.Add(questionID+1,GetQuestionsAndOptions(Convert.ToInt32(reader["QuestionID"])));
+                        Test.Add(GetQuestionsAndOptions(Convert.ToInt32(reader["QuestionID"])));
+                        questionID += 1;
                     }
                 }
-                catch (Exception)
+                catch (Exception e)
                 { }
             }
             return Test;
@@ -47,24 +49,30 @@ namespace WebApi.TestServices
             {
                 try
                 {
-                    conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("select * from QAndA where QuestionID =" + questionID +"';", conn);
-                    MySqlDataReader reader = cmd.ExecuteReader();
+                    conn.Open(); string query = "select * from quesans where questionid =" + questionID + ";";
+                    
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    MySqlDataReader reader = cmd.ExecuteReader(); int count = 1;
                     while (reader.Read())
+                    { }
+                    while (count <= 4)
                     {
                         options.Add(new Option()
                         {
-                            Answer = reader["Answer"].ToString(),
-                            IsCorrect = (Convert.ToBoolean(reader["Answer"]) == true) ? (true):(false)
-                        }) ;
-                        if (question == null)
-                            question = reader["Question"].ToString();
+                            Answer = reader["Option" + count.ToString()].ToString(),
+                            IsCorrect = (Convert.ToInt32(reader["Answer"]) == count) ? (true) : (false)
+                        });
+                        count += 1;
                     }
+                    question = reader["Question"].ToString();
+                    reader.Close();
+
                 }
-                catch (Exception)
+                catch (Exception e)
                 { }
             }
-            return new QnAModel(){
+            return new QnAModel() {
+                QuesID = ++QuesID,
                 Question = question,
                 Options = options };
 

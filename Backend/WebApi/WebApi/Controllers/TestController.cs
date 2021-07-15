@@ -7,20 +7,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApi.TestServices;
+using WebApi.TestServices.Model;
 
 namespace WebApi.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-    [EnableCors("ReactPolicy")]
-    [Authorize]
+    //[EnableCors("ReactPolicy")]
     public class TestController : Controller
     {
-        [HttpGet("{id}")]
-        public async Task<string> GetQnA(int TestID)
+        public string Get()
         {
-            return JsonConvert.SerializeObject(await QnA.Instance.GetRandomTen(TestID));
+            return "huhuh";
+        }
+        [HttpGet("{id:int}")]
+        public string GetQnA(int id)
+        {
+            return JsonConvert.SerializeObject( QnA.Instance.GetRandomTen(id));
+        }
+        [HttpPost("{id1:int}/{id2:int}/update")]
+        public void SetScore(int id1,int id2, [FromBody] ScoreModel score)
+        {
+            ScoreCalc.Instance.updateScore(id1,id2,score);
+        }
+        [HttpGet("courseid/{id:int}")]
+        public string GetLevelInfo(int id)
+        {
+            return JsonConvert.SerializeObject(LevelDetails.Instance.getLevelInfo(id));
         }
     }
 }

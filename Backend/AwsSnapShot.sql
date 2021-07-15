@@ -299,10 +299,11 @@ DROP TABLE IF EXISTS `UserProgress`;
 CREATE TABLE `UserProgress` (
   `userName` varchar(32) NOT NULL,
   `Score` float NOT NULL DEFAULT '0',
-  `TestID` int NOT NULL,
-  PRIMARY KEY (`TestID`,`userName`),
+  `courseID` int NOT NULL,
+  `expirationdate` datetime NOT NULL,
+  PRIMARY KEY (`CourseID`,`userName`),
   KEY `userName3_idx` (`userName`),
-  CONSTRAINT `TestID` FOREIGN KEY (`TestID`) REFERENCES `TestDetails` (`TestID`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `courseID3` FOREIGN KEY (`courseID`) REFERENCES `coursedetails` (`CourseID`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `userName3` FOREIGN KEY (`userName`) REFERENCES `UserAuthentication` (`userName`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -371,4 +372,31 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+
+
+
+
+DROP TABLE IF EXISTS `testquestions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `testquestions` (
+  `TestID` int NOT NULL,
+  `QuestionID`  int  NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+DROP TABLE IF EXISTS `quesans`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `quesans` (
+  `QuestionID` int NOT NULL,
+  `Question` varchar(400) NOT NULL,
+  `Option1`  varchar(100)  NOT NULL,
+  `Option2`  varchar(100)  NOT NULL,
+  `Option3`  varchar(100)  NOT NULL,
+  `Option4`  varchar(100)  NOT NULL,
+  `Answer`  int  NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 -- Dump completed on 2021-06-30 12:34:39

@@ -71,12 +71,12 @@ const Navigation =  () => {
   const navItem = {
     textAlign: "center",
   };
-  
+
   const pos = {
     display: "block",
     padding: ".5rem 1rem",
-    // border:"2px solid #FFC107",
-    // borderRadius: "10px 0 10px 0",
+    border:"2px solid #FFC107",
+    borderRadius: "10px 0 10px 0",
     marginRight:"10px",
     color:"#FFC107"
   }
@@ -95,7 +95,7 @@ const Navigation =  () => {
              <Route
           render={({ history }) => (
             <li onClick={() =>{authrize_access(history,"/home")}} style={navItem}>
-              <Link style={pos} className="cursor-pointer font-myfonts border-none  text-center " aria-current="page">
+              <Link style={pos} className="cursor-pointer font-myfonts border-none  text-center" aria-current="page">
                 Home
               </Link>
             </li>
@@ -128,7 +128,13 @@ const Navigation =  () => {
             </li>
           )}
         />
-            <li style={pos}><Link  className="cursor-pointer font-myfonts text-center ">Welcome, {currentUser.username}</Link></li>
+        <Route
+          render={({ history }) => (
+            <li onClick={() => history.push("/ProfilePage")} style={navItem}>
+              <Link style={pos} className="cursor-pointer font-myfonts   text-center ">Welcome, {currentUser.username}</Link>
+            </li>
+          )}
+        />
             <li onClick={logOut} style={navItem} ><Link style={pos} className="cursor-pointer font-myfonts border-none  text-center ">Log Out</Link></li>
           </div>
 
@@ -138,7 +144,7 @@ const Navigation =  () => {
             <Route
               render={({ history }) => (
                 <li onClick={() => history.push("/signup")} style={navItem}>
-                  <Link style={pos} className="cursor-pointer font-myfonts border-none  text-center " to="/signup">
+                  <Link style={pos} className="cursor-pointer font-myfonts border-none  text-center" to="/signup">
                     Sign Up
                   </Link>
                 </li>
