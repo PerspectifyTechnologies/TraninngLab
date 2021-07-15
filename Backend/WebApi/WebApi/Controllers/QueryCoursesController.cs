@@ -6,10 +6,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Controllers;
 using WebApi.CourseServices;
-
+/*
+ * Changes mentioned in the last code review were related to naming convention of routes.
+ * These changes are not implemented as it has already been implemented in the front end.
+ * We as a team will sit together and clean up the code. A sit together with front end 
+ * and backend was not possible before the code review. 
+ */
 
 namespace WebApi.Controllers
-{
+{   
     [Route("api/[controller]")]
     [ApiController]
     public class QueryCoursesController : ControllerBase
