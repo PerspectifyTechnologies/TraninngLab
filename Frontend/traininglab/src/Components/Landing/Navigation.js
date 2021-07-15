@@ -8,48 +8,45 @@ import axios from "axios";
 
 const API = "https://localhost:44388/api/";
 
-
-const Navigation =  () => {
+const Navigation = () => {
   var currentUser = JSON.parse(localStorage.getItem("user"));
   const dispatch = useDispatch();
 
-  //var data = useSelector((state)=>state.auth)
-   // let navAuth = data?.state?.isLoggedIn;
-    //console.log(navAuth);
-
-  const authrize_access = async(history,url) => {
+  const authrize_access = async (history, url) => {
     var token = JSON.parse(localStorage.getItem("user"));
     var axiosConfig = {
-    headers : {
-      'Authorization' : "bearer "+token.jwtToken
-    }
+      headers: {
+        Authorization: "bearer " + token.jwtToken,
+      },
     };
-    axios.get(API+"auth",axiosConfig)
-    .then((res) => {
-      history.push(url);
-    })
-    .catch((error) => {
-      if(error.response.status === 401){
-        var postData = {
-        token: token.jwtToken
-      };
-     axios.post(API + "refresh", postData)
-      .then((res2) => {
-          localStorage.removeItem("user");
-          localStorage.setItem("user", JSON.stringify(res2.data));
-          history.push(url);
+    axios
+      .get(API + "auth", axiosConfig)
+      .then((res) => {
+        history.push(url);
       })
-      .catch((error) =>{
-        alert("Session Expired Login Again.");
-        dispatch(logoutOnRefreshFail());
-        history.push("/login");
-        console.log("Error in refreshing: ", error);
-      });
+      .catch((error) => {
+        if (error.response.status === 401) {
+          var postData = {
+            token: token.jwtToken,
+          };
+          axios
+            .post(API + "refresh", postData)
+            .then((res2) => {
+              localStorage.removeItem("user");
+              localStorage.setItem("user", JSON.stringify(res2.data));
+              history.push(url);
+            })
+            .catch((error) => {
+              alert("Session Expired Login Again.");
+              dispatch(logoutOnRefreshFail());
+              history.push("/login");
+              console.log("Error in refreshing: ", error);
+            });
 
-        console.log("Error in refreshing: ", error);
-      }
-    });
-    };
+          console.log("Error in refreshing: ", error);
+        }
+      });
+  };
 
   const logOut = async () => {
     await dispatch(logout());
@@ -58,7 +55,7 @@ const Navigation =  () => {
 
   const bgStyle = {
     backgroundColor: "#171E27",
-    padding:"10px 0"
+    padding: "10px 0",
   };
   const ulStyle = {
     display: "flex",
@@ -71,74 +68,131 @@ const Navigation =  () => {
   const navItem = {
     textAlign: "center",
   };
-  
+
   const pos = {
     display: "block",
     padding: ".5rem 1rem",
-    // border:"2px solid #FFC107",
-    // borderRadius: "10px 0 10px 0",
-    marginRight:"10px",
-    color:"#FFC107"
-  }
+    border: "2px solid #FFC107",
+    borderRadius: "10px 0 10px 0",
+    marginRight: "10px",
+    color: "#FFC107",
+  };
 
-  const user = {
+  const user = {   //eslint-disable-line
     display: "block",
     padding: "1rem 1rem 1rem 1rem",
-  }
+  };
+
   return (
     <div style={bgStyle}>
       <ul style={ulStyle} className="p-1">
-       
-
         {currentUser ? (
           <div className="flex flex-row">
-             <Route
-          render={({ history }) => (
-            <li onClick={() =>{authrize_access(history,"/home")}} style={navItem}>
-              <Link style={pos} className="cursor-pointer font-myfonts border-none  text-center " aria-current="page">
-                Home
-              </Link>
-            </li>
-          )}
-        />
+            <Route
+              render={({ history }) => (
+                <li
+                  onClick={() => {
+                    authrize_access(history, "/home");
+                  }}
+                  style={navItem}
+                >
+                  <Link
+                    style={pos}
+                    className="cursor-pointer font-myfonts border-none  text-center"
+                    aria-current="page"
+                  >
+                    Home
+                  </Link>
+                </li>
+              )}
+            />
 
-        <Route
-          render={({ history }) => (
-            <li onClick={() => {authrize_access(history,"/events")}} style={navItem}>
-              <Link style={pos} className="cursor-pointer font-myfonts border-none  text-center ">
-                Events
-              </Link>
-            </li>
-          )}
-        />
-        <Route
-          render={({ history }) => (
-            <li onClick={() => {authrize_access(history,"/tests")}} style={navItem}>
-              <Link style={pos} className="cursor-pointer font-myfonts border-none  text-center ">
-                Tests
-              </Link>
-            </li>
-          )}
-        />
+            <Route
+              render={({ history }) => (
+                <li
+                  onClick={() => {
+                    authrize_access(history, "/events");
+                  }}
+                  style={navItem}
+                >
+                  <Link
+                    style={pos}
+                    className="cursor-pointer font-myfonts border-none  text-center "
+                  >
+                    Events
+                  </Link>
+                </li>
+              )}
+            />
+            <Route
+              render={({ history }) => (
+                <li
+                  onClick={() => {
+                    authrize_access(history, "/tests");
+                  }}
+                  style={navItem}
+                >
+                  <Link
+                    style={pos}
+                    className="cursor-pointer font-myfonts border-none  text-center "
+                  >
+                    Tests
+                  </Link>
+                </li>
+              )}
+            />
 
-        <Route
-          render={({ history }) => (
-            <li onClick={() => {authrize_access(history,"/motivational")}} style={navItem}>
-              <Link style={pos} className="cursor-pointer font-myfonts   text-center ">Courses</Link>
+            <Route
+              render={({ history }) => (
+                <li
+                  onClick={() => {
+                    authrize_access(history, "/motivational");
+                  }}
+                  style={navItem}
+                >
+                  <Link
+                    style={pos}
+                    className="cursor-pointer font-myfonts   text-center "
+                  >
+                    Courses
+                  </Link>
+                </li>
+              )}
+            />
+            <Route
+              render={({ history }) => (
+                <li
+                  onClick={() => history.push("/ProfilePage")}
+                  style={navItem}
+                >
+                  <Link
+                    style={pos}
+                    className="cursor-pointer font-myfonts   text-center "
+                  >
+                    Welcome, {currentUser.username}
+                  </Link>
+                </li>
+              )}
+            />
+            <li onClick={logOut} style={navItem}>
+              <Link
+                style={pos}
+                className="cursor-pointer font-myfonts border-none  text-center "
+              >
+                Log Out
+              </Link>
             </li>
-          )}
-        />
-            <li style={pos}><Link  className="cursor-pointer font-myfonts text-center ">Welcome, {currentUser.username}</Link></li>
-            <li onClick={logOut} style={navItem} ><Link style={pos} className="cursor-pointer font-myfonts border-none  text-center ">Log Out</Link></li>
           </div>
-
-          
         ) : (
           <div className="flex flex-row">
             <Route
               render={({ history }) => (
                 <li onClick={() => history.push("/signup")} style={navItem}>
-                  <Link style={pos} className="cursor-pointer font-myfonts border-none  text-center " to="/signup">
+                  <Link
+                    style={pos}
+                    className="cursor-pointer font-myfonts border-none  text-center"
+                    to="/signup"
+                  >
                     Sign Up
                   </Link>
                 </li>
@@ -147,7 +201,11 @@ const Navigation =  () => {
             <Route
               render={({ history }) => (
                 <li onClick={() => history.push("/login")} style={navItem}>
-                  <Link style={pos} className="cursor-pointer font-myfonts border-none  text-center " to="/login">
+                  <Link
+                    style={pos}
+                    className="cursor-pointer font-myfonts border-none  text-center "
+                    to="/login"
+                  >
                     Login
                   </Link>
                 </li>
