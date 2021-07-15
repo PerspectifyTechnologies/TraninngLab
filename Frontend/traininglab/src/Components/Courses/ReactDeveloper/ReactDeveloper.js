@@ -7,9 +7,7 @@ const ReactDeveloper = () => {
 
     const [videoUrl, setVideoUrl] = useState("\nhttps://prespectify-traininglab.s3.ap-south-1.amazonaws.com/ReactJS_for_FrontEnd/01.ReactJS_Tutorial_-_1_-_Introduction.mp4\n");
 
-  //const courseData = [{"courseID":2,"name":"Introduction\n","url":"\nhttps://prespectify-traininglab.s3.ap-south-1.amazonaws.com/ReactJS_for_FrontEnd/01.ReactJS_Tutorial_-_1_-_Introduction.mp4\n","subCourseID":11,"title":"Introduction ","desc":"Desc"},{"courseID":2,"name":"Hello World\n","url":"\nhttps://prespectify-traininglab.s3.ap-south-1.amazonaws.com/ReactJS_for_FrontEnd/02.ReactJS_Tutorial_-_2_-_Hello_World.mp4\n","subCourseID":12,"title":"Hello World ","desc":"Desc"},{"courseID":2,"name":"Folder Structure\n","url":"\nhttps://prespectify-traininglab.s3.ap-south-1.amazonaws.com/ReactJS_for_FrontEnd/03.ReactJS_Tutorial_-_3_-_Folder_Structure.mp4\n","subCourseID":13,"title":"Folder Structure ","desc":"Desc"},{"courseID":2,"name":"Components\n","url":"\nhttps://prespectify-traininglab.s3.ap-south-1.amazonaws.com/ReactJS_for_FrontEnd/04.ReactJS_Tutorial_-_4_-_Components.mp4\n","subCourseID":14,"title":"Components ","desc":"Desc"},{"courseID":2,"name":"Functional Components\n","url":"\nhttps://prespectify-traininglab.s3.ap-south-1.amazonaws.com/ReactJS_for_FrontEnd/05.ReactJS_Tutorial_-_5_-_Functional_Components.mp4\n","subCourseID":15,"title":"Functional Components ","desc":"Desc"},{"courseID":2,"name":"Class Components\n","url":"\nhttps://prespectify-traininglab.s3.ap-south-1.amazonaws.com/ReactJS_for_FrontEnd/06.ReactJS_Tutorial_-_6_-_Class_Components.mp4\n","subCourseID":16,"title":"Class Components ","desc":"Desc"},{"courseID":2,"name":"Hooks Update\n","url":"\nhttps://prespectify-traininglab.s3.ap-south-1.amazonaws.com/ReactJS_for_FrontEnd/07.ReactJS_Tutorial_-_7_-_Hooks_Update.mp4\n","subCourseID":17,"title":"Hooks Update ","desc":"Desc"}]
-
-//   console.log(courseData);
+  
 
 const [reactData, setReactData] = useState([]);
 useEffect(() => {
@@ -50,8 +48,6 @@ useEffect(() => {
     width: "30vw",
     borderRadius: "10px",
   };
-      // #902167 #5F7680 
-      // #332155 #143753
 
   return (
     <div style={{ height: "100%" }} className={styles.starterBg}>
