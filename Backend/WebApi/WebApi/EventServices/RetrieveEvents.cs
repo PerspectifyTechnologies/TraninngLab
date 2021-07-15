@@ -26,7 +26,7 @@ namespace WebApi.EventServices
             activeEventList = new List<Event>();
 
 
-            MySqlConnection con = new MySqlConnection(DBCreds.ConnectionString);
+            MySqlConnection con = new MySqlConnection(DBCreds.connectionString);
             try
             {
                 DateTime currentTime = new DateTime();
@@ -76,7 +76,7 @@ namespace WebApi.EventServices
             activeEventList.Add(eventObj);
 
 
-            MySqlConnection con = new MySqlConnection(DBCreds.ConnectionString);
+            MySqlConnection con = new MySqlConnection(DBCreds.connectionString);
             try
             {
 

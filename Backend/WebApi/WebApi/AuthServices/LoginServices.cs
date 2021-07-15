@@ -6,14 +6,10 @@ namespace WebApi.AuthServices
 {
     public class LoginServices
     {
-        private static Lazy<LoginServices> Initializer = new Lazy<LoginServices>(() => new LoginServices());
-        public static LoginServices Instance => Initializer.Value;
-        private LoginServices()
-        {
-        }
+        public static LoginServices Instance = new LoginServices();
         public int GetLogIdOfUSer(string username)
         {
-            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
             {
                 try
                 {
@@ -27,14 +23,13 @@ namespace WebApi.AuthServices
                     return ID;
                 }
                 catch (Exception)
-                {
-                }
+                {}
             }
             return 0;
         }
         public bool MatchLoginCreds(string username, string password,bool refresh)
         {
-            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
             {
                 try
                 {
@@ -53,7 +48,7 @@ namespace WebApi.AuthServices
                     }
                 }
                 catch (Exception)
-                { }
+                {}
                 return false;
             }
         }
@@ -74,7 +69,7 @@ namespace WebApi.AuthServices
         }
         public void Logout(string username)
         {
-            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
             {
                 try
                 {

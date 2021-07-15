@@ -23,7 +23,7 @@ namespace WebApi.CourseServices
             CourseList = new List<Course>();
             
 
-            MySqlConnection con = new MySqlConnection(DBCreds.ConnectionString);
+            MySqlConnection con = new MySqlConnection(DBCreds.connectionString);
             try {
 
                 con.Open();
@@ -65,7 +65,7 @@ namespace WebApi.CourseServices
             CourseList.Add(course);
             
 
-            MySqlConnection con = new MySqlConnection(DBCreds.ConnectionString);
+            MySqlConnection con = new MySqlConnection(DBCreds.connectionString);
             try
             {
 
@@ -97,7 +97,7 @@ namespace WebApi.CourseServices
 
                     
 
-                    MySqlConnection con = new MySqlConnection(DBCreds.ConnectionString);
+                    MySqlConnection con = new MySqlConnection(DBCreds.connectionString);
                     try
                     {
                         con.Open();

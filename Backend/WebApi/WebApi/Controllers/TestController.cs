@@ -14,7 +14,6 @@ namespace WebApi.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-    //[EnableCors("ReactPolicy")]
     public class TestController : Controller
     {
         public string Get()
@@ -26,15 +25,15 @@ namespace WebApi.Controllers
         {
             return JsonConvert.SerializeObject( QnA.Instance.GetRandomTen(id));
         }
-        [HttpPost("{id1:int}/{id2:int}/update")]
-        public void SetScore(int id1,int id2, [FromBody] ScoreModel score)
+        [HttpPost("{courseid:int}/{levelid:int}/update")]
+        public void SetScore(int courseid,int levelid, [FromBody] ScoreModel score)
         {
-            ScoreCalc.Instance.updateScore(id1,id2,score);
+            ScoreCalc.Instance.UpdateScore(courseid,levelid,score);
         }
         [HttpGet("courseid/{id:int}")]
         public string GetLevelInfo(int id)
         {
-            return JsonConvert.SerializeObject(LevelDetails.Instance.getLevelInfo(id));
+            return JsonConvert.SerializeObject(LevelDetails.Instance.GetLevelInfo(id));
         }
     }
 }

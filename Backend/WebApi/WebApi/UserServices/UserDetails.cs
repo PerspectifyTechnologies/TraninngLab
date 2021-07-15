@@ -1,8 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebApi.UserServices.Models;
 
 namespace WebApi.UserServices
@@ -11,14 +8,11 @@ namespace WebApi.UserServices
     {
         private static Lazy<UserDetails> Initializer = new Lazy<UserDetails>(() => new UserDetails());
         public static UserDetails Instance => Initializer.Value;
-        private UserDetails()
-        {
-        }
-        public UserModel Get(string username)
+        public UserModel GetDetails(string username)
         {
             int score = 0;
             string level = "Amateur";
-            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
             {
                 try
                 {
@@ -36,7 +30,7 @@ namespace WebApi.UserServices
                     level = reader["levelname"].ToString();
                     reader.Close();
                 }
-                catch (Exception e)
+                catch (Exception)
                 { }
             }
             return new UserModel {
@@ -46,9 +40,10 @@ namespace WebApi.UserServices
             };
         }
 
+
         internal void UpdateTestDetails(int courseID, int levelID)
         {
-            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
             {
                 try
                 {
@@ -59,7 +54,7 @@ namespace WebApi.UserServices
                     reader.Read();
                     reader.Close();
                 }
-                catch (Exception e)
+                catch (Exception)
                 { }
             }
         }

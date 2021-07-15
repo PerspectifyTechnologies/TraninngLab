@@ -13,7 +13,6 @@ namespace WebApi.AuthServices
         {
             this.key = key;
         }
-
         public string GenerateTokenIfValid(string username, string password, bool refresh)
         {
             if (!LoginServices.Instance.MatchLoginCreds(username, password, refresh))

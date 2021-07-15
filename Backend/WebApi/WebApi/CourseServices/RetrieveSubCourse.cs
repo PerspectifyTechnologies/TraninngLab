@@ -32,7 +32,7 @@ namespace WebApi.CourseServices
             SubCourseList = new List<SubCourse>();
             
 
-            MySqlConnection con = new MySqlConnection(DBCreds.ConnectionString);
+            MySqlConnection con = new MySqlConnection(DBCreds.connectionString);
             try
             {
 

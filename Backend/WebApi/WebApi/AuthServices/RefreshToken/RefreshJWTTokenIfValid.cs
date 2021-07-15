@@ -9,11 +9,6 @@ namespace WebApi.RefreshToken
 {
     public class RefreshJWTTokenIfValid : Controller
     {
-        private static Lazy<RefreshJWTTokenIfValid> Initializer = new Lazy<RefreshJWTTokenIfValid>(() => new RefreshJWTTokenIfValid());
-        public static RefreshJWTTokenIfValid Instance => Initializer.Value;
-        private RefreshJWTTokenIfValid()
-        {
-        }
         private readonly JwtAuthenticationManager jwtAuthenticationManager;
         public RefreshJWTTokenIfValid(JwtAuthenticationManager jwtAuthenticationManager)
         {
@@ -36,7 +31,7 @@ namespace WebApi.RefreshToken
                     Tuple<string, string> Refreshtoken = RefreshTokenInDB.Instance.Check(username);
                     if (Refreshtoken is null)
                         throw new Exception(message: "No Refresh Token for The User");
-                    DateTime expiryDate = new DateFormat().ConvertToSTDDateTime(Refreshtoken.Item2);
+                    DateTime expiryDate = ConvertToSTDDateTime(Refreshtoken.Item2);
                     string token = "";
 
                     TimeSpan ts = DateTime.Now - expiryDate;
@@ -72,7 +67,7 @@ namespace WebApi.RefreshToken
         }
         private void BlackListToken( string token)
         {
-            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
             {
                 try
                 {
@@ -85,6 +80,18 @@ namespace WebApi.RefreshToken
                 catch (Exception)
                 {
                 }
+            }
+        }
+
+        private DateTime ConvertToSTDDateTime(string value)
+        {
+            try
+            {
+                return Convert.ToDateTime(value);
+            }
+            catch (FormatException)
+            {
+                throw new Exception(message: "no value");
             }
         }
     }

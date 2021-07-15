@@ -7,14 +7,10 @@ namespace WebApi.AuthServices
 {
     public class RegisterServices
     {
-        private static Lazy<RegisterServices> Initializer = new Lazy<RegisterServices>(() => new RegisterServices());
-        public static RegisterServices Instance => Initializer.Value;
-        private RegisterServices()
-        {
-        }
+        public static RegisterServices Instance = new RegisterServices();
         public bool RegisterRecordsIfValid(RegisterModel registerModel)
         {
-            using (MySqlConnection conn = new MySqlConnection(DBCreds.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
             {
                 try
                 {
@@ -34,8 +30,7 @@ namespace WebApi.AuthServices
                     }
                 }
                 catch (Exception)
-                {
-                }
+                {}
             }
             return true ;
         }
@@ -51,8 +46,7 @@ namespace WebApi.AuthServices
                 reader.Close();
             }
             catch (Exception)
-            {
-            }
+            {}
         }
 
         private void DeleteInvitation(MySqlConnection conn,string email)
@@ -65,8 +59,7 @@ namespace WebApi.AuthServices
                 reader.Close();
             }
             catch (Exception)
-            {
-            }
+            {}
         }
 
         private void StoreUserEntries(MySqlConnection conn,RegisterModel registerModel)
@@ -84,8 +77,7 @@ namespace WebApi.AuthServices
                 reader.Close();
             }
             catch (Exception)
-            {
-            }
+            {}
         }
     }
 }
