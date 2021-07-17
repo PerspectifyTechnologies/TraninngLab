@@ -1,10 +1,13 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Diagnostics;
+
 namespace WebApi.AuthServices
 {
     public class LogoutServices
     {
-        public static LogoutServices Instance = new LogoutServices();
+        private static Lazy<LogoutServices> Initializer = new Lazy<LogoutServices>(() => new LogoutServices());
+        public static LogoutServices Instance => Initializer.Value;
         private LogoutServices()
         {
         }
@@ -16,15 +19,20 @@ namespace WebApi.AuthServices
                 {
                     conn.Open();
                     DeleteRefreshToken(conn,username);
-                    BlackListToken(conn,token);
                     MySqlCommand cmd = new MySqlCommand("update UserActivityLog set LogOutTime='"+ 
                                                         DateTime.Now.ToString("yyyy-MM-dd H:mm:ss")+
                                                         "' where LogID = '"+ GetUserID(conn,username)+"';", conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read()) { }
                 }
-                catch (Exception)
-                {}
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
             }
         }
 
@@ -37,23 +45,11 @@ namespace WebApi.AuthServices
                 MySqlDataReader reader = cmd.ExecuteReader();
                 reader.Close();
             }
-            catch (Exception)
-            {}
-        }
-
-        private void BlackListToken(MySqlConnection conn,string token)
-        {
-            try
+            catch (Exception e)
             {
-                string query = "insert into blacklisttokens(token,entrytime) values('"+ token.Substring(7) +"',now());";
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                MySqlDataReader reader = cmd.ExecuteReader();
-                reader.Close();
+                Debug.WriteLine(e.Message);
             }
-            catch (Exception)
-            {}
         }
-
         private int GetUserID(MySqlConnection conn, string username)
         {
             try
@@ -65,8 +61,10 @@ namespace WebApi.AuthServices
                 reader.Close();
                 return ID;
             }
-            catch (Exception)
-            {}
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
             return 0;
         }
     }

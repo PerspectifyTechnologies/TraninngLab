@@ -1,11 +1,13 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Diagnostics;
 
 namespace WebApi.AuthServices
 {
     public class CheckIfSessionActive
     {
-        public static CheckIfSessionActive Instance = new CheckIfSessionActive();
+        private static Lazy<CheckIfSessionActive> Initializer = new Lazy<CheckIfSessionActive>(() => new CheckIfSessionActive());
+        public static CheckIfSessionActive Instance => Initializer.Value;
         private CheckIfSessionActive()
         {
         }
@@ -21,39 +23,41 @@ namespace WebApi.AuthServices
                     MySqlDataReader reader = cmd.ExecuteReader();
                     if (reader.Read() == true)
                     {
-                        UpdateUserActivity(username);
+                        UpdateUserActivity(conn,username);
                         return true;
                     }
                 }
-                catch (Exception)
-                { }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
                 return false;
             }
         }
 
-        private void UpdateUserActivity(string username)
+        private void UpdateUserActivity(MySqlConnection conn,string username)
         {
-            using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
-            {
                 try
                 {
                     conn.Open();
-                    DeleteRefreshToken(username);
+                    DeleteRefreshToken(conn,username);
                     MySqlCommand cmd = new MySqlCommand("update UserActivityLog set LogOutTime='" + DateTime.Now.ToString("yyyy-MM-dd H:mm:ss") +
-                        "' where LogID = '" + GetUserID(username) + "';", conn);
+                        "' where LogID = '" + GetUserID(conn,username) + "';", conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     reader.Read();
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Debug.WriteLine(e.Message);
                 }
-            }
         }
 
-        private int GetUserID(string username)
+        private int GetUserID(MySqlConnection conn,string username)
         {
-            using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
-            {
                 try
                 {
                     conn.Open();
@@ -64,17 +68,15 @@ namespace WebApi.AuthServices
                     reader.Close();
                     return ID;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Debug.WriteLine(e.Message);
                 }
-            }
             return 0;
         }
 
-        private void DeleteRefreshToken(string username)
+        private void DeleteRefreshToken(MySqlConnection conn,string username)
         {
-            using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
-            {
                 try
                 {
                     conn.Open();
@@ -83,10 +85,10 @@ namespace WebApi.AuthServices
                     MySqlDataReader reader = cmd.ExecuteReader();
                     reader.Close();
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Debug.WriteLine(e.Message);
                 }
-            }
         }
     }
 }

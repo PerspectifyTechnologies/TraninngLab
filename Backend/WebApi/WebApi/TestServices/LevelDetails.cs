@@ -10,7 +10,8 @@ namespace WebApi.TestServices
 {
     public class LevelDetails
     {
-        public static LevelDetails Instance = new LevelDetails();
+        private static Lazy<LevelDetails> Initializer = new Lazy<LevelDetails>(() => new LevelDetails());
+        public static LevelDetails Instance => Initializer.Value;
         internal List<TestlevelModels> GetLevelInfo(int courseid)
         {
             int first = 1;
@@ -45,7 +46,7 @@ namespace WebApi.TestServices
                     }
                     reader.Close();
                 }
-                catch (Exception e)
+                catch (Exception)
                 { }
             }
             return LevelDetails;

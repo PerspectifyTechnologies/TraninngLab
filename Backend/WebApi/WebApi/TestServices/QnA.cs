@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using WebApi.TestServices.Model;
 using WebApi.TestServices.Models;
@@ -10,7 +11,8 @@ namespace WebApi.TestServices
     public class QnA
     {
         private int QuesID;
-        public static QnA Instance => new QnA(); 
+        private static Lazy<QnA> Initializer = new Lazy<QnA>(() => new QnA());
+        public static QnA Instance => Initializer.Value;
         internal List<QnAModel> GetRandomTen(int testID)
         {
             QuesID = 0;
@@ -31,8 +33,14 @@ namespace WebApi.TestServices
                         questionID += 1;
                     }
                 }
-                catch (Exception)
-                { }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
             }
             return Test;
         }
@@ -56,7 +64,7 @@ namespace WebApi.TestServices
                         options.Add(new Option()
                         {
                             Answer = reader["Option" + count.ToString()].ToString(),
-                            IsCorrect = (Convert.ToInt32(reader["Answer"]) == count) ? (true) : (false)
+                            IsCorrect = (Convert.ToInt32(reader["Answer"]) == count) ? true : false
                         });
                         count += 1;
                     }
@@ -64,8 +72,14 @@ namespace WebApi.TestServices
                     reader.Close();
 
                 }
-                catch (Exception)
-                { }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
             }
             return new QnAModel() {
                 QuesID = ++QuesID,

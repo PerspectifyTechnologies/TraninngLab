@@ -21,28 +21,19 @@ namespace WebApi.Controllers
             this.jwtAuthenticationManager = jwtAuthenticationManager;
         }
 
-        [AllowAnonymous]
-        [HttpGet]
-        public string Get()
-        {
-            return "";
-        }
-
-        //to get authorized access
         [Authorize]
         [HttpGet]
         [Route("auth")]
         public IActionResult GetAuth()
         {
-            if (CheckBlacklist.Instance.IfPresent(HttpContext.Request.Headers["Authorization"].ToString().Substring(7)))
-                return Unauthorized(new { Status = "Error"});
             return Ok(new { Status = "Success"});
+            //bydefault [Authorize] will give 401 status on unauthorized use of jwt token
         }
 
 
         [AllowAnonymous]
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginModel credentials)
+        public IActionResult Login([FromBody] UserPayload credentials)
         {
             string message = "";
             if (CheckIfSessionActive.Instance.IfInvalid(credentials.Username))
@@ -50,7 +41,7 @@ namespace WebApi.Controllers
             if (LoginServices.Instance.GetLogIdOfUSer(credentials.Username) == 0)
             {
                 var token = jwtAuthenticationManager
-                            .GenerateTokenIfValid(credentials.Username, credentials.Password, false);
+                            .GenerateTokenIfValid(credentials.Username, credentials.Payload, false);
                 if (token == null)
                     return Unauthorized(new { Status = "Error",
                                               Message = "Wrong credentials" });
@@ -61,9 +52,9 @@ namespace WebApi.Controllers
             }
             else//temporary fix for front end routing issue
             {
-                LoginServices.Instance.Logout(credentials.Username);
+                LoginServices.Instance.RemovePrevious(credentials.Username);
                 var token = jwtAuthenticationManager
-                            .GenerateTokenIfValid(credentials.Username, credentials.Password, false);
+                            .GenerateTokenIfValid(credentials.Username, credentials.Payload, false);
                 if (token == null)
                     return Unauthorized(new
                     {
@@ -84,9 +75,9 @@ namespace WebApi.Controllers
 
         [AllowAnonymous]
         [HttpPost("logout")]
-        public IActionResult Logout([FromBody] LogoutModel credentials)
+        public IActionResult Logout([FromBody] UserPayload credentials)
         {
-            LogoutServices.Instance.Logout(credentials.Username, credentials.token);
+            LogoutServices.Instance.Logout(credentials.Username, credentials.Payload);
             return Ok(new { Status = "Success",
                             Message = "Successfully Logged Out"});
         }
@@ -105,15 +96,10 @@ namespace WebApi.Controllers
 
 
         [AllowAnonymous]
-        [HttpPost("refresh")]
-        public IActionResult Refresh([FromBody] TokenValidationBody refreshToken)
+        [HttpPost("refresh/{token}")]
+        public IActionResult Refresh( string token)
         {
-            
-            if (CheckBlacklist.Instance.IfPresent(refreshToken.Token)) 
-                return Unauthorized(new { Status = "Error",
-                                          JwtToken = "" });
-            return new RefreshJWTTokenIfValid(jwtAuthenticationManager)
-                            .RefreshTokenIfValid(refreshToken); 
+            return new RefreshJWTToken(jwtAuthenticationManager).RefreshTokenIfValid(token); 
         }
     }
 }

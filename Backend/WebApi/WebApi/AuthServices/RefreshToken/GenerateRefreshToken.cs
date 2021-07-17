@@ -43,6 +43,10 @@ namespace WebApi.RefreshToken
                 {
                     Console.WriteLine(e.Message);
                 }
+                finally
+                {
+                    conn.Close();
+                }
             }
         }
 

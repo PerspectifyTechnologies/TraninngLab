@@ -1,20 +1,19 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using WebApi.TestServices.Model;
 using WebApi.UserServices;
 
 namespace WebApi.TestServices
 {
-    public class ScoreCalc 
-    { 
-        public static ScoreCalc Instance => new ScoreCalc();
+    public class ScoreCalc
+    {
+        private static Lazy<ScoreCalc> Initializer = new Lazy<ScoreCalc>(() => new ScoreCalc());
+        public static ScoreCalc Instance => Initializer.Value;
         public void UpdateScore(int courseID,int levelID, ScoreModel scoreModel)
         {
             UserDetails.Instance.UpdateTestDetails(courseID,levelID);
-            updateScoreByCourse(courseID,scoreModel); 
+            UpdateScoreByCourse(courseID,scoreModel); 
             using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
             {
                 try
@@ -37,11 +36,17 @@ namespace WebApi.TestServices
 
                 }
                 catch (Exception e)
-                { }
+                {
+                    Debug.WriteLine(e.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
             }
         }
 
-        private void updateScoreByCourse(int courseID, ScoreModel scoreModel)
+        private void UpdateScoreByCourse(int courseID, ScoreModel scoreModel)
         {
             int flag = 0;
             using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
@@ -85,7 +90,13 @@ namespace WebApi.TestServices
 
                 }
                 catch (Exception e)
-                { }
+                {
+                    Debug.WriteLine(e.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
             }
         }
     }

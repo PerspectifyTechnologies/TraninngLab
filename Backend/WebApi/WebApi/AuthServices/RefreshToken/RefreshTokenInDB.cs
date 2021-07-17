@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Diagnostics;
 
 namespace WebApi.RefreshToken
 {
@@ -22,8 +23,14 @@ namespace WebApi.RefreshToken
                     }
                     return null;
                 }
-                catch (Exception)
-                { }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
                 return null;
             }
         }

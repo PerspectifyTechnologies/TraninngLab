@@ -20,8 +20,8 @@ const register = async (username, email, password) => {
 
 const login = async (username, password) => {
   const signin_data = {
-    username: username,
-    password: password,
+    payload: password,
+    username: username
   };
   return await axios
     .post(API + "login", signin_data)
@@ -42,7 +42,7 @@ const logout = async () => {
   localStorage.removeItem("user");
   var postData = {
     username: token.username,
-    token: "bearer " + token.jwtToken,
+    payload: "bearer " + token.jwtToken,
   };
   await axios
     .post(API + "logout", postData)

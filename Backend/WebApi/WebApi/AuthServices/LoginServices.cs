@@ -1,29 +1,38 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Diagnostics;
 using System.Web.Helpers;
 
 namespace WebApi.AuthServices
 {
     public class LoginServices
     {
-        public static LoginServices Instance = new LoginServices();
+        private static Lazy<LoginServices> Initializer = new Lazy<LoginServices>(() => new LoginServices());
+        public static LoginServices Instance => Initializer.Value;
         public int GetLogIdOfUSer(string username)
         {
             using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
             {
                 try
                 {
-                    conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("select LogID from UserActivityLog where userName = '" + username + 
-                                                        "' and LogOutTime is null;", conn);
+                    conn.Open(); 
+                    MySqlCommand cmd = new MySqlCommand("select LogID from UserActivityLog where userName = ?username and LogOutTime is null;", conn);
+                    cmd.Parameters.Add(new MySqlParameter("username", username));
                     MySqlDataReader reader = cmd.ExecuteReader();
-                    reader.Read();
-                    int ID = reader.GetInt32(0);
+                    int ID = 0;
+                    if(reader.Read())
+                        reader.GetInt32(0);
                     reader.Close();
                     return ID;
                 }
-                catch (Exception)
-                {}
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
             }
             return 0;
         }
@@ -47,8 +56,14 @@ namespace WebApi.AuthServices
                         }
                     }
                 }
-                catch (Exception)
-                {}
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
                 return false;
             }
         }
@@ -63,11 +78,12 @@ namespace WebApi.AuthServices
                 MySqlDataReader reader = cmd.ExecuteReader();
                 reader.Close();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Debug.WriteLine(e.Message);
             }
         }
-        public void Logout(string username)
+        public void RemovePrevious(string username)
         {
             using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
             {
@@ -79,9 +95,15 @@ namespace WebApi.AuthServices
                                                         "' where LogID = '" + GetUserID(conn, username) + "';", conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read()) { }
+                    reader.Close();
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Debug.WriteLine(e.Message);
+                }
+                finally
+                {
+                    conn.Close();
                 }
             }
         }
@@ -96,8 +118,9 @@ namespace WebApi.AuthServices
                 reader.Close();
                 return ID;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Debug.WriteLine(e.Message);
             }
             return 0;
         }

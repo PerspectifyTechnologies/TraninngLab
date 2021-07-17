@@ -7,19 +7,19 @@ using WebApi.AuthServices.Models;
 
 namespace WebApi.RefreshToken
 {
-    public class RefreshJWTTokenIfValid : Controller
+    public class RefreshJWTToken : Controller
     {
         private readonly JwtAuthenticationManager jwtAuthenticationManager;
-        public RefreshJWTTokenIfValid(JwtAuthenticationManager jwtAuthenticationManager)
+        public RefreshJWTToken(JwtAuthenticationManager jwtAuthenticationManager)
         {
             this.jwtAuthenticationManager = jwtAuthenticationManager;
         }
 
-        public IActionResult RefreshTokenIfValid(TokenValidationBody refreshToken)
+        public IActionResult RefreshTokenIfValid(string token)
         {
             try
             {
-                var Principle = FromJWTToken.Instance.ValidateAndGetClaims(refreshToken.Token);//check validity of the JWT token and retrieve claims
+                var Principle = FromJWTToken.Instance.ValidateAndGetClaims(token);//check validity of the JWT token and retrieve claims
 
                 if (Principle != null)
                 {
@@ -32,18 +32,17 @@ namespace WebApi.RefreshToken
                     if (Refreshtoken is null)
                         throw new Exception(message: "No Refresh Token for The User");
                     DateTime expiryDate = ConvertToSTDDateTime(Refreshtoken.Item2);
-                    string token = "";
+                    string newToken = "";
 
                     TimeSpan ts = DateTime.Now - expiryDate;
-                    BlackListToken(refreshToken.Token);
                     if (ts.TotalDays <= 6)
                     {
-                        token = jwtAuthenticationManager.GenerateTokenIfValid(username, password,true);
+                        newToken = jwtAuthenticationManager.GenerateTokenIfValid(username, password,true);
                         new GenerateRefreshToken(username);
                     }
                     else
                     {
-                        LogoutServices.Instance.Logout(username, refreshToken.Token);
+                        LogoutServices.Instance.Logout(username, token);
                         return Unauthorized( new { Status = "error",
                                                    Username = username,
                                                    JwtToken = "" });
@@ -65,23 +64,6 @@ namespace WebApi.RefreshToken
                                           JwtToken = "" });
             }
         }
-        private void BlackListToken( string token)
-        {
-            using (MySqlConnection conn = new MySqlConnection(DBCreds.connectionString))
-            {
-                try
-                {
-                    conn.Open();
-                    string query = "insert into BlackListTokens(token,entrytime) values('" + token + "',now());";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    MySqlDataReader reader = cmd.ExecuteReader();
-                    reader.Close();
-                }
-                catch (Exception)
-                {
-                }
-            }
-        }
 
         private DateTime ConvertToSTDDateTime(string value)
         {
@@ -91,7 +73,7 @@ namespace WebApi.RefreshToken
             }
             catch (FormatException)
             {
-                throw new Exception(message: "no value");
+                throw new Exception(message: "error at ConvertToSTDDateTime(string value)");
             }
         }
     }

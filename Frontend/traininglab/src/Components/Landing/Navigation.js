@@ -26,11 +26,8 @@ const Navigation = () => {
       })
       .catch((error) => {
         if (error.response.status === 401) {
-          var postData = {
-            token: token.jwtToken,
-          };
           axios
-            .post(API + "refresh", postData)
+            .post(API + "refresh/"+token.jwtToken)
             .then((res2) => {
               localStorage.removeItem("user");
               localStorage.setItem("user", JSON.stringify(res2.data));

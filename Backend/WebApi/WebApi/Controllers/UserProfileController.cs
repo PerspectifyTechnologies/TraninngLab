@@ -12,9 +12,9 @@ namespace WebApi.Controllers
         public class UserProfileController : Controller
     {
         [HttpGet("{username}")]
-        public string GetUserDetails(string username)
+        public string UserDetailsRequest(string username)
             {
-              return JsonConvert.SerializeObject(UserDetails.Instance.Get(username));
+              return JsonConvert.SerializeObject(UserDetails.Instance.GetDetails(username));
             }
         }
 }

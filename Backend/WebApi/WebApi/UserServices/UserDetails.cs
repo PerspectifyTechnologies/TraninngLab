@@ -1,5 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Diagnostics;
+using WebApi.TestServices.Model;
 using WebApi.UserServices.Models;
 
 namespace WebApi.UserServices
@@ -30,8 +32,14 @@ namespace WebApi.UserServices
                     level = reader["levelname"].ToString();
                     reader.Close();
                 }
-                catch (Exception)
-                { }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
             }
             return new UserModel {
                 Username = username,
@@ -39,7 +47,6 @@ namespace WebApi.UserServices
                 Score = score
             };
         }
-
 
         internal void UpdateTestDetails(int courseID, int levelID)
         {
@@ -54,8 +61,14 @@ namespace WebApi.UserServices
                     reader.Read();
                     reader.Close();
                 }
-                catch (Exception)
-                { }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
             }
         }
     }
